@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .container {
+      max-width: theme('spacing.883');
+      width: 100%;
+      margin-inline: theme('margin.auto');
+    }
+
+    .medium-container {
+      max-width: theme('spacing.992');
+      width: 100%;
+      margin-inline: theme('margin.auto');
+    }
+  }

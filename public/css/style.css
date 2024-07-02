@@ -1,0 +1,12 @@
+.carousel-container {
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.carousel-item {
+    scroll-snap-align: start;
+}
+
+.carousel-container::-webkit-scrollbar {
+    display: none;
+}
