@@ -1,4 +1,4 @@
-<footer class=" bg-second-background font-inter h-full">
+<footer class=" bg-second-background h-full">
     <div class="container px-5 md:px-0">
         <div class="w-full py-8 border-b-2 border-white mb-5">
             <div class="w-full grid grid-cols-fit align-top justify-between gap-5">

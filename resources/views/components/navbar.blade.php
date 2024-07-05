@@ -2,7 +2,7 @@
     <a href="/">
         <img src="{{ asset('images/logo.png') }}" alt="Logo Zie Lab" class="w-24 sm:w-auto">
     </a>
-    <div class="flex items-center flex-1 justify-end gap-2 sm:gap-5 font-lato">
+    <div class="flex items-center flex-1 justify-end gap-2 sm:gap-5">
         <x-bladewind::button show_focus_ring="false" color="yellow" outline="true" uppercasing="false" size="small" class="font-bold">
             Masuk
         </x-bladewind::button>

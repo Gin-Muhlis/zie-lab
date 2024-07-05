@@ -16,6 +16,8 @@ export default {
       spacing: {
         '883': '883px',
         '992': '992px',
+        '500': '500px',
+        '600': '600px',
         'hero': 'calc(100vh - 80px)',
       },
 
@@ -31,7 +33,6 @@ export default {
       }
     },
     fontFamily: {
-      'lato': ['Lato', 'sans-serif'],
       'inter': ['Inter', 'sans-serif'],
     }
   },
