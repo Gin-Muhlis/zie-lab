@@ -1,4 +1,4 @@
-<div class="container px-5 md:px-0 py-28">
+<div class="container px-5 md:px-0 py-28" id="faqs">
     <h2 class="text-center text-xl md:text-2xl font-extrabold mb-3">FAQ</h2>
     <h2 class="text-center text-3xl md:text-4xl font-extrabold mb-14 text-primary">Frequently Asked Question</h2>
     <div class="flex items-center justify-center">

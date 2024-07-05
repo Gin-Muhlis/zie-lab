@@ -6,13 +6,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('landing.page');
+
+Route::prefix('products')->group(function() {
+    Route::get('/list', [ProductController::class, 'listProduct'])->name('products.list');
+    Route::get('/detail', [ProductController::class, 'detailProduct'])->name('products.detail');
+    Route::get('/payment', [ProductController::class, 'paymentProduct'])->name('products.payment');
 });
 
-Route::get('/products/list', [ProductController::class, 'listProduct'])->name('products.list');
-Route::get('/products/detail', [ProductController::class, 'detailProduct'])->name('products.detail');
-Route::get('/products/payment', [ProductController::class, 'paymentProduct'])->name('products.payment');
-
 Route::prefix('auth')->group(function() {
-    Route::get('/login', [AuthController::class, 'loginPage'])->name('auth.page');
-    Route::get('/register', [AuthController::class, 'registerPage'])->name('auth.register');
+    Route::get('/login', [AuthController::class, 'loginPage'])->name('auth.login.page');
+    Route::get('/register', [AuthController::class, 'registerPage'])->name('auth.register.page');
 });

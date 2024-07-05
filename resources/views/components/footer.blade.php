@@ -12,16 +12,16 @@
                     <h5 class="text-white text-lg">Menu</h5>
                     <ul class="text-slate-200 text-xs">
                         <li class="mb-2">
-                            <a href="#about">About</a>
+                            <a href="/#about">About</a>
                         </li>
                         <li class="mb-2">
-                            <a href="#category">Kategori</a>
+                            <a href="/#categories">Kategori</a>
                         </li>
                         <li class="mb-2">
-                            <a href="#product">Produk Digital</a>
+                            <a href="/#products">Produk Digital</a>
                         </li>
                         <li>
-                            <a href="#faq">FAQ</a>
+                            <a href="/#faqs">FAQ</a>
                         </li>
                     </ul>
                 </div>

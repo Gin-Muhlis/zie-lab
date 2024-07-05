@@ -26,7 +26,7 @@
                     <div class="text-center">
                         <x-bladewind::button name="btn-save" color="yellow" uppercasing="false" can_submit="true"
                             class="font-bold w-full" has_spinner="true">
-                            Bergabung
+                            Daftar
                         </x-bladewind::button>
                     </div>
 

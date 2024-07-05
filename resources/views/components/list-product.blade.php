@@ -1,4 +1,4 @@
-<div class="w-full py-28 bg-white" >
+<div class="w-full py-28 bg-white" id="products">
     <div class="container px-5 md:px-0 py-28">
         <h2 class="text-3xl md:text-4xl font-extrabold mb-7">Temukan Materi yang Anda Cari</h2>
         <x-list-category></x-list-category>

@@ -1,4 +1,4 @@
-<div class="container px-5 py-28">
+<div class="container px-5 py-28" id="about">
     <div class="flex items-center justify-between gap-10 flex-col md:flex-row mb-28">
         <div>
             <h2 class="color-primary text-3xl md:text-4xl mb-5 text-primary font-bold">
