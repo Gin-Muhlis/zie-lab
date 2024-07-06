@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('profile_companies', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
+            $table->text('about');
             $table->string('phone', 20);
             $table->string('email');
-            $table->string('icon');
+            $table->text('address');
+            $table->string('icon')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

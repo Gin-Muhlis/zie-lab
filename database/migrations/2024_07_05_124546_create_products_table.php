@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('code', 10);
             $table->string('title');
             $table->text('description');
-            $table->string('thumbnail');
+            $table->string('thumbnail')->nullable();
+            $table->string('link_gdrive')->nullable();
+            $table->string('file_book')->nullable();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('user_id');
             $table->double('price');
