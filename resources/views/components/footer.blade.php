@@ -3,9 +3,9 @@
         <div class="w-full py-8 border-b-2 border-white mb-5">
             <div class="w-full grid grid-cols-fit align-top justify-between gap-5">
                 <div class="flex flex-col items-start justify-start gap-2">
-                    <img src="{{ asset('/images/logo.png') }}" alt="Logo Zie Lab">
+                    <img src="{{ $profileCompany->icon ? Storage::url($profileCompany->icon) : asset('images/logo.ong') }}" alt="Logo Zie Lab">
                     <p class="text-slate-200 text-xs">
-                        Zie Lab adalah platform edukasi yang menyediakan materi edukatif, dari dasar hingga lanjutan.
+                       {{ $profileCompany->about }}
                     </p>
                 </div>
                 <div class="flex flex-col items-start justify-start gap-3">
@@ -43,19 +43,18 @@
                     <h5 class="text-white text-lg">Hubungi Kami</h5>
                     <ul class="text-slate-200 text-xs">
                         <li class="mb-2">
-                            <a href="#about">+62 895616007300</a>
+                            <a href="#about">{{ $profileCompany->phone }}</a>
                         </li>
                         <li class="mb-2">
-                            <a href="#category">zielabstudio@gmail.com</a>
+                            <a href="#category">{{ $profileCompany->email }}</a>
                         </li>
                         <li>
-                            <a href="#product">Jl. Siliwangi No.41, Sawah Gede, Kec. Cianjur, Kabupaten Cianjur, Jawa Barat
-                                43212</a>
+                            <a href="#product">{{ $profileCompany->address }}</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-       <p class="text-slate-200 pb-5 text-sm">&#169; 2024 Zie Lab Studio - All right reserved</p>
+       <p class="text-slate-200 pb-5 text-sm">&#169; 2024 {{ $profileCompany->title }} - All right reserved</p>
     </div>
 </footer>

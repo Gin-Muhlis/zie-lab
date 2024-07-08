@@ -6,15 +6,15 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Layout extends Component
+class CardCategory extends Component
 {
-    private $profileCompany;
+    private $category;
     /**
      * Create a new component instance.
      */
-    public function __construct($profileCompany)
+    public function __construct($category)
     {
-        $this->profileCompany = $profileCompany;
+        $this->category = $category;
     }
 
     /**
@@ -22,7 +22,7 @@ class Layout extends Component
      */
     public function render(): View|Closure|string
     {
-        $profileCompany = $this->profileCompany;
-        return view('components.layout', compact('profileCompany'));
+        $category = $this->category;
+        return view('components.card-category', compact('category'));
     }
 }

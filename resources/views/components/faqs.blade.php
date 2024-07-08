@@ -7,66 +7,20 @@
         </div>
     </div>
     <div class="w-full p-5 md:p-10 border-2 border-primary rounded-md">
-        <div class="w-full relative border-b-2 border-slate-500 pb-0 parent-question mb-5">
-            <div class="flex items-center justify-between mb-5">
-                <span class="font-bold">Bagaimana cara melakukan pembayaran?</span>
-                <x-bladewind::icon name="chevron-down" class="!h-6 !w-6 cursor-pointer open-answer transition-all duration-500" />
+        @foreach ($faqs as $faq)
+            <div class="w-full relative border-b-2 border-slate-500 pb-0 parent-question mb-5">
+                <div class="flex items-center justify-between mb-5">
+                    <span class="font-bold">{{ $faq->question }}</span>
+                    <x-bladewind::icon name="chevron-down"
+                        class="!h-6 !w-6 cursor-pointer open-answer transition-all duration-500" />
+                </div>
+                <div class="w-full h-0 overflow-hidden transition-all duration-500" id="answer">
+                    <p>
+                      {{ $faq->answer }}
+                    </p>
+                </div>
             </div>
-            <div class="w-full h-0 overflow-hidden transition-all duration-500" id="answer">
-                <p>
-                    Anda bisa melakukan pembayaran dengan tipe pembayaran yang tersedia. Mulai dari E-Wallet, Virtual
-                    Account, Indomaret, Alfamaret, dll.
-                </p>
-            </div>
-        </div>
-        <div class="w-full relative border-b-2 border-slate-500 pb-0 parent-question mb-5">
-            <div class="flex items-center justify-between mb-5">
-                <span class="font-bold">Bagaimana cara melakukan pembayaran?</span>
-                <x-bladewind::icon name="chevron-down" class="!h-6 !w-6 cursor-pointer open-answer transition-all duration-500" />
-            </div>
-            <div class="w-full h-0 overflow-hidden transition-all duration-500" id="answer">
-                <p>
-                    Anda bisa melakukan pembayaran dengan tipe pembayaran yang tersedia. Mulai dari E-Wallet, Virtual
-                    Account, Indomaret, Alfamaret, dll.
-                </p>
-            </div>
-        </div>
-        <div class="w-full relative border-b-2 border-slate-500 pb-0 parent-question mb-5">
-            <div class="flex items-center justify-between mb-5">
-                <span class="font-bold">Bagaimana cara melakukan pembayaran?</span>
-                <x-bladewind::icon name="chevron-down" class="!h-6 !w-6 cursor-pointer open-answer transition-all duration-500" />
-            </div>
-            <div class="w-full h-0 overflow-hidden transition-all duration-500" id="answer">
-                <p>
-                    Anda bisa melakukan pembayaran dengan tipe pembayaran yang tersedia. Mulai dari E-Wallet, Virtual
-                    Account, Indomaret, Alfamaret, dll.
-                </p>
-            </div>
-        </div>
-        <div class="w-full relative border-b-2 border-slate-500 pb-0 parent-question mb-5">
-            <div class="flex items-center justify-between mb-5">
-                <span class="font-bold">Bagaimana cara melakukan pembayaran?</span>
-                <x-bladewind::icon name="chevron-down" class="!h-6 !w-6 cursor-pointer open-answer transition-all duration-500" />
-            </div>
-            <div class="w-full h-0 overflow-hidden transition-all duration-500" id="answer">
-                <p>
-                    Anda bisa melakukan pembayaran dengan tipe pembayaran yang tersedia. Mulai dari E-Wallet, Virtual
-                    Account, Indomaret, Alfamaret, dll.
-                </p>
-            </div>
-        </div>
-        <div class="w-full relative border-b-2 border-slate-500 pb-0 parent-question mb-5">
-            <div class="flex items-center justify-between mb-5">
-                <span class="font-bold">Bagaimana cara melakukan pembayaran?</span>
-                <x-bladewind::icon name="chevron-down" class="!h-6 !w-6 cursor-pointer open-answer transition-all duration-500" />
-            </div>
-            <div class="w-full h-0 overflow-hidden transition-all duration-500" id="answer">
-                <p>
-                    Anda bisa melakukan pembayaran dengan tipe pembayaran yang tersedia. Mulai dari E-Wallet, Virtual
-                    Account, Indomaret, Alfamaret, dll.
-                </p>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
 

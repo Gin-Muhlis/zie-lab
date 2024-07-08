@@ -32,9 +32,9 @@
 </head>
 
 <body class="bg-primary-background overflow-x-hidden font-inter">
-    <x-navbar></x-navbar>
+    <x-navbar :profileCompany="$profileCompany"></x-navbar>
     {{ $slot }}
-    <x-footer></x-footer>
+    <x-footer :profileCompany="$profileCompany"></x-footer>
 
     @stack('scripts')
 </body>

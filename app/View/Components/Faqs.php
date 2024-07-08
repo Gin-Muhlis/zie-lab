@@ -8,12 +8,14 @@ use Illuminate\View\Component;
 
 class Faqs extends Component
 {
+
+    private $faqs;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($faqs)
     {
-        //
+        $this->faqs = $faqs;
     }
 
     /**
@@ -21,6 +23,8 @@ class Faqs extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.faqs');
+
+        $faqs = $this->faqs;
+        return view('components.faqs', compact('faqs'));
     }
 }

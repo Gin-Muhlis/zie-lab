@@ -8,12 +8,16 @@ use Illuminate\View\Component;
 
 class ListProduct extends Component
 {
+
+    private $products;
+    private $categories;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($products, $categories)
     {
-        //
+        $this->products = $products;
+        $this->categories = $categories;
     }
 
     /**
@@ -21,6 +25,8 @@ class ListProduct extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.list-product');
+        $products = $this->products;
+        $categories = $this->categories;
+        return view('components.list-product', compact('products', 'categories'));
     }
 }

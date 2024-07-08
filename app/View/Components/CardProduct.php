@@ -8,12 +8,14 @@ use Illuminate\View\Component;
 
 class CardProduct extends Component
 {
+
+    private $product;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($product)
     {
-        //
+        $this->product = $product;
     }
 
     /**
@@ -21,6 +23,7 @@ class CardProduct extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.card-product');
+        $product = $this->product;
+        return view('components.card-product', compact('product'));
     }
 }

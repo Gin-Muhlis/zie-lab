@@ -1,12 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('landing.page');
+Route::get('/', [HomeController::class, 'index'])->name('landing.page');
 
 Route::prefix('products')->group(function() {
     Route::get('/list', [ProductController::class, 'listProduct'])->name('products.list');

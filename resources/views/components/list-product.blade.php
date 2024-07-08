@@ -1,15 +1,12 @@
 <div class="w-full py-28 bg-white" id="products">
     <div class="container px-5 md:px-0 py-28">
         <h2 class="text-3xl md:text-4xl font-extrabold mb-7">Temukan Materi yang Anda Cari</h2>
-        <x-list-category></x-list-category>
+        <x-list-category :categories="$categories"></x-list-category>
         <div class="relative mb-5">
             <div class="carousel-container carousel-product overflow-x-auto flex space-x-4">
-                <x-card-product></x-card-product>
-                <x-card-product></x-card-product>
-                <x-card-product></x-card-product>
-                <x-card-product></x-card-product>
-                <x-card-product></x-card-product>
-                <x-card-product></x-card-product>
+                @foreach ($products as $product)
+                    <x-card-product :product="$product"></x-card-product>
+                @endforeach
             </div>
             <div
                 class="w-10 h-10 rounded-full bg-primary cursor-pointer text-white flex items-center justify-center absolute top-1/2 -left-5 -translate-y-1/2 z-20 prev-product">
@@ -26,23 +23,21 @@
     </div>
 </div>
 
-{{-- @push('scripts')
+@push('scripts')
     <script>
         $(function() {
             $('.prev-product').on('click', () => {
-                console.log('hallo')
                 $('.carousel-product').animate({
-                    scrollLeft: -100
+                    scrollLeft: '-=300'
                 }, 'smooth');
             })
 
             $('.next-product').on('click', () => {
-                console.log('hallo')
                 $('.carousel-product').animate({
-                    scrollLeft: 100
+                    scrollLeft: '+=300'
                 }, 'smooth');
             })
 
         })
     </script>
-@endpush --}}
+@endpush

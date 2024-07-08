@@ -8,12 +8,13 @@ use Illuminate\View\Component;
 
 class Category extends Component
 {
+    private $categories;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($categories)
     {
-        //
+        $this->categories = $categories;
     }
 
     /**
@@ -21,6 +22,7 @@ class Category extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.category');
+        $categories = $this->categories;
+        return view('components.category', compact('categories'));
     }
 }
