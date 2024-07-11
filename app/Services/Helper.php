@@ -38,4 +38,13 @@ class Helper {
 
         return $result;
     }   
+
+    // gambar alternatif avatar user
+    public static function getInitialName($name) {
+        $words = explode(' ', $name);
+        $first_character = strtoupper(substr($words[0], 0, 1));
+        $second_character = strtoupper(substr($words[1], 0, 1));
+
+        return $first_character . $second_character;
+    }
 }

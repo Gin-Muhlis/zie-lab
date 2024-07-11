@@ -11,13 +11,15 @@ class ListProduct extends Component
 
     private $products;
     private $categories;
+    private $filterCategory;
     /**
      * Create a new component instance.
      */
-    public function __construct($products, $categories)
+    public function __construct($products, $categories, $filterCategory)
     {
         $this->products = $products;
         $this->categories = $categories;
+        $this->filterCategory = $filterCategory;
     }
 
     /**
@@ -27,6 +29,8 @@ class ListProduct extends Component
     {
         $products = $this->products;
         $categories = $this->categories;
-        return view('components.list-product', compact('products', 'categories'));
+        $filterCategory = $this->filterCategory;
+
+        return view('components.list-product', compact('products', 'categories', 'filterCategory'));
     }
 }

@@ -1,6 +1,6 @@
 @layer components {
     .bw-button {
-        @apply py-3 px-5 tracking-wider text-xs font-medium inline-block items-center transition
+        @apply py-3 px-5 tracking-wider text-xs font-medium inline-block items-center transition duration-300
     }
 
     .bw-button-circle {
@@ -8,11 +8,11 @@
     }
 
     .bw-button.tiny {
-        @apply py-[6px] px-[15px] text-[12px]
+        @apply py-[6px] px-[15px] text-[10px]
     }
 
     .bw-button.small {
-        @apply py-[11px] px-4 !text-[20px]
+        @apply py-[11px] px-4 !text-[11px]
     }
 
     .bw-button.medium {

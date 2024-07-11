@@ -24,12 +24,19 @@ class HomeController extends Controller
     }
 
     // landing page
-    public function index() {
+    public function index(Request $request) {
         $profile_company = $this->profile_company_repository->getData();
         $categories = $this->category_repository->getCategoryHasProduct();
         $products = $this->product_repository->getData();
         $faqs = $this->faq_repository->getData();
 
-        return view('welcome', compact('profile_company', 'categories', 'products', 'faqs'));
+        $filter_category = $request->input('category');
+
+        if ($filter_category) {
+            $products = $products->where('category_id', $filter_category);
+        }
+
+
+        return view('welcome', compact('profile_company', 'categories', 'products', 'faqs', 'filter_category'));
     }
 }

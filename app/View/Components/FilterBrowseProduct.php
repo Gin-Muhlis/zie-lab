@@ -6,17 +6,18 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ListCategory extends Component
+class FilterBrowseProduct extends Component
 {
+
     private $categories;
-    private $filter_category;
+    private $filter;
     /**
      * Create a new component instance.
      */
-    public function __construct($categories, $filterCategory)
+    public function __construct($categories, $filter)
     {
         $this->categories = $categories;
-        $this->filter_category = $filterCategory;
+        $this->filter = $filter;
     }
 
     /**
@@ -25,7 +26,8 @@ class ListCategory extends Component
     public function render(): View|Closure|string
     {
         $categories = $this->categories;
-        $filterCategory = $this->filter_category;
-        return view('components.list-category', compact('categories', 'filterCategory'));
+        $filter = $this->filter;
+
+        return view('components.filter-browse-product', compact('categories', 'filter'));
     }
 }

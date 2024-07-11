@@ -17,4 +17,12 @@ class ProductRepositoryImplement extends Eloquent implements ProductRepository{
     public function getData() {
         return $this->model->with(['category', 'author'])->latest()->get();
     }
+
+    public function getPaginationData() {
+        return $this->model->with(['category', 'author'])->latest();
+    }
+
+    public function getDetailProduct($code){
+        return $this->model->with(['author', 'sections.lessons', 'benefits'])->where('code', $code)->first();
+    }
 }

@@ -16,4 +16,12 @@ class Product extends Model
     public function author() {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function benefits() {
+        return $this->hasMany(Benefit::class);
+    }
+
+    public function Sections() {
+        return $this->hasMany(Section::class);
+    }
 }

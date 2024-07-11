@@ -21,7 +21,8 @@ class LessonSeeder extends Seeder
                 'title' => 'Mengenal Apa Itu Programming',
                 'content' => 'Programming adalah proses menulis, menguji, dan memelihara kode yang akan dieksekusi oleh komputer.',
                 'order' => 1,
-                'video_url' => 'https://youtu.be/J4KzV7Ihif4?si=6Li4ryMMcTPxdoO-'
+                'video_url' => 'https://youtu.be/J4KzV7Ihif4?si=6Li4ryMMcTPxdoO-',
+                'is_preview' => true
             ],
             [
                 'code' => Helper::generateRandomLessonCode(10),
@@ -119,7 +120,8 @@ class LessonSeeder extends Seeder
                 'title' => 'Pengenalan Laravel',
                 'content' => 'Laravel adalah framework PHP yang dirancang untuk membuat pengembangan web lebih mudah dan lebih cepat.',
                  'order' => 1,
-                'video_url' => 'https://youtu.be/J4KzV7Ihif4?si=6Li4ryMMcTPxdoO-'
+                'video_url' => 'https://youtu.be/J4KzV7Ihif4?si=6Li4ryMMcTPxdoO-',
+                'is_preview' => true
             ],
             [
                 'code' => Helper::generateRandomLessonCode(10),
@@ -209,7 +211,8 @@ class LessonSeeder extends Seeder
                 'title' => 'Pengertian UI/UX',
                 'content' => 'UI adalah tampilan pengguna, sedangkan UX adalah pengalaman pengguna saat menggunakan aplikasi.',
                  'order' => 1,
-                'video_url' => 'https://youtu.be/J4KzV7Ihif4?si=6Li4ryMMcTPxdoO-'
+                'video_url' => 'https://youtu.be/J4KzV7Ihif4?si=6Li4ryMMcTPxdoO-',
+                'is_preview' => true
             ],
             [
                 'code' => Helper::generateRandomLessonCode(10),
@@ -299,7 +302,8 @@ class LessonSeeder extends Seeder
                 'title' => 'Dasar-dasar Fotografi',
                 'content' => 'Dasar-dasar fotografi mencakup pemahaman tentang exposure, aperture, dan shutter speed.',
                  'order' => 1,
-                'video_url' => 'https://youtu.be/J4KzV7Ihif4?si=6Li4ryMMcTPxdoO-'
+                'video_url' => 'https://youtu.be/J4KzV7Ihif4?si=6Li4ryMMcTPxdoO-',
+                'is_preview' => true
             ],
             [
                 'code' => Helper::generateRandomLessonCode(10),

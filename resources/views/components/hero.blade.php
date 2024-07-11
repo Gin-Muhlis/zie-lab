@@ -13,11 +13,11 @@
                     <x-bladewind::icon name="magnifying-glass" type="solid"
                         class="!h-7 !w-7 md:!h-5 md:!w-5 text-amber-500" />
                     <input type="text"
-                        class="border-none outline-none bg-transparent focus:outline-none text-black w-full ">
+                        class="border-none outline-none bg-transparent focus:outline-none text-black w-full" id="input-search-hero">
                 </div>
                 <div class="basis-28 font-lato">
                     <x-bladewind::button show_focus_ring="false" color="yellow" uppercasing="false" size="small"
-                        class="font-bold">
+                        class="font-bold btn-search-hero">
                         Cari Produk
                     </x-bladewind::button>
                 </div>
@@ -25,4 +25,7 @@
         </div>
         <img src="{{ asset('images/hero-image.png') }}" alt="Hero image" class="w-4/5">
     </div>
+    <form action="{{ route('products.list') }}" class="hidden" id="form-search-hero">
+        <input type="hidden" name="search" id="input-value-search">
+    </form>
 </div>

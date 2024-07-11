@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('landing.page');
 
 Route::prefix('products')->group(function() {
-    Route::get('/list', [ProductController::class, 'listProduct'])->name('products.list');
-    Route::get('/detail', [ProductController::class, 'detailProduct'])->name('products.detail');
-    Route::get('/payment', [ProductController::class, 'paymentProduct'])->name('products.payment');
+    Route::get('/browse', [ProductController::class, 'listProduct'])->name('products.list');
+    Route::get('/detail/{code}', [ProductController::class, 'detailProduct'])->name('products.detail');
+    Route::get('/payment/{code}', [ProductController::class, 'paymentProduct'])->name('products.payment');
 });
 
 Route::prefix('auth')->group(function() {

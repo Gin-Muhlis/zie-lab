@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('video_url');
+            $table->boolean('is_preview')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

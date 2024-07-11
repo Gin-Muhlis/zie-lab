@@ -29,13 +29,13 @@
                     <h5 class="text-white text-lg">Tipe Produk Digital</h5>
                     <ul class="text-slate-200 text-xs">
                         <li class="mb-2">
-                            <a href="#about">E-Book</a>
+                            <a href="/products/browse?type=E-Book">E-Book</a>
                         </li>
                         <li class="mb-2">
-                            <a href="#category">E-Course</a>
+                            <a href="/products/browse?type=E-Course">E-Course</a>
                         </li>
                         <li>
-                            <a href="#product">E-File</a>
+                            <a href="/products/browse?type=E-File">E-File</a>
                         </li>
                     </ul>
                 </div>
@@ -43,18 +43,18 @@
                     <h5 class="text-white text-lg">Hubungi Kami</h5>
                     <ul class="text-slate-200 text-xs">
                         <li class="mb-2">
-                            <a href="#about">{{ $profileCompany->phone }}</a>
+                            <a  href="https://wa.me/{{ $profileCompany->phone ?? '' }}?text={{ urlencode('Hallo ' . $profileCompany->title ?? '' . '. Saya ingin bertanya mengenai ...') }}">{{ $profileCompany->phone ?? '' }}</a>
                         </li>
                         <li class="mb-2">
-                            <a href="#category">{{ $profileCompany->email }}</a>
+                            <a href="mailto:{{ $profileCompany->email ?? '' }}?subject=Tentang20%{{ $profileCompany->title ?? '' }}&body=Saya%20ingin%bertanya%20tentang%20..." target="_blank">{{ $profileCompany->email ?? '' }}</a>
                         </li>
                         <li>
-                            <a href="#product">{{ $profileCompany->address }}</a>
+                            <a href="https://www.google.com/maps?q={{ $profileCompany->address ?? '' }}" target="_blank">{{ $profileCompany->address ?? '' }}</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-       <p class="text-slate-200 pb-5 text-sm">&#169; 2024 {{ $profileCompany->title }} - All right reserved</p>
+       <p class="text-slate-200 pb-5 text-sm">&#169; 2024 {{ $profileCompany->title ?? '' }} - All right reserved</p>
     </div>
 </footer>
