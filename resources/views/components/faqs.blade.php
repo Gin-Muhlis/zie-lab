@@ -31,7 +31,6 @@
             $('.open-answer').on('click', function() {
 
                 const answer = $(this).closest('.parent-question').find('#answer')
-                const parentQuestion = $(this).closest('.parent-question')
                 const isOpen = answer.height() > 0
 
                 if (isOpen) {

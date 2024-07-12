@@ -55,6 +55,6 @@
                 </div>
             </div>
         </div>
-       <p class="text-slate-200 pb-5 text-sm">&#169; 2024 {{ $profileCompany->title ?? '' }} - All right reserved</p>
+       <p class="text-slate-200 pb-5 text-xs">&#169; 2024 {{ $profileCompany->title ?? '' }} - All right reserved</p>
     </div>
 </footer>

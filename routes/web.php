@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -16,4 +17,8 @@ Route::prefix('products')->group(function() {
 Route::prefix('auth')->group(function() {
     Route::get('/login', [AuthController::class, 'loginPage'])->name('auth.login.page');
     Route::get('/register', [AuthController::class, 'registerPage'])->name('auth.register.page');
+});
+
+Route::prefix('super-admin')->group(function() {
+    Route::get('/dashboard', [DashboardController::class, 'dashboardAdmin'])->name('dashboard.admin');
 });
