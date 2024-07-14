@@ -8,20 +8,13 @@ use Illuminate\Auth\Access\Response;
 
 class TransactionPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        //
-    }
 
     /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, Transaction $transaction): bool
     {
-        //
+        return $user->hasPermissionTo('view transactions');
     }
 
     /**
@@ -29,7 +22,7 @@ class TransactionPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasPermissionTo('create transactions');
     }
 
     /**
@@ -37,7 +30,7 @@ class TransactionPolicy
      */
     public function update(User $user, Transaction $transaction): bool
     {
-        //
+        return $user->hasPermissionTo('update transactions');
     }
 
     /**
@@ -45,7 +38,7 @@ class TransactionPolicy
      */
     public function delete(User $user, Transaction $transaction): bool
     {
-        //
+        return $user->hasPermissionTo('delete transactions');
     }
 
     /**
@@ -53,14 +46,7 @@ class TransactionPolicy
      */
     public function restore(User $user, Transaction $transaction): bool
     {
-        //
+        return $user->hasPermissionTo('restore transactions');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Transaction $transaction): bool
-    {
-        //
-    }
 }

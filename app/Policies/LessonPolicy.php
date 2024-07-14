@@ -8,20 +8,13 @@ use Illuminate\Auth\Access\Response;
 
 class LessonPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        //
-    }
 
     /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, Lesson $lesson): bool
     {
-        //
+        return $user->hasPermissionTo('view lessons');
     }
 
     /**
@@ -29,7 +22,7 @@ class LessonPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasPermissionTo('create lessons');
     }
 
     /**
@@ -37,7 +30,7 @@ class LessonPolicy
      */
     public function update(User $user, Lesson $lesson): bool
     {
-        //
+        return $user->hasPermissionTo('update lessons');
     }
 
     /**
@@ -45,7 +38,7 @@ class LessonPolicy
      */
     public function delete(User $user, Lesson $lesson): bool
     {
-        //
+        return $user->hasPermissionTo('delete lessons');
     }
 
     /**
@@ -53,14 +46,7 @@ class LessonPolicy
      */
     public function restore(User $user, Lesson $lesson): bool
     {
-        //
+        return $user->hasPermissionTo('restore lessons');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Lesson $lesson): bool
-    {
-        //
-    }
 }

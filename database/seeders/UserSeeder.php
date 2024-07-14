@@ -16,12 +16,6 @@ class UserSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Zie Lab',
-                'email' => 'zielab@gmail.com',
-                'phone' => '0895616007300',
-                'password' => Hash::make('bukanadmin123')
-            ],
-            [
                 'name' => 'User1',
                 'email' => 'user1@gmail.com',
                 'phone' => '089765415421',
@@ -54,7 +48,9 @@ class UserSeeder extends Seeder
         ];
 
         foreach ($data as $item) {
-            User::create($item);
+            $user = User::create($item);
+
+            $user->assignRole('user');
         }
     }
 }

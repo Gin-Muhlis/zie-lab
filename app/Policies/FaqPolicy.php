@@ -8,20 +8,13 @@ use Illuminate\Auth\Access\Response;
 
 class FaqPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        //
-    }
 
     /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, Faq $faq): bool
     {
-        //
+        return $user->hasPermissionTo('view faqs');
     }
 
     /**
@@ -29,7 +22,7 @@ class FaqPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasPermissionTo('create faqs');
     }
 
     /**
@@ -37,7 +30,7 @@ class FaqPolicy
      */
     public function update(User $user, Faq $faq): bool
     {
-        //
+        return $user->hasPermissionTo('update faqs');
     }
 
     /**
@@ -45,7 +38,7 @@ class FaqPolicy
      */
     public function delete(User $user, Faq $faq): bool
     {
-        //
+        return $user->hasPermissionTo('delete faqs');
     }
 
     /**
@@ -53,14 +46,7 @@ class FaqPolicy
      */
     public function restore(User $user, Faq $faq): bool
     {
-        //
+        return $user->hasPermissionTo('restore faqs');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Faq $faq): bool
-    {
-        //
-    }
 }

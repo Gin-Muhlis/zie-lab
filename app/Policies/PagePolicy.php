@@ -8,20 +8,13 @@ use Illuminate\Auth\Access\Response;
 
 class PagePolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        //
-    }
 
     /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, Page $page): bool
     {
-        //
+        return $user->hasPermissionTo('view pages');
     }
 
     /**
@@ -29,7 +22,7 @@ class PagePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasPermissionTo('create pages');
     }
 
     /**
@@ -37,7 +30,7 @@ class PagePolicy
      */
     public function update(User $user, Page $page): bool
     {
-        //
+        return $user->hasPermissionTo('update pages');
     }
 
     /**
@@ -45,7 +38,7 @@ class PagePolicy
      */
     public function delete(User $user, Page $page): bool
     {
-        //
+        return $user->hasPermissionTo('delete pages');
     }
 
     /**
@@ -53,14 +46,7 @@ class PagePolicy
      */
     public function restore(User $user, Page $page): bool
     {
-        //
+        return $user->hasPermissionTo('restore pages');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Page $page): bool
-    {
-        //
-    }
 }

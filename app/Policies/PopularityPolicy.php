@@ -8,20 +8,13 @@ use Illuminate\Auth\Access\Response;
 
 class PopularityPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        //
-    }
 
     /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, Popularity $popularity): bool
     {
-        //
+        return $user->hasPermissionTo('view popularities');
     }
 
     /**
@@ -29,7 +22,7 @@ class PopularityPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasPermissionTo('create popularities');
     }
 
     /**
@@ -37,7 +30,7 @@ class PopularityPolicy
      */
     public function update(User $user, Popularity $popularity): bool
     {
-        //
+        return $user->hasPermissionTo('update popularities');
     }
 
     /**
@@ -45,7 +38,7 @@ class PopularityPolicy
      */
     public function delete(User $user, Popularity $popularity): bool
     {
-        //
+        return $user->hasPermissionTo('delete popularities');
     }
 
     /**
@@ -53,14 +46,6 @@ class PopularityPolicy
      */
     public function restore(User $user, Popularity $popularity): bool
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Popularity $popularity): bool
-    {
-        //
+        return $user->hasPermissionTo('restore popularities');
     }
 }

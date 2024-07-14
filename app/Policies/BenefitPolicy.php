@@ -8,20 +8,13 @@ use Illuminate\Auth\Access\Response;
 
 class BenefitPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        //
-    }
 
     /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, Benefit $benefit): bool
     {
-        //
+        return $user->hasPermissionTo('view benefits');
     }
 
     /**
@@ -29,7 +22,7 @@ class BenefitPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasPermissionTo('create benefits');
     }
 
     /**
@@ -37,7 +30,7 @@ class BenefitPolicy
      */
     public function update(User $user, Benefit $benefit): bool
     {
-        //
+        return $user->hasPermissionTo('update benefits');
     }
 
     /**
@@ -45,7 +38,7 @@ class BenefitPolicy
      */
     public function delete(User $user, Benefit $benefit): bool
     {
-        //
+        return $user->hasPermissionTo('delete benefits');
     }
 
     /**
@@ -53,14 +46,7 @@ class BenefitPolicy
      */
     public function restore(User $user, Benefit $benefit): bool
     {
-        //
+        return $user->hasPermissionTo('restore benefits');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Benefit $benefit): bool
-    {
-        //
-    }
 }

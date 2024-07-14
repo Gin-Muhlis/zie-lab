@@ -8,20 +8,13 @@ use Illuminate\Auth\Access\Response;
 
 class SectionPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
-    {
-        //
-    }
 
     /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, Section $section): bool
     {
-        //
+        return $user->hasPermissionTo('view sections');
     }
 
     /**
@@ -29,7 +22,7 @@ class SectionPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasPermissionTo('create sections');
     }
 
     /**
@@ -37,7 +30,7 @@ class SectionPolicy
      */
     public function update(User $user, Section $section): bool
     {
-        //
+        return $user->hasPermissionTo('update sections');
     }
 
     /**
@@ -45,7 +38,7 @@ class SectionPolicy
      */
     public function delete(User $user, Section $section): bool
     {
-        //
+       return $user->hasPermissionTo('delete sections');
     }
 
     /**
@@ -53,14 +46,6 @@ class SectionPolicy
      */
     public function restore(User $user, Section $section): bool
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Section $section): bool
-    {
-        //
+       return $user->hasPermissionTo('restore sections');
     }
 }
