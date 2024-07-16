@@ -55,6 +55,6 @@ class User extends Authenticatable
     }
     // ambil role user
     public function getRole() {
-        return $this->getRole();
+        return $this->getRoleNames()->first();
     }
 }

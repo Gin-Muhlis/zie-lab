@@ -9,7 +9,8 @@
     <title>Zie Lab</title>
 
     {{-- jquery --}}
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     {{-- bladewind component --}}
     <link href="{{ asset('vendor/bladewind/css/animate.min.css') }}" rel="stylesheet" />
@@ -32,9 +33,18 @@
 </head>
 
 <body class="bg-primary-background overflow-x-hidden font-inter">
+    <x-bladewind::notification />
     <x-navbar :profileCompany="$profileCompany"></x-navbar>
     {{ $slot }}
     <x-footer :profileCompany="$profileCompany"></x-footer>
+
+    @error('forbidden')
+        @push('scripts')
+            <script>
+                showNotification('Dilarang!', '{{ $message }}', 'warning');
+            </script>
+        @endpush
+    @enderror
 
     @stack('scripts')
 </body>

@@ -1,5 +1,5 @@
 <div
-    class="w-56 px-4 py-8 bg-gradient-to-br from-primary to-yellow-400 fixed top-0 -left-56 transition-all duration-500 h-screen z-40 overflow-y-scroll md:w-64 md:relative md:left-0 sidebar">
+    class="w-56 px-4 py-8 bg-gradient-to-br from-primary to-yellow-400 fixed top-0 -left-56 transition-all duration-500 h-screen z-40 overflow-y-scroll md:w-64 md:left-0 sidebar">
 
     <div
         class="w-5 h-5 rounded-full bg-second-background flex items-center justify-center absolute right-2 top-2 close-sidebar md:hidden">

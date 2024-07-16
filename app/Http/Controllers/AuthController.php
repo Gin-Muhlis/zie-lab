@@ -88,6 +88,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('success', 'Logout berhasil');
+        return redirect('/')->with('success', 'Berhasil keluar dari panel anda');
     }
 }

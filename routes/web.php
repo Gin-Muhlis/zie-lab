@@ -4,7 +4,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
-use App\Http\Middleware\IsForbidden;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('landing.page');
@@ -26,13 +25,13 @@ Route::prefix('auth')->group(function() {
 });
 
 Route::prefix('super-admin')->group(function() {
-    Route::middleware(['auth'])->group(function() {
+    Route::middleware(['auth', 'isForbidden:super-admin'])->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'dashboardAdmin'])->name('dashboard.admin');
     });
 });
 
 Route::prefix('user')->group(function() {
-    Route::middleware(['auth'])->group(function() {
+    Route::middleware(['auth', 'isForbidden:user'])->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');
     });
 });

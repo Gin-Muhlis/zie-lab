@@ -2,7 +2,6 @@
     <div class="w-full relative">
         <div class="w-full h-64 bg-second-background absolute top-0 left-0 -z-10"></div>
         <div class="container h-hero flex items-center justify-center">
-            <x-bladewind::notification />
 
             <x-bladewind::card class="w-500">
 
@@ -47,7 +46,6 @@
         </div>
 
     </div>
-
     
     @error ('register')
         @push('scripts')

@@ -1,6 +1,6 @@
 <x-layout :profileCompany="$profile_company">
 
-    <x-bladewind::notification />
+    
 
     <x-hero></x-hero>
     <x-about :profileCompany="$profile_company"></x-about>
@@ -11,18 +11,10 @@
     @if (session('success'))
         @push('scripts')
             <script>
-                showNotification('Logout', 'Logout berhasil', 'success');
+                showNotification('Logout Berhasil', '{{ session('success') }}', 'success');
             </script>
         @endpush
     @endif
-
-    @error('forbidden')
-        @push('scripts')
-            <script>
-                showNotification('Dilarang!', '{{ $message }}', 'warning');
-            </script>
-        @endpush
-    @enderror
 
     @push('scripts')
         <script>

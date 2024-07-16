@@ -1,6 +1,4 @@
 <x-layout :profileCompany="$profile_company">
-    <x-bladewind::notification />
-
     <div class="w-full relative">
         <div class="w-full h-64 bg-second-background absolute top-0 left-0 -z-10"></div>
         <div class="container h-hero flex items-center justify-center">

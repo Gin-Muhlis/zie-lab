@@ -19,6 +19,10 @@
     <script src="{{ asset('vendor/bladewind/js/helpers.js') }}"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
 
+    {{-- chart js --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
     {{-- custom css --}}
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
 
@@ -33,17 +37,24 @@
 </head>
 
 <body class="bg-primary-background overflow-x-hidden font-inter">
-    <div class="w-full min-h-screen md:flex md:items-start md:justify-center border border-red-500">
+    <x-bladewind::notification />
+    <div class="w-full min-h-screen md:flex md:items-start md:justify-center">
         <x-sidebar></x-sidebar>
-        <div class="w-full relative">
-            <div class="p-5 md:hidden">
+        <div class="w-full relative overflow-x-auto px-5 py-8 ms-0 md:ms-64">
+            <div class="mb-7 md:mb-0 md:hidden">
                 <x-bladewind::icon name="bars-3" class="!h-8 !w-8 text-primary cursor-pointer open-sidebar" />
             </div>
             {{ $slot }}
         </div>
     </div>
 
-    @stack('scripts')
+    @error('forbidden')
+        @push('scripts')
+            <script>
+                showNotification('Dilarang!', '{{ $message }}', 'warning');
+            </script>
+        @endpush
+    @enderror
 
     <script>
         $(function() {
@@ -56,4 +67,6 @@
             })
         })
     </script>
+
+    @stack('scripts')
 </body>
