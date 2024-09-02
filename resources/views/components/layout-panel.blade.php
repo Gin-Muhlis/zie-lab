@@ -49,12 +49,22 @@
     </div>
 
     @error('forbidden')
-        @push('scripts')
-            <script>
-                showNotification('Dilarang!', '{{ $message }}', 'warning');
-            </script>
-        @endpush
+        <script>
+            showNotification('Dilarang!', '{{ $message }}', 'warning');
+        </script>
     @enderror
+
+    @if ($errors->any())
+        <script>
+            showNotification('Error!', '{{ $errors->first() }}', 'error');
+        </script>
+    @endif
+
+    @if (session('success'))
+        <script>
+            showNotification('Berhasil!', '{{ session('success') }}', 'success');
+        </script>
+    @endif
 
     <script>
         $(function() {

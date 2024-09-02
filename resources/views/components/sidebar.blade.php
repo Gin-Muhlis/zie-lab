@@ -1,3 +1,8 @@
+@php
+    $active = 'w-full p-2 px-3 rounded text-second-background bg-white font-semibold text-sm';
+    $default = 'w-full p-2 rounded text-slate-100 text-sm font-medium block';
+@endphp
+
 <div
     class="w-56 px-4 py-8 bg-gradient-to-br from-primary to-yellow-400 fixed top-0 -left-56 transition-all duration-500 h-screen z-40 overflow-y-scroll md:w-64 md:left-0 sidebar">
 
@@ -15,7 +20,7 @@
     <div class="w-full flex flex-col items-start justify-start gap-5">
         {{-- dsahboard admin --}}
         <a href="{{ route('dashboard.admin') }}"
-            class="w-full p-2 px-3 rounded text-second-background bg-white font-semibold text-sm">Dashboard</a>
+            class="{{ request()->routeIs('dashboard.admin') ? $active : $default }}">Dashboard</a>
 
         {{-- data master admin --}}
         <div class="w-full p-2 rounded text-white text-sm font-medium dropdown">
@@ -26,20 +31,20 @@
             </div>
             <div
                 class="w-full h-0 overflow-hidden transition-all duration-500 ml-2 flex flex-col items-start justify-start gap-2 dropdown-menu p-0">
-                <a href="{{ route('dashboard.admin') }}"
-                    class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+                <a href="{{ route('categories.index') }}"
+                    class="{{ request()->routeIs('categories.index') ? $active : $default }}">
                     Kategori
                 </a>
                 <a href="{{ route('dashboard.admin') }}"
-                    class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+                    class="{{ request()->routeIs('profile-companies.index') ? $active : $default }}">
                     Biodata Perusahaan
                 </a>
                 <a href="{{ route('dashboard.admin') }}"
-                    class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+                    class="{{ request()->routeIs('faqs.admin') ? $active : $default }}">
                     FAQ
                 </a>
                 <a href="{{ route('dashboard.admin') }}"
-                    class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+                    class="{{ request()->routeIs('users.index') ? $active : $default }}">
                     User
                 </a>
             </div>
@@ -55,15 +60,15 @@
             <div
                 class="w-full h-0 overflow-hidden transition-all duration-500 ml-2 flex flex-col items-start justify-start gap-2 dropdown-menu">
                 <a href="{{ route('dashboard.admin') }}"
-                    class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+                    class="{{ request()->routeIs('e-books.index') ? $active : $default }}">
                     E-Book
                 </a>
                 <a href="{{ route('dashboard.admin') }}"
-                    class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+                    class="{{ request()->routeIs('e-courses.index') ? $active : $default }}">
                     E-Course
                 </a>
                 <a href="{{ route('dashboard.admin') }}"
-                    class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+                    class="{{ request()->routeIs('e-files.index') ? $active : $default }}">
                     E-File
                 </a>
             </div>
@@ -79,11 +84,11 @@
             <div
                 class="w-full h-0 overflow-hidden transition-all duration-500 ml-2 flex flex-col items-start justify-start gap-2 dropdown-menu">
                 <a href="{{ route('dashboard.admin') }}"
-                    class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+                    class="{{ request()->routeIs('pages.index') ? $active : $default }}">
                     Custom Halaman
                 </a>
                 <a href="{{ route('dashboard.admin') }}"
-                    class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+                    class="{{ request()->routeIs('transations.index') ? $active : $default }}">
                     Transaksi
                 </a>
             </div>
@@ -99,28 +104,28 @@
             <div
                 class="w-full h-0 overflow-hidden transition-all duration-500 ml-2 flex flex-col items-start justify-start gap-2 dropdown-menu">
                 <a href="{{ route('dashboard.admin') }}"
-                    class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+                    class="{{ request()->routeIs('report.transactions') ? $active : $default }}">
                     Transaksi
                 </a>
                 <a href="{{ route('dashboard.admin') }}"
-                    class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+                    class="{{ request()->routeIs('report.products') ? $active : $default }}">
                     Produk
                 </a>
                 <a href="{{ route('dashboard.admin') }}"
-                    class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+                    class="{{ request()->routeIs('report.users') ? $active : $default }}">
                     User
                 </a>
             </div>
         </div>
 
         {{-- menu user --}}
-        {{-- <a href="{{ route('dashboard.admin') }}" class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+        {{-- <a href="{{ route('dashboard.admin') }}" class="{{ request()->routeIs('dashboard.user') ? $active : $default }}">
             Dashboard
         </a>
-        <a href="{{ route('dashboard.admin') }}" class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+        <a href="{{ route('dashboard.admin') }}" class="{{ request()->routeIs('products.user') ? $active : $default }}">
             Produk Saya
         </a>
-        <a href="{{ route('dashboard.admin') }}" class="w-full p-2 rounded text-slate-100 text-sm font-medium block">
+        <a href="{{ route('dashboard.admin') }}" class="{{ request()->routeIs('profile.user') ? $active : $default }}">
             Biodata
         </a> --}}
 

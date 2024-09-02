@@ -11,7 +11,7 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,19 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string'],
+            'icon' => ['nullable', 'image', 'mimes:png', 'max:2048']
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Nama kategori tidak boleh kosong.',
+            'name.string' => 'Nama kategori tidak valid.',
+            'icon.image' => 'File icon harus berupa gambar.',
+            'icon.mimes' => 'Icon hanya boleh dalam format PNG.',
+            'icon.max' => 'Ukuran icon maksimal adalah 2MB.',
         ];
     }
 }

@@ -50,15 +50,6 @@
         </x-bladewind::card>
     </div>
 
-    @if (session('success'))
-        @push('scripts')
-            <script>
-                showNotification('Login Berhasil', '{{ session('success') }}', 'success');
-            </script>
-        @endpush
-    @endif
-
-
     @push('scripts')
         <script>
             $(function() {

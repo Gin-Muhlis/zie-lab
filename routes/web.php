@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
+// Route guests start
 Route::get('/', [HomeController::class, 'index'])->name('landing.page');
 
 Route::prefix('products')->group(function() {
@@ -23,16 +25,21 @@ Route::prefix('auth')->group(function() {
     });
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth');
 });
+// Route guests end
 
+// Route admin start
 Route::prefix('super-admin')->group(function() {
     Route::middleware(['auth', 'isForbidden:super-admin'])->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'dashboardAdmin'])->name('dashboard.admin');
+        Route::resource('/categories', CategoryController::class);
     });
 });
+// Route admin end
 
+// Route user start
 Route::prefix('user')->group(function() {
     Route::middleware(['auth', 'isForbidden:user'])->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'dashboardUser'])->name('dashboard.user');
     });
 });
-
+// Route user end
