@@ -36,8 +36,7 @@
                         <td>{{ $item->name }}</td>
                         <td>
                             @if ($item->icon)
-                                <img src="{{ $item->icon }}" alt="Image category"
-                                    class="w-7 h-7 object-cover">
+                                <img src="{{ $item->icon }}" alt="Image category" class="w-7 h-7 object-cover">
                             @else
                                 <span>-</span>
                             @endif
@@ -47,16 +46,21 @@
                                 onclick="detailData({{ $item->id }})">
 
                             </x-bladewind::button.circle>
-                            <x-bladewind::button.circle size="tiny" color="green" radius="full" icon="pencil" onclick="updateData({{ $item->id }})">
+                            <x-bladewind::button.circle size="tiny" color="green" radius="full" icon="pencil"
+                                onclick="updateData({{ $item->id }})">
 
                             </x-bladewind::button.circle>
-                            <x-bladewind::button.circle size="tiny" color="red" radius="full" icon="trash" onclick="deleteData({{ $item->id }})">
+                            <x-bladewind::button.circle size="tiny" color="red" radius="full" icon="trash"
+                                onclick="deleteData({{ $item->id }})">
 
                             </x-bladewind::button.circle>
                         </td>
                     </tr>
                 @endforeach
             </x-bladewind::table>
+            <div class="mt-5">
+                {{ $data->links() }}
+            </div>
         </x-bladewind::card>
 
         @push('scripts')
@@ -66,7 +70,7 @@
                 // munculkan detail data
                 function detailData(idSearch) {
                     let searchData = data.find(item => item.id == idSearch)
-                    
+
                     $('.input-detail').val(searchData.name)
 
                     if (searchData.icon == null) {
@@ -82,17 +86,17 @@
                 // munculkan edit data
                 function updateData(idSearch) {
                     let searchData = data.find(item => item.id == idSearch)
-                    
+
                     $('.input-update').val(searchData.name)
                     $('.update-form').attr('action', `${window.location.href}/${searchData.id}`)
 
                     showModal('update-data')
                 }
 
-                 // munculkan hapus data
-                 function deleteData(idSearch) {
+                // munculkan hapus data
+                function deleteData(idSearch) {
                     let searchData = data.find(item => item.id == idSearch)
-                    
+
                     $('.data-delete').text(searchData.name)
                     $('.delete-form').attr('action', `${window.location.href}/${searchData.id}`)
 

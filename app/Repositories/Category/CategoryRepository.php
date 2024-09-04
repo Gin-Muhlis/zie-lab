@@ -7,6 +7,7 @@ use LaravelEasyRepository\Repository;
 interface CategoryRepository extends Repository{
 
     public function getData();
+    public function getPaginationData($page, $size);
     public function getCategoryHasProduct();
     public function createData($data);
     public function updateData($data, $id);

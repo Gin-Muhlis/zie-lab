@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\CategoryExport;
-use App\Exports\templates\CategoryTemplate;
-use App\Http\Requests\ImportCategoryRequest;
-use App\Imports\CategoryImport;
-use App\Models\Category;
 use Exception;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Exports\CategoryExport;
+use App\Imports\CategoryImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use App\Exports\templates\CategoryTemplate;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\ImportCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Repositories\Category\CategoryRepository;
-use Maatwebsite\Excel\Facades\Excel;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class CategoryController extends Controller
 {
@@ -24,10 +25,12 @@ class CategoryController extends Controller
     }
    
     // tampil data
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->category_repository->getData();
-    
+        $page = $request->page ?? 1;
+        $size = 10;
+        $data = $this->category_repository->getPaginationData($page, $size);
+
         return view('admin.data-master.categories.index', compact('data'));
     }
     
