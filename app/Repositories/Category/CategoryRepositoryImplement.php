@@ -19,6 +19,7 @@ class CategoryRepositoryImplement extends Eloquent implements CategoryRepository
         return $this->model->latest()->get();
     }
 
+    // ambil paginasi data
     public function getPaginationData($page, $size) {
         return $this->model->orderByDesc('created_at')->paginate($size, ['*'], 'page', $page);
     }

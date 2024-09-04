@@ -35,7 +35,7 @@
                     class="{{ request()->routeIs('categories.index') ? $active : $default }}">
                     Kategori
                 </a>
-                <a href="{{ route('dashboard.admin') }}"
+                <a href="{{ route('profile-companies.index') }}"
                     class="{{ request()->routeIs('profile-companies.index') ? $active : $default }}">
                     Biodata Perusahaan
                 </a>

@@ -1,7 +1,7 @@
 <div class="w-full px-5 sm:px-8 bg-second-background h-20 flex items-center justify-between drop-shadow-down gap-5 z-50">
     <a href="/">
         <img src="{{ $profileCompany->icon ? Storage::url($profileCompany->icon) : asset('images/logo.ong') }}"
-            alt="Logo Zie Lab" class="w-24 sm:w-auto">
+            alt="Logo Zie Lab" class="w-32 h-10 object-cover sm:w-auto">
     </a>
     <div class="flex items-center flex-1 justify-end gap-2 sm:gap-5">
         @if (Auth::check())

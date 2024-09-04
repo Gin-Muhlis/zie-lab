@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileCompanyController;
 use Illuminate\Support\Facades\Route;
 
 // Route guests start
@@ -34,10 +35,12 @@ Route::prefix('super-admin')->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'dashboardAdmin'])->name('dashboard.admin');
 
         Route::resource('/categories', CategoryController::class);
+        Route::resource('/profile-companies', ProfileCompanyController::class);
 
         // export
         Route::prefix('export')->group(function() {
             Route::get('/categories', [CategoryController::class, 'export'])->name('categories.export');
+            Route::get('/profile-companies', [ProfileCompanyController::class, 'export'])->name('profile-companies.export');
         });
 
         // import

@@ -15,7 +15,13 @@ class ProfileCompanyRepositoryImplement extends Eloquent implements ProfileCompa
         $this->model = $model;
     }
 
+    // ambil data
     public function getData() {
         return $this->model->latest()->first();
+    }
+
+    // edit data
+    public function updateData($data, $id) {
+        $this->update($id, $data);
     }
 }
