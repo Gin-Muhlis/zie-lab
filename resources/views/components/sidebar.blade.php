@@ -39,8 +39,8 @@
                     class="{{ request()->routeIs('profile-companies.index') ? $active : $default }}">
                     Biodata Perusahaan
                 </a>
-                <a href="{{ route('dashboard.admin') }}"
-                    class="{{ request()->routeIs('faqs.admin') ? $active : $default }}">
+                <a href="{{ route('faqs.index') }}"
+                    class="{{ request()->routeIs('faqs.index') ? $active : $default }}">
                     FAQ
                 </a>
                 <a href="{{ route('dashboard.admin') }}"

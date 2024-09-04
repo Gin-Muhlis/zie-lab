@@ -11,7 +11,7 @@ class StoreFaqRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,22 @@ class StoreFaqRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'question' => ['required', 'string', 'max:255'],
+            'answer' => ['required', 'string'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'question.required' => 'Pertanyaan tidak boleh kosong.',
+            'question.string' => 'Pertanyaan harus berupa teks.',
+            'question.max' => 'Pertanyaan maksimal 255 karakter.',
+
+            'answer.required' => 'Jawaban tidak boleh kosong.',
+            'answer.string' => 'Jawaban harus berupa teks.',
+        ];
+    }
+
+    
 }

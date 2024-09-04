@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateFaqRequest extends FormRequest
+class ImportRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,21 +22,17 @@ class UpdateFaqRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'question' => ['required', 'string', 'max:255'],
-            'answer' => ['required', 'string'],
+            'file_import' => ['required', 'file', 'mimes:xlsx', 'max:2048']
         ];
     }
 
     public function messages(): array
     {
         return [
-            'question.required' => 'Pertanyaan tidak boleh kosong.',
-            'question.string' => 'Pertanyaan harus berupa teks.',
-            'question.max' => 'Pertanyaan maksimal 255 karakter.',
-
-            'answer.required' => 'Jawaban tidak boleh kosong.',
-            'answer.string' => 'Jawaban harus berupa teks.',
+            'file_import.required' => 'File import tidak boleh kosong.',
+            'file_import.image' => 'File import harus berupa gambar.',
+            'file_import.mimes' => 'File import harus berupa xlsx.',
+            'file_import.max' => 'Ukuran file import maksimal adalah 2MB.',
         ];
     }
-
 }

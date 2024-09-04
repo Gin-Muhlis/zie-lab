@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Exports\templates;
-
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Events\AfterSheet;
@@ -9,19 +8,14 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use Maatwebsite\Excel\Concerns\WithDrawings;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
-class CategoryTemplate implements FromView, WithEvents, WithDrawings
+
+class FaqTemplate implements FromView, WithEvents
 {
-    /**
-     * @return \Illuminate\Support\Collection
-     */
     public function view(): View
     {
-        return view('templates.category');
+        return view('templates.faq');
     }
 
     public function registerEvents(): array
@@ -33,7 +27,7 @@ class CategoryTemplate implements FromView, WithEvents, WithDrawings
 
                 // width kolom
                 $sheet->getColumnDimension('A')->setWidth(40);
-                $sheet->getColumnDimension('B')->setAutoSize(true);
+                $sheet->getColumnDimension('B')->setWidth(80);
 
                 // tambah baris awal
                 $sheet->insertNewRowBefore(1, 4);
@@ -43,8 +37,7 @@ class CategoryTemplate implements FromView, WithEvents, WithDrawings
                 $sheet->mergeCells("A2:B2");
                 $sheet->mergeCells("A3:B3");
                 $sheet->setCellValue('A1', 'Isi data di kolom dibawah header tabel');
-                $sheet->setCellValue('A2', 'Tempatkan gambar di cell dengan benar');
-                $sheet->setCellValue('A3', 'Jika terjadi error data kosong di baris tertentu, clear cell tersebut atau semua cell dari cell terakhir data');
+                $sheet->setCellValue('A2', 'Jika terjadi error data kosong di baris tertentu, clear cell tersebut atau semua cell dari cell terakhir data');
 
                 $sheet->getStyle('A1:A3')->getFont()->setSize(10);
                 $sheet->getStyle('A1:A3')->getFont()->getColor()->setARGB(Color::COLOR_RED);
@@ -55,8 +48,9 @@ class CategoryTemplate implements FromView, WithEvents, WithDrawings
 
                 $sheet->getStyle("A5:B" . $sheet->getHighestRow())->getAlignment()->setVertical(Alignment::HORIZONTAL_CENTER);
 
-                // set height baris
-                $sheet->getRowDimension(6)->setRowHeight(40);
+               
+                $sheet->getStyle("A6")->getAlignment()->setWrapText(true);
+                $sheet->getStyle("B6")->getAlignment()->setWrapText(true);
 
                 // set style tabel
                 $sheet->getStyle('A5:B5')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB('EAB308');
@@ -69,20 +63,9 @@ class CategoryTemplate implements FromView, WithEvents, WithDrawings
                         ],
                     ],
                 ]);
+
+     
             },
         ];
-    }
-
-    public function drawings()
-    {
-        $drawing = new Drawing();
-        $drawing->setName('Gambar');
-        $drawing->setPath(public_path('images/dummy/category-icon.png'));
-        $drawing->setWidth(40);
-        $drawing->setCoordinates('B2');
-        $drawing->setOffsetX(10);
-        $drawing->setOffsetY(10);
-
-        return $drawing;
     }
 }
