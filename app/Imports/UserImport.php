@@ -2,18 +2,21 @@
 
 namespace App\Imports;
 
-use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Hash;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class CategoryImport implements ToCollection, WithHeadingRow, WithValidation, WithStartRow
+class UserImport implements ToCollection, WithHeadingRow, WithValidation, WithStartRow
 {
-
+    /**
+    * @param Collection $collection
+    */
     public function collection(Collection $collection)
     {
         $reader = new Xlsx();
@@ -21,9 +24,10 @@ class CategoryImport implements ToCollection, WithHeadingRow, WithValidation, Wi
         $worksheet = $spreadsheet->getActiveSheet();
 
         $drawings = $worksheet->getDrawingCollection();
-        $column_image = 'B';
+        $column_image = 'E';
         $start_row = 6;
 
+        // dd($drawings);
         
         foreach($collection as $row) {
             $image = null;
@@ -43,9 +47,12 @@ class CategoryImport implements ToCollection, WithHeadingRow, WithValidation, Wi
             
             $start_row++;
 
-            Category::create([
+            User::create([
                 'name' => $row['name'],
-                'icon' => $image_url
+                'email' => $row['email'],
+                'phone' => $row['phone'],
+                'password' => Hash::make($row['password']),
+                'image' => $image_url
             ]);
         }
     }
@@ -62,14 +69,23 @@ class CategoryImport implements ToCollection, WithHeadingRow, WithValidation, Wi
     public function rules(): array
     {
         return [
-            '*.name' => ['required', 'string']
+            '*.name' => ['required', 'string'],
+            '*.email' => ['required', 'unique:users,email', 'email'],
+            '*.phone' => ['required'],
+            '*.password' => ['required'],
         ];
     }
 
     public function customValidationMessages()
     {
         return [
-            '*.name.string' => 'Nama kategori tidak valid.',
+            '*.name.required' => 'Nama tidak boleh kosong',
+            '*.name.string' => 'Nama harus berupa string',
+            '*.email.required' => 'Email tidak boleh kosong',
+            '*.email.email' => 'Format email tidak valid',
+            '*.email.unique' => 'Email sudah terdaftar, gunakan email lain',
+            '*.phone.required' => 'Nomor telepon tidak boleh kosong',
+            '*.password.required' => 'Password tidak boleh kosong',
         ];
     }
 }

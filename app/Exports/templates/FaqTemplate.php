@@ -36,6 +36,7 @@ class FaqTemplate implements FromView, WithEvents
                 $sheet->mergeCells("A1:B1");
                 $sheet->mergeCells("A2:B2");
                 $sheet->mergeCells("A3:B3");
+                $sheet->mergeCells("A4:B4");
                 $sheet->setCellValue('A1', 'Isi data di kolom dibawah header tabel');
                 $sheet->setCellValue('A2', 'Jika terjadi error data kosong di baris tertentu, clear cell tersebut atau semua cell dari cell terakhir data');
 

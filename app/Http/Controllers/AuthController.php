@@ -69,7 +69,7 @@ class AuthController extends Controller
             $validated = $request->validated();
             $validated['password'] = Hash::make($validated['password']);
 
-            $user = $this->user_repository->createUser($validated);
+            $user = $this->user_repository->createData($validated);
 
             $user->assignRole('user');
 

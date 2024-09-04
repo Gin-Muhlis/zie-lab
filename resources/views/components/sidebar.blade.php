@@ -43,7 +43,7 @@
                     class="{{ request()->routeIs('faqs.index') ? $active : $default }}">
                     FAQ
                 </a>
-                <a href="{{ route('dashboard.admin') }}"
+                <a href="{{ route('users.index') }}"
                     class="{{ request()->routeIs('users.index') ? $active : $default }}">
                     User
                 </a>

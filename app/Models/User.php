@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -56,5 +57,9 @@ class User extends Authenticatable
     // ambil role user
     public function getRole() {
         return $this->getRoleNames()->first();
+    }
+
+    public function getImageAttribute($value) {
+        return $value ? Storage::url($value) : null;
     }
 }

@@ -20,10 +20,11 @@ class CategoryController extends Controller
 {
     private $category_repository;
 
-    public function __construct(CategoryRepository $categoryRepository) {
+    public function __construct(CategoryRepository $categoryRepository)
+    {
         $this->category_repository = $categoryRepository;
     }
-   
+
     // tampil data
     public function index(Request $request)
     {
@@ -33,7 +34,7 @@ class CategoryController extends Controller
 
         return view('admin.data-master.categories.index', compact('data'));
     }
-    
+
     // tambah data
     public function store(StoreCategoryRequest $request)
     {
@@ -51,7 +52,7 @@ class CategoryController extends Controller
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
         }
     }
-    
+
     // edit data
     public function update(UpdateCategoryRequest $request, Category $category)
     {
@@ -79,6 +80,11 @@ class CategoryController extends Controller
     {
         try {
 
+            if ($category->icon) {
+                $path_icon = str_replace('storage', 'public', $category->icon);
+                Storage::delete($path_icon);
+            }
+
             $this->category_repository->deleteData($category->id);
 
             return redirect()->back()->with('success', 'Data berhasil dihapus');
@@ -88,14 +94,16 @@ class CategoryController extends Controller
     }
 
     // export data
-    public function export() {
+    public function export()
+    {
         $data = $this->category_repository->getData();
 
         return Excel::download(new CategoryExport($data), 'data kategori.xlsx');
     }
 
     // import data
-    public function import(ImportCategoryRequest $request) {
+    public function import(ImportCategoryRequest $request)
+    {
         $validated = $request->validated();
 
         $spreadsheet = IOFactory::load($validated['file_import']);
@@ -109,7 +117,8 @@ class CategoryController extends Controller
     }
 
     // download template
-    public function templateDownload() {
+    public function templateDownload()
+    {
         return Excel::download(new CategoryTemplate, 'template kategori.xlsx');
     }
 }
