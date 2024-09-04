@@ -27,14 +27,32 @@ Route::prefix('auth')->group(function() {
 });
 // Route guests end
 
+
 // Route admin start
 Route::prefix('super-admin')->group(function() {
     Route::middleware(['auth', 'isForbidden:super-admin'])->group(function() {
         Route::get('/dashboard', [DashboardController::class, 'dashboardAdmin'])->name('dashboard.admin');
+
         Route::resource('/categories', CategoryController::class);
+
+        // export
+        Route::prefix('export')->group(function() {
+            Route::get('/categories', [CategoryController::class, 'export'])->name('categories.export');
+        });
+
+        // import
+        Route::prefix('import')->group(function() {
+            Route::post('/categories', [CategoryController::class, 'import'])->name('categories.import');
+        });
+
+        // template import
+        Route::prefix('template')->group(function() {
+            Route::get('/categories', [CategoryController::class, 'templateDownload'])->name('categories.template');
+        });
     });
 });
 // Route admin end
+
 
 // Route user start
 Route::prefix('user')->group(function() {

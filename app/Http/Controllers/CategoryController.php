@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CategoryExport;
+use App\Exports\templates\CategoryTemplate;
+use App\Http\Requests\ImportCategoryRequest;
+use App\Imports\CategoryImport;
 use App\Models\Category;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Repositories\Category\CategoryRepository;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class CategoryController extends Controller
 {
@@ -16,19 +22,16 @@ class CategoryController extends Controller
     public function __construct(CategoryRepository $categoryRepository) {
         $this->category_repository = $categoryRepository;
     }
-    /**
-     * Display a listing of the resource.
-     */
+   
+    // tampil data
     public function index()
     {
         $data = $this->category_repository->getData();
     
         return view('admin.data-master.categories.index', compact('data'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    
+    // tambah data
     public function store(StoreCategoryRequest $request)
     {
         try {
@@ -45,10 +48,8 @@ class CategoryController extends Controller
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
         }
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    
+    // edit data
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         try {
@@ -70,11 +71,42 @@ class CategoryController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // hapus data
     public function destroy(Category $category)
     {
-        //
+        try {
+
+            $this->category_repository->deleteData($category->id);
+
+            return redirect()->back()->with('success', 'Data berhasil dihapus');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
+    }
+
+    // export data
+    public function export() {
+        $data = $this->category_repository->getData();
+
+        return Excel::download(new CategoryExport($data), 'data kategori.xlsx');
+    }
+
+    // import data
+    public function import(ImportCategoryRequest $request) {
+        $validated = $request->validated();
+
+        $spreadsheet = IOFactory::load($validated['file_import']);
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $drawings = $sheet->getDrawingCollection();
+
+        Excel::import(new CategoryImport, $validated['file_import']);
+
+        return redirect()->back()->with('success', 'Import data berhasil');
+    }
+
+    // download template
+    public function templateDownload() {
+        return Excel::download(new CategoryTemplate, 'template kategori.xlsx');
     }
 }

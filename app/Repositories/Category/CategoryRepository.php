@@ -10,4 +10,5 @@ interface CategoryRepository extends Repository{
     public function getCategoryHasProduct();
     public function createData($data);
     public function updateData($data, $id);
+    public function deleteData($id);
 }

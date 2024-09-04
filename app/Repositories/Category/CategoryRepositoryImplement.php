@@ -33,4 +33,9 @@ class CategoryRepositoryImplement extends Eloquent implements CategoryRepository
     public function updateData($data, $id) {
         return $this->update($id, $data);
     }
+
+    // delete data
+    public function deleteData($id) {
+        return $this->delete($id);
+    }
 }

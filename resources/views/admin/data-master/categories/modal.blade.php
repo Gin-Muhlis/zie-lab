@@ -104,3 +104,36 @@
     @endpush
 
 </x-bladewind::modal>
+
+{{-- import data --}}
+<x-bladewind::modal backdrop_can_close="true" name="import-data" ok_button_action="saveImportData()"
+    ok_button_label="Simpan" cancel_button_label="Batal" size="big" title="Import Data">
+
+    <form method="post" action="{{ route('categories.import') }}" class="import-form my-5"
+        enctype="multipart/form-data">
+        @csrf
+        <x-bladewind::input type="file" name="file-import" required="true"
+            error_message="File import tidak boleh kosong" label="File import" />
+    </form>
+
+    <p class="text-cs text-red-400 italic mb-1">Download template untuk melihat ketentuan file import</p>
+    <x-bladewind::button color="green" size="small" tag="a" href="{{ route('categories.template') }}">
+        <div class="w-full flex items-center justify-center gap-1">
+            <x-bladewind::icon name="document" class="!h-4 !w-4 text-white" />
+            <span>Download Template Excel</span>
+        </div>
+    </x-bladewind::button>
+
+    @push('scripts')
+        <script>
+            saveImportData = () => {
+                if (validateForm('.import-form')) {
+                    domEl('.import-form').submit();
+                } else {
+                    return false;
+                }
+            }
+        </script>
+    @endpush
+
+</x-bladewind::modal>

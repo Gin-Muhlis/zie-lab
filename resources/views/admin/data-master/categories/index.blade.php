@@ -10,6 +10,18 @@
                         <span>Tambah Data</span>
                     </div>
                 </x-bladewind::button>
+                <x-bladewind::button onclick="showModal('import-data')" color="green">
+                    <div class="w-full flex items-center justify-center gap-1">
+                        <x-bladewind::icon name="document" class="!h-4 !w-4 text-white" />
+                        <span>Import Data</span>
+                    </div>
+                </x-bladewind::button>
+                <x-bladewind::button color="green" tag="a" href="{{ route('categories.export') }}">
+                    <div class="w-full flex items-center justify-center gap-1">
+                        <x-bladewind::icon name="document" class="!h-4 !w-4 text-white" />
+                        <span>Export Data</span>
+                    </div>
+                </x-bladewind::button>
             </div>
             <x-bladewind::table hover_effect="false" divider="thin" no_data_message="Data tidak tersedia">
                 <x-slot name="header">
