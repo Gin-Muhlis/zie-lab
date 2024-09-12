@@ -32,11 +32,15 @@ class Helper {
     public static function cutTitleProductCard($title, $count) {
         $words = str_word_count($title, 1);
 
-        $sub_title = array_slice($words, 0, 3);
+        $sub_title = array_slice($words, 0, $count);
 
         $result = implode(' ', $sub_title);
-
-        return $result;
+        
+        if ($count <= count($sub_title)) {
+            return $result . '...';
+        } else {
+            return $result;
+        }
     }   
 
     // gambar alternatif avatar user

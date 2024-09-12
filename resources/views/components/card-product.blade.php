@@ -11,7 +11,7 @@
 
 
         <div class="bg-white rounded-md p-3 z-10 absolute bottom-5 left-1/2 -translate-x-1/2 w-11/12 h-28">
-            <h5 class="text-md font-bold mb-2 leading-5">{{ Helper::cutTitleProductCard($product->title, 6) }}</h5>
+            <h5 class="text-md font-bold mb-2 leading-5">{{ Helper::cutTitleProductCard($product->title, 3) }}</h5>
             <div
             class="bg-secondary rounded-md px-2 py-1 text-[8px] text-white text-center absolute left-3 -top-3">
             {{ $product->type }}</div>

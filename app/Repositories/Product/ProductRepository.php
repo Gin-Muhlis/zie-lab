@@ -8,7 +8,7 @@ interface ProductRepository extends Repository{
 
     public function getData();
 
-    public function getPaginationData($page, $size);
+    public function getPaginationDataByType($page, $size, $type);
     
     public function getDetailProduct($code);
 

@@ -22,9 +22,9 @@ class ProductRepositoryImplement extends Eloquent implements ProductRepository
     }
 
     // ambil paginasi data
-    public function getPaginationData($page, $size)
+    public function getPaginationDataByType($page, $size, $type)
     {
-        return $this->model->with('category')->orderByDesc('created_at')->paginate($size, ['*'], 'page', $page);
+        return $this->model->with('category')->where('type', $type)->orderByDesc('created_at')->paginate($size, ['*'], 'page', $page);
     }
 
     // ambil paginasi data untuk browse data

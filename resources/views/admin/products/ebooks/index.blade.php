@@ -4,7 +4,7 @@
             class="w-full h-32 bg-gradient-to-br from-orange-500 to-yellow-600 rounded-md flex items-center justify-between gap-5 p-10 relative overflow-hidden">
             <x-bladewind::icon name="book-open" class="!h-44 !w-44 text-white opacity-30 absolute -bottom-8 left-0" />
             <h1 class="text-white text-xl md:text-3xl bold">E-Book</h1>
-            <x-bladewind::button outline="true" color="white" class="!text-white" size="regular">
+            <x-bladewind::button outline="true" color="white" class="!text-white" size="regular" tag="a" href="{{ route('e-books.create') }}">
                 <div class="w-full flex items-center justify-center gap-1">
                     <x-bladewind::icon name="plus" class="!h-4 !w-4 text-white" />
                     <span>Tambah E-Book</span>
@@ -31,7 +31,7 @@
                             <img src="{{ asset('/images/dummy/thumbnail-product.jpg') }}" alt="Image category" class="w-16 h-24 rounded object-cover">
                             {{-- @if ($item->thumbnail)
                             @else
-                            
+                            <span>-</span>
                             @endif --}}
                         </td>
                         <td class="!align-middle">{{ $item->title }}</td>
