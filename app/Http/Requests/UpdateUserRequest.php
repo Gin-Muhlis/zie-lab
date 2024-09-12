@@ -23,26 +23,26 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
-            'email' => ['required', 'email', Rule::unique('users')->ignore($this->user->id), 'email'],
-            'phone' => ['required'],
-            'password' => ['nullable'],
-            'image' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:2048']
+            'name_update' => ['required', 'string'],
+            'email_update' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->user->id)],
+            'phone_update' => ['required'],
+            'password_update' => ['nullable'],
+            'image_update' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:2048']
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'Nama tidak boleh kosong',
-            'name.string' => 'Nama harus berupa string',
-            'email.required' => 'Email tidak boleh kosong',
-            'email.email' => 'Format email tidak valid',
-            'email.unique' => 'Email sudah terdaftar, gunakan email lain',
-            'phone.required' => 'Nomor telepon tidak boleh kosong',
-            'image.image' => 'File gambar harus berupa gambar.',
-            'image.mimes' => 'Gambar hanya boleh dalam format PNG.',
-            'image.max' => 'Ukuran gambar maksimal adalah 2MB.'
+            'name_update.required' => 'Nama tidak boleh kosong',
+            'name_update.string' => 'Nama harus berupa string',
+            'email_update.required' => 'Email tidak boleh kosong',
+            'email_update.email' => 'Format email tidak valid',
+            'email_update.unique' => 'Email sudah terdaftar, gunakan email lain',
+            'phone_update.required' => 'Nomor telepon tidak boleh kosong',
+            'image_update.image' => 'File gambar harus berupa gambar.',
+            'image_update.mimes' => 'Gambar hanya boleh dalam format PNG.',
+            'image_update.max' => 'Ukuran gambar maksimal adalah 2MB.'
         ];
     }
 }

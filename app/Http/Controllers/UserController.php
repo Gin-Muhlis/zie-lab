@@ -62,22 +62,28 @@ class UserController extends Controller
         try {
             $validated = $request->validated();
 
-            if (is_null($validated['password'])) {
-                unset($validated['password']);
+            $data['name'] = $validated['name_update'];
+            $data['email'] = $validated['email_update'];
+            $data['phone'] = $validated['phone_update'];
+            $data['password'] = $validated['password_update'];
+
+            if (is_null($data['password'])) {
+                unset($data['password']);
             }  
 
-            if ($request->hasFile('image')) {
+            if ($request->hasFile('image_update')) {
                 if ($user->image) {
                     $path_image = str_replace('storage', 'public', $user->image);
                     Storage::delete($path_image);
                 }
-                $validated['image'] = $request->file('image')->store('public/images/users');
+                $data['image'] = $request->file('image_update')->store('public/images/users');
             }
 
-            $this->user_repository->updateData($validated, $user->id);
+            $this->user_repository->updateData($data, $user->id);
 
             return redirect()->back()->with('success', 'Data berhasil diperbarui');
         } catch (Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
         }
     }

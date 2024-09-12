@@ -106,22 +106,22 @@
     <form method="post" class="update-form my-5" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <x-bladewind::input required="true" name="name" error_message="Nama kategori tidak boleh kosong"
+        <x-bladewind::input required="true" name="name_update" error_message="Nama kategori tidak boleh kosong"
             label="Nama kategori" class="name-input-update" />
 
-        <x-bladewind::input required="true" name="email" type="email" error_message="Email tidak boleh kosong"
+        <x-bladewind::input required="true" name="email_update" type="email" error_message="Email tidak boleh kosong"
             label="Email" class="email-input-update" />
 
-        <x-bladewind::input required="true" name="phone" type="tel" error_message="No Telepon tidak boleh kosong"
+        <x-bladewind::input required="true" name="phone_update" type="tel" error_message="No Telepon tidak boleh kosong"
             label="No Telepon" class="phone-input-update" />
 
-        <x-bladewind::input name="password" type="password" viewable="true" label="Password" />
+        <x-bladewind::input name="password_update" type="password" viewable="true" label="Password" />
 
         <div class="image-preview mb-5">
             <div class="blank-image-update w-10 h-10 bg-gray-300 rounded hidden"></div>
             <img src="" alt="image-preview" class="image-preview-update w-10 h-10 object-cover hidden">
         </div>
-        <x-bladewind::input type="file" name="image" required="false" label="Avatar Baru"
+        <x-bladewind::input type="file" name="image_update" required="false" label="Avatar Baru"
             class="image-input-update" />
         <p class="text-xs text-red-500 italic">Rekomendasi skala gambar 1:1</p>
     </form>
