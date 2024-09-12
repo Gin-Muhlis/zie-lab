@@ -39,7 +39,7 @@
                         
                         <div>
                             <x-bladewind::input type="file" name="icon" required="false" label="Logo Baru" class="icon-input" />
-                        <p class="text-red italic text-sm text-red-300">
+                        <p class="text-red italic text-sm text-red-400">
                             Skala gambar harus 3:1
                         </p>
                         </div>

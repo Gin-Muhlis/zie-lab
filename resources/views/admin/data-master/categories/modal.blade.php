@@ -74,7 +74,7 @@
 
 {{-- edit data --}}
 <x-bladewind::modal backdrop_can_close="true" name="update-data" ok_button_action="saveUpdateData()"
-    ok_button_label="Simpan" cancel_button_label="Batal" size="big" title="Edit Data" backdrop_can_close="false"   cancel_button_action="cancelUpdateData()">
+    ok_button_label="Simpan" cancel_button_label="Batal" size="big" title="Edit Data" backdrop_can_close="false" cancel_button_action="cancelUpdateData()">
 
     <form method="post" class="update-form my-5" enctype="multipart/form-data">
         @csrf

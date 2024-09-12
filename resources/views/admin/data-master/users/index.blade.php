@@ -40,7 +40,7 @@
                         <td>{{ $item->phone }}</td>
                         <td>
                             @if ($item->image)
-                                <img src="{{ $item->image }}" alt="Image category" class="w-12 h-12 object-cover">
+                                <img src="{{ $item->image }}" alt="Image category" class="w-10 h-10 object-cover">
                             @else
                                 <span>-</span>
                             @endif
@@ -97,6 +97,13 @@
                     $('.email-input-update').val(searchData.email)
                     $('.phone-input-update').val(searchData.phone)
                     $('.update-form').attr('action', `${window.location.href}/${searchData.id}`)
+
+                    if (searchData.image != null) {
+                        $('.image-preview-update').removeClass('hidden')
+                        $('.image-preview-update').attr('src', searchData.image)
+                    } else {
+                        $('.blank-image-update').removeClass('hidden')
+                    }
 
                     showModal('update-data')
                 }
