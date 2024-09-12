@@ -66,7 +66,7 @@ class UserController extends Controller
                 unset($validated['password']);
             }  
 
-            if ($request->hasFile('icon')) {
+            if ($request->hasFile('image')) {
                 if ($user->image) {
                     $path_image = str_replace('storage', 'public', $user->image);
                     Storage::delete($path_image);
