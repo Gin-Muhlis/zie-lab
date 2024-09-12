@@ -3,23 +3,23 @@
         @include('admin.data-master.categories.modal')
         <h1 class="text-2xl font-bold mb-5">Kategori</h1>
         <x-bladewind::card class="w-full relative overflow-x-auto">
-            <div class="w-full flex t1ems-center justify-start flex-wrap gap-5 mb-7">
+            <div class="w-full flex items-center justify-start flex-wrap gap-3 mb-7">
                 <x-bladewind::button onclick="showModal('create-data')" color="yellow">
                     <div class="w-full flex items-center justify-center gap-1">
                         <x-bladewind::icon name="plus" class="!h-4 !w-4 text-white" />
-                        <span>Tambah Data</span>
+                        <span>Tambah</span>
                     </div>
                 </x-bladewind::button>
                 <x-bladewind::button onclick="showModal('import-data')" color="green">
                     <div class="w-full flex items-center justify-center gap-1">
                         <x-bladewind::icon name="document" class="!h-4 !w-4 text-white" />
-                        <span>Import Data</span>
+                        <span>Import</span>
                     </div>
                 </x-bladewind::button>
                 <x-bladewind::button color="green" tag="a" href="{{ route('categories.export') }}">
                     <div class="w-full flex items-center justify-center gap-1">
                         <x-bladewind::icon name="document" class="!h-4 !w-4 text-white" />
-                        <span>Export Data</span>
+                        <span>Export</span>
                     </div>
                 </x-bladewind::button>
             </div>
@@ -27,21 +27,21 @@
                 <x-slot name="header">
                     <th class="!text-center">No</th>
                     <th>Nama</th>
-                    <th>Icon</th>
+                    <th class="!text-center">Icon</th>
                     <th class="!text-center">Aksi</th>
                 </x-slot>
                 @foreach ($data as $item)
                     <tr>
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $item->name }}</td>
-                        <td>
+                        <td class="min-w-20 flex justify-center">
                             @if ($item->icon)
                                 <img src="{{ $item->icon }}" alt="Image category" class="w-10 h-10 object-cover">
                             @else
                                 <span>-</span>
                             @endif
                         </td>
-                        <td class="text-center">
+                        <td class="text-center min-w-36">
                             <x-bladewind::button.circle size="tiny" color="blue" radius="full" icon="eye"
                                 onclick="detailData({{ $item->id }})">
 

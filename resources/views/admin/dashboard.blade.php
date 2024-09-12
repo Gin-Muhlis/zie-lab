@@ -43,9 +43,10 @@
             </x-bladewind::card>
         </div>
 
-        <x-bladewind::card title="Data Penjualan Produk Digital">
-            <div class="overflow-x-auto w-full">
-                <canvas id="chart"></canvas>
+        <x-bladewind::card title="Data Jumlah Penjualan Produk Digital 2024">
+            
+            <div class="overflow-x-auto position-relative w-full">
+                <canvas id="chart" class="w-[800px] sm:w-full"></canvas>
             </div>
         </x-bladewind::card>
     </div>
@@ -58,7 +59,7 @@
                 const chart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                        labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
                         datasets: [{
                                 label: 'E-Book',
                                 data: [10, 40, 30, 20, 0, 50, 0, 10, 70, 90, 10, 20],
@@ -84,8 +85,8 @@
                         ]
                     },
                     options: {
-                        responsive: true,
-                        // maintainAspectRatio: false,
+                        responsive: false,
+                        maintainAspectRatio: true,
                         scales: {
                             y: {
                                 beginAtZero: true
