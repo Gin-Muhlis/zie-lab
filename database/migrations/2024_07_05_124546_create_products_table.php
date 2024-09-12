@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->double('price');
             $table->enum('type', ['E-Book', 'E-Course', 'E-File']);
+            $table->enum('status', ['draft', 'published']);
             $table->timestamps();
             $table->softDeletes();
         });

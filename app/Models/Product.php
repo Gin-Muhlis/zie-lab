@@ -24,4 +24,9 @@ class Product extends Model
     public function Sections() {
         return $this->hasMany(Section::class);
     }
+
+    // format harga produk
+    public function formatPrice($price) {
+        return number_format($price, 0, ',', '.');
+    }
 }

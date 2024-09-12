@@ -63,7 +63,7 @@
             </div>
             <div
                 class="w-full h-0 overflow-hidden transition-all duration-500 ml-2 flex flex-col items-start justify-start gap-2 dropdown-menu">
-                <a href="{{ route('dashboard.admin') }}"
+                <a href="{{ route('e-books.index') }}"
                     class="{{ request()->routeIs('e-books.index') ? $active : $default }}">
                     E-Book
                 </a>

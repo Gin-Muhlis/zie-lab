@@ -22,7 +22,8 @@ class ProductSeeder extends Seeder
                 'category_id' => 1,
                 'user_id' => 1,
                 'price' => 99000,
-                'type' => 'E-Course'
+                'type' => 'E-Course',
+                'status' => 'published'
             ],
             [
                 'code' => Helper::generateRandomProductCode(10),
@@ -31,7 +32,8 @@ class ProductSeeder extends Seeder
                 'category_id' => 1,
                 'user_id' => 1,
                 'price' => 150000,
-                'type' => 'E-Book'
+                'type' => 'E-Book',
+                'status' => 'published'
             ],
             [
                 'code' => Helper::generateRandomProductCode(10),
@@ -40,7 +42,8 @@ class ProductSeeder extends Seeder
                 'category_id' => 1,
                 'user_id' => 1,
                 'price' => 200000,
-                'type' => 'E-Course'
+                'type' => 'E-Course',
+                'status' => 'published'
             ],
             [
                 'code' => Helper::generateRandomProductCode(10),
@@ -49,7 +52,8 @@ class ProductSeeder extends Seeder
                 'category_id' => 1,
                 'user_id' => 1,
                 'price' => 75000,
-                'type' => 'E-File'
+                'type' => 'E-File',
+                'status' => 'published'
             ],
             [
                 'code' => Helper::generateRandomProductCode(10),
@@ -58,7 +62,8 @@ class ProductSeeder extends Seeder
                 'category_id' => 1,
                 'user_id' => 1,
                 'price' => 180000,
-                'type' => 'E-Book'
+                'type' => 'E-Book',
+                'status' => 'published'
             ],
             [
                 'code' => Helper::generateRandomProductCode(10),
@@ -67,7 +72,8 @@ class ProductSeeder extends Seeder
                 'category_id' => 10,
                 'user_id' => 1,
                 'price' => 230000,
-                'type' => 'E-Course'
+                'type' => 'E-Course',
+                'status' => 'published'
             ],
             [
                 'code' => Helper::generateRandomProductCode(10),
@@ -76,7 +82,8 @@ class ProductSeeder extends Seeder
                 'category_id' => 9,
                 'user_id' => 1,
                 'price' => 120000,
-                'type' => 'E-book'
+                'type' => 'E-book',
+                'status' => 'published'
             ],
             [
                 'code' => Helper::generateRandomProductCode(10),
@@ -85,7 +92,8 @@ class ProductSeeder extends Seeder
                 'category_id' => 8,
                 'user_id' => 1,
                 'price' => 160000,
-                'type' => 'E-Book'
+                'type' => 'E-Book',
+                'status' => 'published'
             ],
             [
                 'code' => Helper::generateRandomProductCode(10),
@@ -94,7 +102,8 @@ class ProductSeeder extends Seeder
                 'category_id' => 4,
                 'user_id' => 1,
                 'price' => 110000,
-                'type' => 'E-Course'
+                'type' => 'E-Course',
+                'status' => 'published'
             ],
             [
                 'code' => Helper::generateRandomProductCode(10),
@@ -103,7 +112,8 @@ class ProductSeeder extends Seeder
                 'category_id' => 6,
                 'user_id' => 1,
                 'price' => 250000,
-                'type' => 'E-File'
+                'type' => 'E-File',
+                'status' => 'published'
             ],
         ];
 

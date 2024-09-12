@@ -5,7 +5,8 @@ namespace App\Repositories\Product;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Product;
 
-class ProductRepositoryImplement extends Eloquent implements ProductRepository{
+class ProductRepositoryImplement extends Eloquent implements ProductRepository
+{
 
     protected $model;
 
@@ -14,15 +15,27 @@ class ProductRepositoryImplement extends Eloquent implements ProductRepository{
         $this->model = $model;
     }
 
-    public function getData() {
+    // ambil data
+    public function getData()
+    {
         return $this->model->with(['category', 'author'])->latest()->get();
     }
 
-    public function getPaginationData() {
+    // ambil paginasi data
+    public function getPaginationData($page, $size)
+    {
+        return $this->model->with('category')->orderByDesc('created_at')->paginate($size, ['*'], 'page', $page);
+    }
+
+    // ambil paginasi data untuk browse data
+    public function getBrowsePaginationData()
+    {
         return $this->model->with(['category', 'author'])->latest();
     }
 
-    public function getDetailProduct($code){
+    // ambil detail data
+    public function getDetailProduct($code)
+    {
         return $this->model->with(['author', 'sections.lessons', 'benefits'])->where('code', $code)->first();
     }
 }

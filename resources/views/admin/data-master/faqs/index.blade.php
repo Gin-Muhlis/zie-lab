@@ -95,4 +95,5 @@
                 }
             </script>
         @endpush
+    </div>
 </x-layout-panel>

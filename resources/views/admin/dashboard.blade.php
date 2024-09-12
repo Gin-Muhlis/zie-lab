@@ -45,7 +45,7 @@
 
         <x-bladewind::card title="Data Jumlah Penjualan Produk Digital 2024">
             
-            <div class="overflow-x-auto position-relative w-full">
+            <div class="overflow-x-auto relative w-full">
                 <canvas id="chart" class="w-[800px] sm:w-full"></canvas>
             </div>
         </x-bladewind::card>

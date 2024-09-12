@@ -35,9 +35,7 @@
                                 <x-card-product :product="$product"></x-card-product>
                             @endforeach
                         </div>
-                        <div class="w-full flex items-center justify-center gap-3">
-                            {{ $products->links() }}
-                        </div>
+                        {{ $products->links() }}
                     @endif
 
                 </div>
