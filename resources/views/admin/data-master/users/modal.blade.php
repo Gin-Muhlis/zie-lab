@@ -11,7 +11,7 @@
             label="Email" value="{{ old('email') }}" />
 
         <x-bladewind::input required="true" name="phone" type="tel" error_message="No Telepon tidak boleh kosong"
-            label="No Telepon" value="{{ old('phone') }}" />
+            class="phone-input-create" label="No Telepon" value="{{ old('phone') }}" />
 
         <x-bladewind::input required="true" name="password" type="password" viewable="true"
             error_message="Password tidak boleh kosong" label="Password" value="{{ old('password') }}" />
@@ -20,13 +20,14 @@
             <div class="blank-image-create w-10 h-10 bg-gray-300 rounded"></div>
             <img src="" alt="image-preview" class="image-preview-create w-10 h-10 object-cover hidden">
         </div>
-        <x-bladewind::input type="file" name="image" required="false" label="Avatar" value="{{ old('image') }}" class="image-input-create" />
+        <x-bladewind::input type="file" name="image" required="false" label="Avatar" value="{{ old('image') }}"
+            class="image-input-create" />
         <p class="text-xs text-red-400 italic">Rekomendasi skala gambar 1:1</p>
     </form>
 
     @push('scripts')
         <script>
-             $('.image-input-create').on('change', e => {
+            $('.image-input-create').on('change', e => {
                 let file = e.target.files[0]
                 let reader = new FileReader()
 
@@ -43,9 +44,13 @@
                 }
             })
 
-            inputPhoneNumber = (e) => {
+            $('.phone-input-create').on('input', (e) => {
                 const value = e.target.value
-            }
+
+                const replacedValue = value.replace(/[^0-9]/g, '')
+                console.log(replacedValue)
+                e.target.value = replacedValue
+            })
             saveCreateData = () => {
                 if (validateForm('.create-form')) {
                     domEl('.create-form').submit();
@@ -93,8 +98,9 @@
 
 {{-- edit data --}}
 <x-bladewind::modal backdrop_can_close="true" name="update-data" ok_button_action="saveUpdateData()"
-    ok_button_label="Simpan" cancel_button_label="Batal" size="big" title="Edit Data" backdrop_can_close="false" cancel_button_action="cancelUpdateData()">
- 
+    ok_button_label="Simpan" cancel_button_label="Batal" size="big" title="Edit Data" backdrop_can_close="false"
+    cancel_button_action="cancelUpdateData()">
+
     <form method="post" class="update-form my-5" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -113,7 +119,8 @@
             <div class="blank-image-update w-10 h-10 bg-gray-300 rounded hidden"></div>
             <img src="" alt="image-preview" class="image-preview-update w-10 h-10 object-cover hidden">
         </div>
-        <x-bladewind::input type="file" name="image" required="false" label="Avatar Baru" class="image-input-update" />
+        <x-bladewind::input type="file" name="image" required="false" label="Avatar Baru"
+            class="image-input-update" />
         <p class="text-xs text-red-500 italic">Rekomendasi skala gambar 1:1</p>
     </form>
 
@@ -134,6 +141,14 @@
                 if (file) {
                     reader.readAsDataURL(file);
                 }
+            })
+
+            $('.phone-input-update').on('input', (e) => {
+                const value = e.target.value
+
+                const replacedValue = value.replace(/[^0-9]/g, '')
+                console.log(replacedValue)
+                e.target.value = replacedValue
             })
 
             cancelUpdateData = () => {
