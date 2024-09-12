@@ -24,7 +24,6 @@
         <script>
             inputPhoneNumber = (e) => {
                 const value = e.target.value
-                console.log(value)
             }
             saveCreateData = () => {
                 if (validateForm('.create-form')) {

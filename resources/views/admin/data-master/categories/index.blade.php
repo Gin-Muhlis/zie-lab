@@ -36,7 +36,7 @@
                         <td>{{ $item->name }}</td>
                         <td>
                             @if ($item->icon)
-                                <img src="{{ $item->icon }}" alt="Image category" class="w-7 h-7 object-cover">
+                                <img src="{{ $item->icon }}" alt="Image category" class="w-10 h-10 object-cover">
                             @else
                                 <span>-</span>
                             @endif
@@ -89,6 +89,13 @@
 
                     $('.input-update').val(searchData.name)
                     $('.update-form').attr('action', `${window.location.href}/${searchData.id}`)
+
+                    if (searchData.icon != null) {
+                        $('.image-preview-update').removeClass('hidden')
+                        $('.image-preview-update').attr('src', searchData.icon)
+                    } else {
+                        $('.blank-image-update').removeClass('hidden')
+                    }
 
                     showModal('update-data')
                 }

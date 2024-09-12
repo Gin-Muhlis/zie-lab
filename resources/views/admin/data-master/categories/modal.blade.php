@@ -7,12 +7,32 @@
         <x-bladewind::input required="true" name="name" error_message="Nama kategori tidak boleh kosong"
             label="Nama kategori" value="{{ old('name') }}" />
 
+        <div class="image-preview mb-5">
+            <div class="blank-image-create w-10 h-10 bg-gray-300 rounded"></div>
+            <img src="" alt="image-preview" class="image-preview-create w-10 h-10 object-cover hidden">
+        </div>
         <x-bladewind::input type="file" name="icon" required="true" error_message="Icon tidak boleh kosong"
-            label="Icon" value="{{ old('icon') }}" />
+            label="Icon" value="{{ old('icon') }}" class="image-input-create" />
     </form>
 
     @push('scripts')
         <script>
+            $('.image-input-create').on('change', e => {
+                let file = e.target.files[0]
+                let reader = new FileReader()
+
+                reader.onload = (e) => {
+                    $('.blank-image-create').addClass('hidden')
+                    const img = $('.image-preview-create');
+                    $(img).removeClass('hidden')
+
+                    $(img).attr('src', e.target.result)
+                }
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            })
             saveCreateData = () => {
                 if (validateForm('.create-form')) {
                     domEl('.create-form').submit();
@@ -54,7 +74,7 @@
 
 {{-- edit data --}}
 <x-bladewind::modal backdrop_can_close="true" name="update-data" ok_button_action="saveUpdateData()"
-    ok_button_label="Simpan" cancel_button_label="Batal" size="big" title="Edit Data">
+    ok_button_label="Simpan" cancel_button_label="Batal" size="big" title="Edit Data" backdrop_can_close="false"   cancel_button_action="cancelUpdateData()">
 
     <form method="post" class="update-form my-5" enctype="multipart/form-data">
         @csrf
@@ -62,11 +82,38 @@
         <x-bladewind::input required="true" name="name" error_message="Nama kategori tidak boleh kosong"
             label="Nama kategori" class="input-update" />
 
-        <x-bladewind::input type="file" name="icon" required="false" label="Icon baru" />
+        <div class="image-preview mb-5">
+            <div class="blank-image-update w-10 h-10 bg-gray-300 rounded hidden"></div>
+            <img src="" alt="image-preview" class="image-preview-update w-10 h-10 object-cover hidden">
+        </div>
+        <x-bladewind::input type="file" name="icon" required="false" label="Icon baru" class="image-input-update" />
     </form>
 
     @push('scripts')
         <script>
+            $('.image-input-update').on('change', e => {
+                let file = e.target.files[0]
+                let reader = new FileReader()
+
+                reader.onload = (e) => {
+                    $('.blank-image-update').addClass('hidden')
+                    const img = $('.image-preview-update');
+                    $(img).removeClass('hidden')
+
+                    $(img).attr('src', e.target.result)
+                }
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            })
+
+            cancelUpdateData = () => {
+                $('.blank-image-update').addClass('hidden')
+                $('.image-preview-update').addClass('hidden')
+                $('.image-preview-update').attr('src', '')
+            }
+
             saveUpdateData = () => {
                 if (validateForm('.update-form')) {
                     domEl('.update-form').submit();
