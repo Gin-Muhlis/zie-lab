@@ -42,7 +42,9 @@
                             @if ($item->image)
                                 <img src="{{ $item->image }}" alt="Image category" class="w-10 h-10 object-cover">
                             @else
-                                <span>-</span>
+                            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-center text-white font-bold">
+                                {{ $item->getInitial() }}
+                            </div>
                             @endif
                         </td>
                         <td class="text-center">
@@ -81,6 +83,16 @@
 
                     if (searchData.image == null) {
                         $('.no-image-detail').removeClass('hidden')
+                        $('.no-image-detail').addClass('flex')
+
+                        let nameSplit = searchData.name.split(' ')
+                        if (nameSplit.length >= 2) {
+                            let initial = `${nameSplit[0].charAt(0).toUpperCase()}${nameSplit[1].charAt(0).toUpperCase()}`
+                            $('.no-image-detail').text(initial)
+                        } else {
+                            let initial = nameSplit[0].charAt(0).toUpperCase()
+                            $('.no-image-detail').text(initial)
+                        }
                     } else {
                         $('.image-detail').removeClass('hidden')
                         $('.image-detail').attr('src', searchData.image)

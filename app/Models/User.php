@@ -59,7 +59,37 @@ class User extends Authenticatable
         return $this->getRoleNames()->first();
     }
 
+    // merubah value attribute image
     public function getImageAttribute($value) {
         return $value ? Storage::url($value) : null;
+    }
+
+    // mengambil inisial user
+    public function getInitial() {
+        $name_split = explode(' ', $this->name);
+        $first_name_split = str_split($name_split[0]);
+
+        if (count($name_split) >= 2) {
+            $second_name_split = str_split($name_split[1]);
+            $initial = strtoupper($first_name_split[0]) . strtoupper($second_name_split[0]);
+
+        } else {
+            $initial = strtoupper($first_name_split[0]);
+        }
+
+        return $initial;
+    }
+
+    // mengambil 2 nama awal user
+    public function getUsername() {
+        $name_split = explode(' ', $this->name);
+
+        if (count($name_split) >= 2) {
+            $username = $name_split[0] . ' ' . $name_split[1];
+        } else {
+            $username = $name_split[0];
+        }
+
+        return $username;
     }
 }

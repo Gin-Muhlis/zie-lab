@@ -12,10 +12,15 @@
     </div>
 
     <div class="w-full mb-8 pb-5 border-b-4 border-b-white flex items-center justify-start gap-3 flex-wrap">
-        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-center text-primary font-bold">
-            ZL
-        </div>
-        <h1 class="text-xl text-white font-bold">Zie Lab</h1>
+        @if (auth()->user()->image)
+            <img src="{{ auth()->user()->image }}" alt="Image category" class="w-10 h-10 object-cover">
+        @else
+            <div
+                class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-center text-primary font-bold">
+                {{ auth()->user()->getInitial() }}
+            </div>
+        @endif
+        <h1 class="text-xl text-white font-bold">{{ auth()->user()->getUsername() }}</h1>
     </div>
     <div class="w-full flex flex-col items-start justify-start gap-5">
         {{-- dsahboard admin --}}
@@ -39,8 +44,7 @@
                     class="{{ request()->routeIs('profile-companies.index') ? $active : $default }}">
                     Biodata Perusahaan
                 </a>
-                <a href="{{ route('faqs.index') }}"
-                    class="{{ request()->routeIs('faqs.index') ? $active : $default }}">
+                <a href="{{ route('faqs.index') }}" class="{{ request()->routeIs('faqs.index') ? $active : $default }}">
                     FAQ
                 </a>
                 <a href="{{ route('users.index') }}"

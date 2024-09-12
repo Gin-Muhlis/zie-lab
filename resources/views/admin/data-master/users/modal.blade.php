@@ -80,8 +80,10 @@
 
         <div class="mb-3">
             <label class="mb-1 inline-block">Gambar/Avatar</label>
-            <img src="" alt="Image category" class="w-16 h-16 object-cover image-detail hidden">
-            <p class="no-image-detail hidden text-xs italic opacity-50">Avatar tidak tersedia</p>
+            <img src="" alt="Image category" class="w-12 h-12 object-cover image-detail hidden">
+            <div class="w-10 h-10 rounded-full bg-primary items-center justify-center text-center text-white font-bold no-image-detail hidden">
+                
+            </div>
         </div>
 
     </div>
