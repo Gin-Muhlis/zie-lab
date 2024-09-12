@@ -45,7 +45,7 @@ class CategoryExport implements FromView, WithDrawings, WithTitle, WithEvents
                 // width kolom
                 $sheet->getColumnDimension('A')->setWidth(5);
                 $sheet->getColumnDimension('B')->setWidth(40);
-                $sheet->getColumnDimension('C')->setAutoSize(true);
+                $sheet->getColumnDimension('C')->setWidth(15);
 
                 // tambah baris awal
                 $sheet->insertNewRowBefore(1, 2);
@@ -70,7 +70,7 @@ class CategoryExport implements FromView, WithDrawings, WithTitle, WithEvents
                 $sheet->getRowDimension(3)->setRowHeight(30);
                 $start_row = 4;
                 foreach($data as $item) {
-                    $sheet->getRowDimension($start_row)->setRowHeight(40);
+                    $sheet->getRowDimension($start_row)->setRowHeight(60);
                     $start_row++;
                 }
 
@@ -102,10 +102,10 @@ class CategoryExport implements FromView, WithDrawings, WithTitle, WithEvents
             $drawing = new Drawing();
             $drawing->setName('Gambar');
             $drawing->setPath(public_path($item->icon));
-            $drawing->setWidth(30);
+            $drawing->setWidth(60);
             $drawing->setCoordinates($column . $index + $start_row);
-            $drawing->setOffsetX(15);
-            $drawing->setOffsetY(15);
+            $drawing->setOffsetX(25);
+            $drawing->setOffsetY(10);
 
             $drawings[] = $drawing;
            }
