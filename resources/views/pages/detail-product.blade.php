@@ -34,56 +34,61 @@
                 </div>
             </div>
             <div class="w-full rounded-md bg-white p-5 md:p-10">
-                <div class="w-full rounded-md bg-second-background p-5 md:p-8 mb-10">
-                    <h2 class="text-xl text-primary font-bold mb-8">Apa Yang Akan Kamu Dapatkan</h2>
-                    <ul>
-                        @foreach ($product->benefits as $benefit)
-                            <li class="flex items-center justify-start text-md text-white gap-1 mb-4">
-                                <x-bladewind::icon name="check" class="!h-6 !w-6" />
-                                <span>{{ $benefit->benefit }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
+                @if (count($product->benefits) > 0)
+                    <div class="w-full rounded-md bg-second-background p-5 md:p-8 mb-10">
+                        <h2 class="text-xl text-primary font-bold mb-8">Apa Yang Akan Kamu Dapatkan</h2>
+                        <ul>
+                            @foreach ($product->benefits as $benefit)
+                                <li class="flex items-center justify-start text-md text-white gap-1 mb-4">
+                                    <x-bladewind::icon name="check" class="!h-6 !w-6" />
+                                    <span>{{ $benefit->benefit }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="mb-10">
                     <h2 class="text-xl text-primary font-bold mb-3">Deskripsi</h2>
                     <p class=text-sm text-second-background leading-7 md:text-base">
-                        {{ $product->description }}
+                        {!! $product->description ?? '-' !!}
                     </p>
                 </div>
-                <div class="mb-10">
-                    <h2 class="text-xl text-primary font-bold mb-3">Pelajaran</h2>
-                    <div class="flex flex-col items-start justify-start gap-5">
-                        @foreach ($product->sections as $section)
-                            <div class="w-full">
-                                <h3 class="text-base text-slate-500 font-bold mb-2">{{ $section->name }}</h3>
-                                <div class="flex flex-col items-start justify-start gap-3 w-full ps-3">
-                                    @foreach ($section->lessons as $lesson)
-                                        @if ((bool) $lesson->is_preview)
-                                            <a href="#"
-                                                class="w-full p-4 rounded border border-slate-300 flex items-center jusitfy-start gap-2 text-primary text-sm">
-                                                <x-bladewind::icon name="document-text" class="!h-5 !w-5" />
-                                                <span>{{ $lesson->title }}</span>
-                                            </a>
-                                        @else
-                                            <div
-                                                class="w-full p-4 rounded border border-slate-300 opacity-70 flex items-center jusitfy-start gap-2 text-second-background text-sm">
-                                                <x-bladewind::icon name="document-text" class="!h-5 !w-5" />
-                                                <span>{{ $lesson->title }}</span>
-                                            </div>
-                                        @endif
-                                    @endforeach
+                @if ($product->type === 'E-Course')
+                    <div class="mb-10">
+                        <h2 class="text-xl text-primary font-bold mb-3">Pelajaran</h2>
+                        <div class="flex flex-col items-start justify-start gap-5">
+                            @foreach ($product->sections as $section)
+                                <div class="w-full">
+                                    <h3 class="text-base text-slate-500 font-bold mb-2">{{ $section->name }}</h3>
+                                    <div class="flex flex-col items-start justify-start gap-3 w-full ps-3">
+                                        @foreach ($section->lessons as $lesson)
+                                            @if ((bool) $lesson->is_preview)
+                                                <a href="#"
+                                                    class="w-full p-4 rounded border border-slate-300 flex items-center jusitfy-start gap-2 text-primary text-sm">
+                                                    <x-bladewind::icon name="document-text" class="!h-5 !w-5" />
+                                                    <span>{{ $lesson->title }}</span>
+                                                </a>
+                                            @else
+                                                <div
+                                                    class="w-full p-4 rounded border border-slate-300 opacity-70 flex items-center jusitfy-start gap-2 text-second-background text-sm">
+                                                    <x-bladewind::icon name="document-text" class="!h-5 !w-5" />
+                                                    <span>{{ $lesson->title }}</span>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+
                                 </div>
-
-                            </div>
-                        @endforeach
+                            @endforeach
 
 
 
+                        </div>
                     </div>
-                </div>
+                @endif
                 <x-bladewind::button show_focus_ring="false" color="yellow" uppercasing="false"
-                    class="font-bold w-full text-lg text-center" tag="a" href="{{ route('products.payment', $product->code) }}">
+                    class="font-bold w-full text-lg text-center" tag="a"
+                    href="{{ route('products.payment', $product->code) }}">
                     Beli Rp. {{ number_format($product->price, 0, ',', '.') }}
                 </x-bladewind::button>
             </div>

@@ -49,15 +49,15 @@
                                 color="{{ $item->status === 'published' ? 'green' : 'red' }}" tiny="true"
                                 uppercasing="false" />
                         </td>
-                        <td class="!text-center min-w-52 !align-middle">
-                            <x-bladewind::button color="yellow" outline="true" size="tiny"
-                                onclick="detailData({{ $item->id }})">
-                                Detail
-                            </x-bladewind::button>
-                            <x-bladewind::button color="yellow" outline="true" size="tiny"
-                                onclick="deleteData({{ $item->id }})">
-                                Preview
-                            </x-bladewind::button>
+                        <td class="!text-center min-w-28 !align-middle">
+                            <x-bladewind::dropmenu>
+                                <x-bladewind::dropmenu-item>
+                                    <a href="{{ route('products.detail', $item->code) }}" target="_blank">preview</a>
+                                </x-bladewind::dropmenu-item>
+                                <x-bladewind::dropmenu-item>Detail</x-bladewind::dropmenu-item>
+                                <x-bladewind::dropmenu-item>Edit</x-bladewind::dropmenu-item>
+                                <x-bladewind::dropmenu-item>Hapus</x-bladewind::dropmenu-item>
+                            </x-bladewind::dropmenu>
                         </td>
                     </tr>
                 @endforeach

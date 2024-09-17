@@ -29,7 +29,9 @@ class StoreEbookRequest extends FormRequest
             'category_id' => ['required', 'exists:categories,id'],
             'price' => ['required', 'numeric'],
             'status' => ['required', 'in:draft,published'],
-            'thumbnail_product' => ['required']
+            'thumbnail_product' => ['required'],
+            'benefits' => ['required', 'array'],
+            'benefits.*' => ['required', 'string']
         ];
     }
 
@@ -56,6 +58,11 @@ class StoreEbookRequest extends FormRequest
 
             'status.required' => 'Status tidak boleh kosong.',
             'status.in' => 'Status hanya boleh berupa draft atau published.',
+
+            'benefits.required' => 'Benefit tidak boleh kosong.',
+            'benefits.array' => 'Benefit harus berupa array.',
+            'benefits.*.required' => 'Setiap benefit tidak boleh kosong.',
+            'benefits.*.string' => 'Setiap benefit harus berupa teks.',
         ];
     }
 

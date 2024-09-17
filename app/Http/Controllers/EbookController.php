@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Repositories\Benefit\BenefitRepository;
 use Exception;
+use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreEbookRequest;
@@ -16,10 +18,12 @@ class EbookController extends Controller
 {
     private $product_repository;
     private $category_repository;
-    public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository)
+    private $benefit_repository;
+    public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository, BenefitRepository $benefitRepository)
     {
         $this->product_repository = $productRepository;
         $this->category_repository = $categoryRepository;
+        $this->benefit_repository = $benefitRepository;
     }
 
     // tampil data
@@ -42,10 +46,11 @@ class EbookController extends Controller
     //  tambah data
     public function store(StoreEbookRequest $request)
     {
-
-        $validated = $request->validated();
-
+        $thumbnail_saved = null;
+        $file_saved = null;
+        
         try {
+            $validated = $request->validated();
 
             $cropped_image = $validated['thumbnail_product'];
             $file_ebook = $validated['file_ebook'];
@@ -63,28 +68,48 @@ class EbookController extends Controller
             $data['status'] = $validated['status'];
 
             if ($cropped_image) {
-
                 $cropped_image = str_replace('data:image/jpeg;base64,', '', $cropped_image);
                 $cropped_image = str_replace(' ', '+', $cropped_image);
 
-                $imageName = Str::random(40) . '.jpg';
+                $image_name = Str::random(40) . '.jpg';
                 $path_thumbnail = 'public/images/products/ebooks/';
 
-                $data['thumbnail'] = $path_thumbnail . $imageName;
+                $data['thumbnail'] = $path_thumbnail . $image_name;
+                $thumbnail_saved = $data['thumbnail'];
 
-                Storage::put($path_thumbnail . $imageName, base64_decode($cropped_image));
+                Storage::put($path_thumbnail . $image_name, base64_decode($cropped_image));
             }
 
             if ($file_ebook) {
                 $data['file_book'] = $file_ebook->store('public/documents/product');
+                $file_saved = $data['file_book'];
             }
 
-            $this->product_repository->createData($data);
+            DB::beginTransaction();
+
+            $product = $this->product_repository->createData($data);
+
+            foreach ($validated['benefits'] as $benefit) {
+                $data_benefit['product_id'] = $product->id;
+                $data_benefit['benefit'] = $benefit;
+
+                $this->benefit_repository->createData($data_benefit);
+            }
+
+            DB::commit();
 
             return redirect()->route('e-books.index')->with('success', 'Data berhasil ditambahkan');
 
         } catch (Exception $e) {
-            dd($e->getMessage());
+            DB::rollBack();
+
+            if ($thumbnail_saved) {
+                Storage::delete($thumbnail_saved);
+            }
+    
+            if ($file_saved) {
+                Storage::delete($file_saved);
+            }
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
         }
     }

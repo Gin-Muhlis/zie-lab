@@ -7,13 +7,21 @@
         @include('admin.products.ebooks.modal')
         <h1 class="text-2xl font-bold mb-5">Tambah E-Book Baru</h1>
         <div class="w-full flex items-start justify-between gap-5 flex-wrap">
-            <div class="w-full flex items-center justify-end gap-5">
-                <x-bladewind::button color="red" outline="true" class="btn-save-draft" onclick="saveDraftData()">
-                    Save Draft
-                </x-bladewind::button>
-                <x-bladewind::button color="green" outline="false" class="btn-save-publish" onclick="savePublishData()">
-                    Publish
-                </x-bladewind::button>
+            <div class="w-full flex items-center justify-between gap-5">
+                <a href="{{ route('e-books.index') }}"
+                    class="flex items-center justify-center gap-1 text-sm text-gray-400">
+                    <x-bladewind::icon name="arrow-left" class="!h-4 !w-4" />
+                    Kembali
+                </a>
+                <div class="flex items-center justify-center gap-3">
+                    <x-bladewind::button color="red" outline="true" class="btn-save-draft" onclick="saveDraftData()">
+                        Save Draft
+                    </x-bladewind::button>
+                    <x-bladewind::button color="green" outline="false" class="btn-save-publish"
+                        onclick="savePublishData()">
+                        Publish
+                    </x-bladewind::button>
+                </div>
             </div>
             <form method="post" action="{{ route('e-books.store') }}"
                 class="update-form flex flex-col items-start justify-start gap-5 flex-1 create-form"
@@ -29,7 +37,7 @@
 
                     </div>
                     <div class="w-full flex items-start justify-start flex-wrap md:flex-nowrap gap-5">
-                        <x-bladewind::input name="price" required="true" label="Harga"
+                        <x-bladewind::input name="price_input" required="true" label="Harga"
                             class="w-full product-price-input" value="{{ old('price') }}" />
 
                         <div class="w-full">
@@ -51,8 +59,47 @@
                         accepted_file_types=".pdf" required="true" show_error_inline="true" />
                 </x-bladewind::card>
 
+                <x-bladewind::card title="Tambahkan benefit yang akan didapat pengguna" class="w-full relative">
+                    <div class="benefits-wrapper mb-5">
+                        @if (old('benefits'))
+                            @foreach (old('benefits') as $benefit)
+                                <div class="benefit-input">
+                                    <input type="text" name="benefits" placeholder="Manfaat 1"
+                                        class=" !outline-none
+                    !ring-0
+                    border-2
+                    w-full text-slate-600 dark:text-dark-300 border-slate-300/50 dark:border-dark-600 dark:bg-transparent /*dark-800*/
+                    focus:outline-none
+                    focus:border-2
+                    focus:border-primary-500 dark:focus:border-dark-500 dark:placeholder-dark-400/60 transition-all
+                    rounded-md
+                    text-sm
+                    px-3.5 py-[8.5px] mb-3"
+                                        value="{{ $benefit }}">
+                                </div>
+                            @endforeach
+                        @else
+                            <input type="text" name="benefits[]" placeholder="Manfaat 1"
+                                class=" !outline-none
+                            !ring-0
+                            border-2
+                            w-full text-slate-600 dark:text-dark-300 border-slate-300/50 dark:border-dark-600 dark:bg-transparent /*dark-800*/
+                            focus:outline-none
+                            focus:border-2
+                            focus:border-primary-500 dark:focus:border-dark-500 dark:placeholder-dark-400/60 transition-all
+                            rounded-md
+                            text-sm
+                            px-3.5 py-[8.5px] mb-3">
+                        @endif
+
+                    </div>
+                    <x-bladewind::button outline="true" type="secondary" class="w-full add-benefit"
+                        icon="plus"></x-bladewind::button>
+                </x-bladewind::card>
+
                 <input type="hidden" name="thumbnail_product" class="thumbail-input-product">
                 <input type="hidden" name="status" class="status-product-input">
+                <input type="hidden" name="price" class="price-product-input">
                 <textarea name="description" id="description" class="hidden"></textarea>
             </form>
             <div class="relative w-80">
@@ -95,7 +142,6 @@
 
                 let cropper
                 let image = document.getElementById('image')
-
 
                 $('.product-name-input').on('input', e => {
                     const value = $(e.target).val();
@@ -168,16 +214,35 @@
                     const formattedValue = new Intl.NumberFormat('id-ID').format(price)
 
                     $(e.target).val(formattedValue)
+                    $('.price-product-input').attr('value', value.replace(/\./g, ''))
                     $('.product-price-preview').html(formattedValue)
                 })
 
-                $('.product-category-input').on('input', e => {
+                $('input[name="category_id"]').on('change', e => {
                     const value = parseInt($(e.target).val());
-
                     const category = categories.find(item => item.id === value)
 
                     $('.product-category-preview').html(category.name)
                 })
+
+
+                let count = 2
+                $('.add-benefit').click(function() {
+                    let text = ` <input type="text" name="benefits[]" placeholder="Manfaat ${count}"
+                            class=" !outline-none
+                                !ring-0
+                                border-2
+                                w-full text-slate-600 dark:text-dark-300 border-slate-300/50 dark:border-dark-600 dark:bg-transparent /*dark-800*/
+                                focus:outline-none
+                                focus:border-2
+                                focus:border-primary-500 dark:focus:border-dark-500 dark:placeholder-dark-400/60 transition-all
+                                rounded-md
+                                text-sm
+                                px-3.5 py-[8.5px]
+                                mb-3">`
+                    $('.benefits-wrapper').append(text)
+                    count++
+                });
 
                 function syncEditorToTextarea() {
                     const editorContent = document.querySelector('.ql-editor').innerHTML;
@@ -207,4 +272,5 @@
             })
         </script>
     @endpush
+
 </x-layout-panel>
