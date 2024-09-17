@@ -113,4 +113,16 @@ class EbookController extends Controller
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
         }
     }
+
+    // detail data
+    public function show($e_book) {
+        try {
+            $data = $this->product_repository->getDetailProduct($e_book);
+            $categories = $this->category_repository->getData();
+
+            return view('admin.products.ebooks.detail', compact('data', 'categories'));
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
+    }
 }

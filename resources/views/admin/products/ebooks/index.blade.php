@@ -54,7 +54,9 @@
                                 <x-bladewind::dropmenu-item>
                                     <a href="{{ route('products.detail', $item->code) }}" target="_blank">preview</a>
                                 </x-bladewind::dropmenu-item>
-                                <x-bladewind::dropmenu-item>Detail</x-bladewind::dropmenu-item>
+                                <x-bladewind::dropmenu-item>
+                                    <a href="{{ route('e-books.show', $item->code) }}">Detail</a>
+                                </x-bladewind::dropmenu-item>
                                 <x-bladewind::dropmenu-item>Edit</x-bladewind::dropmenu-item>
                                 <x-bladewind::dropmenu-item>Hapus</x-bladewind::dropmenu-item>
                             </x-bladewind::dropmenu>

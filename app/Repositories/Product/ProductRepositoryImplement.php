@@ -21,26 +21,27 @@ class ProductRepositoryImplement extends Eloquent implements ProductRepository
         return $this->model->with(['category', 'author'])->latest()->get();
     }
 
-    // ambil paginasi data
-    public function getPaginationDataByType($page, $size, $type)
-    {
-        return $this->model->with('category')->where('type', $type)->orderByDesc('created_at')->paginate($size, ['*'], 'page', $page);
-    }
-
     // ambil paginasi data untuk browse data
     public function getBrowsePaginationData()
     {
-        return $this->model->with(['category', 'author'])->latest();
+        return $this->model->with(relations: ['category', 'author'])->latest();
     }
 
     // ambil detail data
     public function getDetailProduct($code)
     {
-        return $this->model->with(['author', 'sections.lessons', 'benefits'])->where('code', $code)->first();
+        return $this->model->with(['author', 'sections.lessons', 'benefits', 'category'])->where('code', $code)->first();
     }
 
+    
     // tambah data
     public function createdata($data) {
         return $this->create($data);
+    }
+
+    // ambil paginasi data
+    public function getPaginationDataByType($page, $size, $type)
+    {
+        return $this->model->with('category')->where('type', $type)->orderByDesc('created_at')->paginate($size, ['*'], 'page', $page);
     }
 }
