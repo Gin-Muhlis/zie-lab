@@ -43,7 +43,6 @@ class UserController extends Controller
     {
         try {
             $validated = $request->validated();
-
             if ($request->hasFile('image')) {
                 $validated['image'] = $request->file('image')->store('public/images/users');
             }

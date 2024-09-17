@@ -22,6 +22,10 @@
     {{-- chart js --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    {{-- cropper js --}}
+    <link href="{{ asset('cropper') }}/cropper.min.css" rel="stylesheet">
+    <script src="{{ asset('cropper') }}/cropper.min.js"></script>
+
 
     {{-- custom css --}}
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">

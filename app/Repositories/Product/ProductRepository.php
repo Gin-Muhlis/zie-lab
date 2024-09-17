@@ -13,4 +13,6 @@ interface ProductRepository extends Repository{
     public function getDetailProduct($code);
 
     public function getBrowsePaginationData();
+
+    public function createData($data);
 }

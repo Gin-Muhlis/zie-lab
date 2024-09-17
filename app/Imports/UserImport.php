@@ -39,7 +39,7 @@ class UserImport implements ToCollection, WithHeadingRow, WithValidation, WithSt
             $drawing_path = $image->getPath();
             $extension = pathinfo($drawing_path, PATHINFO_EXTENSION);
             $name = Str::random(40);
-            $image_url = "public/images/categories/{$name}.{$extension}";
+            $image_url = "public/images/users/{$name}.{$extension}";
             $image_path = storage_path('/app' . '/' . $image_url);
 
             $contents = file_get_contents($drawing_path);
