@@ -33,15 +33,24 @@ class ProductRepositoryImplement extends Eloquent implements ProductRepository
         return $this->model->with(['author', 'sections.lessons', 'benefits', 'category'])->where('code', $code)->first();
     }
 
-    
-    // tambah data
-    public function createdata($data) {
-        return $this->create($data);
-    }
 
     // ambil paginasi data
     public function getPaginationDataByType($page, $size, $type)
     {
         return $this->model->with('category')->where('type', $type)->orderByDesc('created_at')->paginate($size, ['*'], 'page', $page);
     }
+
+    // tambah data
+    public function createData($data)
+    {
+        return $this->create($data);
+    }
+
+    // edit data
+    public function updateData($data, $id)
+    {
+        return $this->update($id, $data);
+    }
+
+
 }

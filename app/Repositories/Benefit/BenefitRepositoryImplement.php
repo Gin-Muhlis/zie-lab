@@ -15,7 +15,17 @@ class BenefitRepositoryImplement extends Eloquent implements BenefitRepository{
     }
 
     // tambah data
-    public function createdata($data) {
+    public function createData($data) {
         return $this->create($data);
+    }
+
+    // hapus data
+    public function deleteData($id) {
+        return $this->delete($id);
+    }
+
+    // detail data berdasarkan benefit
+    public function findBenefitByProductId($benefit, $product_id) {
+        return $this->model->where('product_id', $product_id)->where('benefit', $benefit)->first();
     }
 }

@@ -15,4 +15,5 @@ interface ProductRepository extends Repository{
     public function getBrowsePaginationData();
 
     public function createData($data);
+    public function updateData($data, $id);
 }

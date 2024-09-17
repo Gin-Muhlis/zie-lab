@@ -1,5 +1,6 @@
 <x-layout-panel>
     <div class="w-full relative mb-10">
+        @include('admin.products.ebooks.modal')
         <div
             class="w-full h-32 bg-gradient-to-br from-orange-500 to-yellow-600 rounded-md flex items-center justify-between gap-5 p-10 relative overflow-hidden">
             <x-bladewind::icon name="book-open" class="!h-44 !w-44 text-white opacity-30 absolute -bottom-8 left-0" />
@@ -57,8 +58,10 @@
                                 <x-bladewind::dropmenu-item>
                                     <a href="{{ route('e-books.show', $item->code) }}">Detail</a>
                                 </x-bladewind::dropmenu-item>
-                                <x-bladewind::dropmenu-item>Edit</x-bladewind::dropmenu-item>
-                                <x-bladewind::dropmenu-item>Hapus</x-bladewind::dropmenu-item>
+                                <x-bladewind::dropmenu-item>
+                                    <a href="{{ route('e-books.edit', $item->code) }}">Edit</a>
+                                </x-bladewind::dropmenu-item>
+                                <x-bladewind::dropmenu-item onclick="showModal('delete_data')">Hapus</x-bladewind::dropmenu-item>
                             </x-bladewind::dropmenu>
                         </td>
                     </tr>

@@ -5,7 +5,7 @@
 <x-layout-panel>
     <div class="w-full">
         @include('admin.products.ebooks.modal')
-        <h1 class="text-2xl font-bold mb-5">Tambah E-Book Baru</h1>
+        <h1 class="text-2xl font-bold mb-5">Perbarui E-Book</h1>
         <div class="w-full flex items-start justify-between gap-5 flex-wrap">
             <div class="w-full flex items-center justify-between gap-5">
                 <a href="{{ route('e-books.index') }}"
@@ -23,27 +23,29 @@
                     </x-bladewind::button>
                 </div>
             </div>
-            <form method="post" action="{{ route('e-books.store') }}"
+            <form method="post" action="{{ route('e-books.update', $data->code) }}"
                 class="update-form flex flex-col items-start justify-start gap-5 flex-1 create-form"
                 enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <x-bladewind::card title="Tambahkan informasi mengenai E-Book" class="w-full relative">
                     <div class="w-full flex items-start justify-start flex-wrap md:flex-nowrap gap-5">
                         <x-bladewind::input name="title" required="true" label="Judul"
-                            class="w-full product-name-input" selected_value="{{ old('title') }}" />
+                            class="w-full product-name-input" selected_value="{{ old('title') ?? $data->title }}" />
 
-                        <x-bladewind::input type="file" name="thumbnail" required="true" label="Thumbnail"
+                        <x-bladewind::input type="file" name="thumbnail" label="Thumbnail Baru"
                             class="product-image-input" accept="image/*" />
 
                     </div>
                     <div class="w-full flex items-start justify-start flex-wrap md:flex-nowrap gap-5">
                         <x-bladewind::input name="price_input" required="true" label="Harga"
-                            class="w-full product-price-input" selected_value="{{ old('price') }}" />
+                            class="w-full product-price-input"
+                            selected_value="{{ old('price') ?? $data->formatPrice($data->price) }}" />
 
                         <div class="w-full">
                             <x-bladewind::select name="category_id" placeholder="Pilih Kategori" searchable="true"
-                                selected_value="{{ old('category_id') }}" label_key="name" required="true"
-                                value_key="id" :data="$categories" />
+                                selected_value="{{ old('category_id') ?? $data->category_id }}" label_key="name"
+                                required="true" value_key="id" :data="$categories" />
                         </div>
                     </div>
 
@@ -55,8 +57,8 @@
                 </x-bladewind::card>
 
                 <x-bladewind::card title="Upload file E-Book" class="w-full relative">
-                    <x-bladewind::filepicker name="file_ebook" placeholder="Pilih File E-book"
-                        accepted_file_types=".pdf" required="true" show_error_inline="true" />
+                    <x-bladewind::filepicker name="file_ebook" placeholder="File E-book Baru" accepted_file_types=".pdf"
+                        show_error_inline="true" />
                 </x-bladewind::card>
 
                 <x-bladewind::card title="Tambahkan benefit yang akan didapat pengguna" class="w-full relative">
@@ -64,8 +66,9 @@
                         @if (old('benefits'))
                             @foreach (old('benefits') as $benefit)
                                 <div class="benefit-input">
-                                    <input type="text" name="benefits[]" placeholder="Manfaat 1"
-                                        class=" !outline-none
+                                    <div class="w-full flex items-start justify-start flex-nowrap gap-2">
+                                        <input type="text" name="benefits" placeholder="Tambahkan Manfaat"
+                                            class=" !outline-none
                     !ring-0
                     border-2
                     w-full text-slate-600 dark:text-dark-300 border-slate-300/50 dark:border-dark-600 dark:bg-transparent /*dark-800*/
@@ -75,7 +78,39 @@
                     rounded-md
                     text-sm
                     px-3.5 py-[8.5px] mb-3"
-                                        value="{{ $benefit }}">
+                                            value="{{ $benefit }}">
+                                        <div>
+                                            <x-bladewind::icon name="x-mark"
+                                                class="!h-6 !w-6 !text-white bg-red-500 p-1 rounded-full
+        cursor-pointer hover:bg-red-600 mt-2 delete-benefit" />
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                        @if (!old('benefits') && count($data->benefits) > 0)
+                            @foreach ($data->benefits as $benefit)
+                                <div class="benefit-input">
+                                    <div class="w-full flex items-start justify-start flex-nowrap gap-2">
+                                        <input type="text" name="benefits[]"
+                                            class=" !outline-none
+                    !ring-0
+                    border-2
+                    w-full text-slate-600 dark:text-dark-300 border-slate-300/50 dark:border-dark-600 dark:bg-transparent /*dark-800*/
+                    focus:outline-none
+                    focus:border-2
+                    focus:border-primary-500 dark:focus:border-dark-500 dark:placeholder-dark-400/60 transition-all
+                    rounded-md
+                    text-sm
+                    px-3.5 py-[8.5px] mb-3"
+                                            value="{{ $benefit->benefit }}">
+                                        <div id="{{ $benefit->id }}">
+                                            <x-bladewind::icon name="x-mark"
+                                                class="!h-6 !w-6 !text-white bg-red-500 p-1 rounded-full
+    cursor-pointer hover:bg-red-600 mt-2 delete-benefit" />
+                                        </div>
+
+                                    </div>
                                 </div>
                             @endforeach
                         @endif
@@ -86,30 +121,36 @@
                 </x-bladewind::card>
 
                 <input type="hidden" name="thumbnail_product" class="thumbail-input-product">
-                <input type="hidden" name="status" class="status-product-input">
-                <input type="hidden" name="price" class="price-product-input">
+                <input type="hidden" name="status" class="status-product-input" value="{{ $data->status }}">
+                <input type="hidden" name="price" class="price-product-input" value="{{ $data->price }}">
                 <textarea name="description" id="description" class="hidden"></textarea>
+                @if (old('deleted_benefits'))
+                    @foreach (old('deleted_benefits') as $id)
+                    <input type="hidden" name="deleted_benefits[]" value="{{ $id }}">
+                    @endforeach
+                @endif
             </form>
             <div class="relative w-80">
                 <div class="w-full text-center h-14 border bg-white flex items-center justify-center">
                     Preview Produk
                 </div>
                 <div class="w-full flex items-center justify-center p-5 border border-gray-200">
-                    <div
-                        class="bg-gray-500 w-56 h-80 border rounded-lg overflow-hidden relative bg-cover bg-center flex-shrink-0 product-thumbnail-preview">
+                    <div class="w-56 h-80 border rounded-lg overflow-hidden relative bg-cover bg-center flex-shrink-0 product-thumbnail-preview"
+                        style="background-image: url('{{ Storage::url($data->thumbnail) }}')">
                         <div
                             class="bg-primary rounded-md flex items-center justify-center px-3 py-1 text-xs text-white text-center absolute top-3 right-3 z-10 product-category-preview">
-                            Nama Kategori</div>
+                            {{ $data->category->name }}</div>
                         <div
                             class="bg-white rounded-md p-3 z-10 absolute bottom-5 left-1/2 -translate-x-1/2 w-11/12 h-28">
                             <h5 class="text-md font-bold mb-2 leading-5 mt-1 product-name-preview">
-                                Judul Produk
+                                {{ $data->title }}
                             </h5>
                             <div
                                 class="bg-secondary rounded-md px-2 py-1 text-[8px] text-white text-center absolute left-3 -top-3">
                                 E-Book</div>
-                            <p class="text-xs text-slate-400 mb-2">Oleh {{ auth()->user()->name }}</p>
-                            <p class="text-sm font-bold">Rp. <span class="product-price-preview">0</span></p>
+                            <p class="text-xs text-slate-400 mb-2">Oleh {{ $data->author->name }}</p>
+                            <p class="text-sm font-bold">Rp. <span
+                                    class="product-price-preview">{{ $data->formatPrice($data->price) }}</span></p>
                         </div>
                     </div>
                 </div>
@@ -119,7 +160,13 @@
 
     @if (old('description'))
         <script>
-            document.querySelector('.ql-editor').innerHTML = `{!! old('description') !!}`;
+            document.querySelector('.ql-editor').innerHTML = `{!! old('description') !!}`
+        </script>
+    @endif
+
+    @if (!old('description') && $data->description)
+        <script>
+            document.querySelector('.ql-editor').innerHTML = `{!! $data->description !!}`
         </script>
     @endif
 
@@ -214,23 +261,45 @@
                 })
 
 
-                let count = 1
+                let benefits = @json($data->benefits)
+
                 $('.add-benefit').click(function() {
-                    let text = ` <input type="text" name="benefits[]" placeholder="Manfaat ${count}"
-                            class=" !outline-none
-                                !ring-0
-                                border-2
-                                w-full text-slate-600 dark:text-dark-300 border-slate-300/50 dark:border-dark-600 dark:bg-transparent /*dark-800*/
-                                focus:outline-none
-                                focus:border-2
-                                focus:border-primary-500 dark:focus:border-dark-500 dark:placeholder-dark-400/60 transition-all
-                                rounded-md
-                                text-sm
-                                px-3.5 py-[8.5px]
-                                mb-3">`
+                    let text = ` <div class="w-full flex items-start justify-start flex-nowrap gap-2">
+                                        <input type="text" name="benefits[]" placeholder="Tambahkan Manfaat"
+                                            class=" !outline-none
+                    !ring-0
+                    border-2
+                    w-full text-slate-600 dark:text-dark-300 border-slate-300/50 dark:border-dark-600 dark:bg-transparent /*dark-800*/
+                    focus:outline-none
+                    focus:border-2
+                    focus:border-primary-500 dark:focus:border-dark-500 dark:placeholder-dark-400/60 transition-all
+                    rounded-md
+                    text-sm
+                    px-3.5 py-[8.5px] mb-3">
+                                        <div>
+                                            <x-bladewind::icon name="x-mark"
+                                                class="!h-6 !w-6 !text-white bg-red-500 p-1 rounded-full
+    cursor-pointer hover:bg-red-600 mt-2 delete-benefit" />
+                                        </div>
+
+                                    </div>`
                     $('.benefits-wrapper').append(text)
-                    count++
                 });
+
+                $('.benefits-wrapper').on('click', '.delete-benefit', function(e) {
+
+                    let parentBenefit = $(this).parent()
+                    let benefitValue = $(parentBenefit).attr('id')
+
+                    $(parentBenefit.parent()).remove()
+                    console.log(benefitValue)
+
+                    if (benefitValue != undefined) {
+                        let inputDeleteBenefits =
+                            `<input type="hidden" name="deleted_benefits[]" value="${benefitValue}" >`
+                        $('.create-form').append(inputDeleteBenefits)
+                    }
+                })
 
                 function syncEditorToTextarea() {
                     const editorContent = document.querySelector('.ql-editor').innerHTML;
