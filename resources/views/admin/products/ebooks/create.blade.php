@@ -22,29 +22,20 @@
                 <x-bladewind::card title="Tambahkan informasi mengenai E-Book" class="w-full relative">
                     <div class="w-full flex items-start justify-start flex-wrap md:flex-nowrap gap-5">
                         <x-bladewind::input name="title" required="true" label="Judul"
-                            error_message="Judul tidak boleh kosong" class="w-full product-name-input"
-                            value="{{ old('title') }}" />
+                            class="w-full product-name-input" value="{{ old('title') }}" />
 
                         <x-bladewind::input type="file" name="thumbnail" required="true" label="Thumbnail"
                             class="product-image-input" accept="image/*" />
 
                     </div>
                     <div class="w-full flex items-start justify-start flex-wrap md:flex-nowrap gap-5">
-                        <x-bladewind::input numeric="true" name="price" required="true" label="Harga"
-                            error_message="Harga tidak boleh kosong" class="w-full product-price-input"
-                            value="{{ old('price') }}" />
+                        <x-bladewind::input name="price" required="true" label="Harga"
+                            class="w-full product-price-input" value="{{ old('price') }}" />
 
                         <div class="w-full">
-                            <select name="category_id" id="category_id" value="{{ old('category_id') }}"
-                                class="!outline-none !ring-0 border-2 w-full text-slate-600 dark:text-dark-300 border-slate-300/50  dark:border-dark-600 dark:bg-transparent /*dark-800*/ focus:outline-none focus:border-2 focus:border-primary-500 dark:focus:border-dark-500 dark:placeholder-dark-400/60 transition-all rounded-md text-sm px-3.5 py-[12px] product-category-input">
-                                <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>Pilih
-                                    Kategori</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                        {{ $category->name }}</option>
-                                @endforeach
-                            </select>
+                            <x-bladewind::select name="category_id" placeholder="Pilih Kategori" searchable="true"
+                                selected_value="{{ old('category_id') }}" label_key="name" required="true"
+                                value_key="id" :data="$categories" />
                         </div>
                     </div>
 
@@ -57,8 +48,7 @@
 
                 <x-bladewind::card title="Upload file E-Book" class="w-full relative">
                     <x-bladewind::filepicker name="file_ebook" placeholder="Pilih File E-book"
-                        accepted_file_types=".pdf" required="true" show_error_inline="true"
-                        error_message="File E-book tidak boleh kosong" />
+                        accepted_file_types=".pdf" required="true" show_error_inline="true" />
                 </x-bladewind::card>
 
                 <input type="hidden" name="thumbnail_product" class="thumbail-input-product">
@@ -177,7 +167,7 @@
                     const price = parseInt(value.replace(/[^0-9]/g, ''))
                     const formattedValue = new Intl.NumberFormat('id-ID').format(price)
 
-                    $(e.target).val(price)
+                    $(e.target).val(formattedValue)
                     $('.product-price-preview').html(formattedValue)
                 })
 

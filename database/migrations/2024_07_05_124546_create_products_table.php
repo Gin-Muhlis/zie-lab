@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code', 10);
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('link_gdrive')->nullable();
             $table->string('file_book')->nullable();
