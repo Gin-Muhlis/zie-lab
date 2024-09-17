@@ -231,4 +231,23 @@ class EbookController extends Controller
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
         }
     }
+
+    // hapus data
+    public function destroy(Product $e_book) {
+        try {
+            if ($e_book->thumbnail) {
+                Storage::delete($e_book->thumbnail);
+            }
+
+            if ($e_book->file_book) {
+                Storage::delete($e_book->file_book);
+            }
+
+            $this->product_repository->deleteData($e_book->id);
+
+            return redirect()->back()->with('success', 'Data berhasil dihapus');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
+    }
 }

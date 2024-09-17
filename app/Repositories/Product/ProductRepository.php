@@ -16,4 +16,5 @@ interface ProductRepository extends Repository{
 
     public function createData($data);
     public function updateData($data, $id);
+    public function deleteData($id);
 }

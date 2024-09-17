@@ -61,7 +61,8 @@
                                 <x-bladewind::dropmenu-item>
                                     <a href="{{ route('e-books.edit', $item->code) }}">Edit</a>
                                 </x-bladewind::dropmenu-item>
-                                <x-bladewind::dropmenu-item onclick="showModal('delete_data')">Hapus</x-bladewind::dropmenu-item>
+                                <x-bladewind::dropmenu-item
+                                    onclick="deleteData({{ $item->id }})">Hapus</x-bladewind::dropmenu-item>
                             </x-bladewind::dropmenu>
                         </td>
                     </tr>
@@ -69,4 +70,20 @@
             </tbody>
         </x-bladewind::table>
     </x-bladewind::card>
+    @push('scripts')
+        <script>
+            let data = @json($data);
+            data = data.data
+            console.log(data)
+
+            function deleteData(idSearch) {
+                let searchData = data.find(item => item.id == idSearch)
+
+                $('.data-delete').text(searchData.title)
+                $('.delete-form').attr('action', `${window.location.href}/${searchData.id}`)
+
+                showModal('delete-data')
+            }
+        </script>
+    @endpush
 </x-layout-panel>

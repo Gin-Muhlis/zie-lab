@@ -52,5 +52,10 @@ class ProductRepositoryImplement extends Eloquent implements ProductRepository
         return $this->update($id, $data);
     }
 
+    // hapus data
+    public function deleteData($id) {
+        return $this->delete($id);
+    }
+
 
 }
