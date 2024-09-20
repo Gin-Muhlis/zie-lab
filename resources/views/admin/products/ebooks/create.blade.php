@@ -64,8 +64,9 @@
                         @if (old('benefits'))
                             @foreach (old('benefits') as $benefit)
                                 <div class="benefit-input">
-                                    <input type="text" name="benefits[]" placeholder="Manfaat 1"
-                                        class=" !outline-none
+                                    <div class="w-full flex items-start justify-start flex-nowrap gap-2">
+                                        <input type="text" name="benefits" placeholder="Tambahkan Benefit"
+                                            class="!outline-none
                     !ring-0
                     border-2
                     w-full text-slate-600 dark:text-dark-300 border-slate-300/50 dark:border-dark-600 dark:bg-transparent /*dark-800*/
@@ -75,11 +76,16 @@
                     rounded-md
                     text-sm
                     px-3.5 py-[8.5px] mb-3"
-                                        value="{{ $benefit }}">
+                                            value="{{ $benefit }}">
+                                        <div>
+                                            <x-bladewind::icon name="x-mark"
+                                                class="!h-6 !w-6 !text-white bg-red-500 p-1 rounded-full
+        cursor-pointer hover:bg-red-600 mt-2 delete-benefit" />
+                                        </div>
+                                    </div>
                                 </div>
                             @endforeach
                         @endif
-
                     </div>
                     <x-bladewind::button outline="true" type="secondary" class="w-full add-benefit"
                         icon="plus"></x-bladewind::button>
@@ -89,6 +95,11 @@
                 <input type="hidden" name="status" class="status-product-input">
                 <input type="hidden" name="price" class="price-product-input">
                 <textarea name="description" id="description" class="hidden"></textarea>
+                @if (old('deleted_benefits'))
+                    @foreach (old('deleted_benefits') as $id)
+                        <input type="hidden" name="deleted_benefits[]" value="{{ $id }}">
+                    @endforeach
+                @endif
             </form>
             <div class="relative w-80">
                 <div class="w-full text-center h-14 border bg-white flex items-center justify-center">
@@ -213,24 +224,36 @@
                     $('.product-category-preview').html(category.name)
                 })
 
-
-                let count = 1
                 $('.add-benefit').click(function() {
-                    let text = ` <input type="text" name="benefits[]" placeholder="Manfaat ${count}"
-                            class=" !outline-none
-                                !ring-0
-                                border-2
-                                w-full text-slate-600 dark:text-dark-300 border-slate-300/50 dark:border-dark-600 dark:bg-transparent /*dark-800*/
-                                focus:outline-none
-                                focus:border-2
-                                focus:border-primary-500 dark:focus:border-dark-500 dark:placeholder-dark-400/60 transition-all
-                                rounded-md
-                                text-sm
-                                px-3.5 py-[8.5px]
-                                mb-3">`
+                    let text = ` <div class="w-full flex items-start justify-start flex-nowrap gap-2">
+                                        <input type="text" name="benefits[]" placeholder="Tambahkan Benefit"
+                                            class=" !outline-none
+                    !ring-0
+                    border-2
+                    w-full text-slate-600 dark:text-dark-300 border-slate-300/50 dark:border-dark-600 dark:bg-transparent /*dark-800*/
+                    focus:outline-none
+                    focus:border-2
+                    focus:border-primary-500 dark:focus:border-dark-500 dark:placeholder-dark-400/60 transition-all
+                    rounded-md
+                    text-sm
+                    px-3.5 py-[8.5px] mb-3">
+                                        <div>
+                                            <x-bladewind::icon name="x-mark"
+                                                class="!h-6 !w-6 !text-white bg-red-500 p-1 rounded-full
+    cursor-pointer hover:bg-red-600 mt-2 delete-benefit" />
+                                        </div>
+
+                                    </div>`
                     $('.benefits-wrapper').append(text)
-                    count++
                 });
+
+                $('.benefits-wrapper').on('click', '.delete-benefit', function(e) {
+
+                    let parentBenefit = $(this).parent()
+
+                    $(parentBenefit.parent()).remove()
+
+                })
 
                 function syncEditorToTextarea() {
                     const editorContent = document.querySelector('.ql-editor').innerHTML;

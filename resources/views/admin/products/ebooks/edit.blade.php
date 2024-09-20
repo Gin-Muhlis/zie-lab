@@ -67,7 +67,7 @@
                             @foreach (old('benefits') as $benefit)
                                 <div class="benefit-input">
                                     <div class="w-full flex items-start justify-start flex-nowrap gap-2">
-                                        <input type="text" name="benefits" placeholder="Tambahkan Manfaat"
+                                        <input type="text" name="benefits" placeholder="Tambahkan Benefit"
                                             class=" !outline-none
                     !ring-0
                     border-2
@@ -260,12 +260,9 @@
                     $('.product-category-preview').html(category.name)
                 })
 
-
-                let benefits = @json($data->benefits)
-
                 $('.add-benefit').click(function() {
                     let text = ` <div class="w-full flex items-start justify-start flex-nowrap gap-2">
-                                        <input type="text" name="benefits[]" placeholder="Tambahkan Manfaat"
+                                        <input type="text" name="benefits[]" placeholder="Tambahkan Benefit"
                                             class=" !outline-none
                     !ring-0
                     border-2
@@ -292,7 +289,6 @@
                     let benefitValue = $(parentBenefit).attr('id')
 
                     $(parentBenefit.parent()).remove()
-                    console.log(benefitValue)
 
                     if (benefitValue != undefined) {
                         let inputDeleteBenefits =
