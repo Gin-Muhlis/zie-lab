@@ -66,7 +66,7 @@
                                         </div>
                                         <x-bladewind::dropmenu>
                                             <x-bladewind::dropmenu-item onclick="updateDataLesson({{ $lesson->id }})">Edit</x-bladewind::dropmenu-item>
-                                            <x-bladewind::dropmenu-item>Hapus</x-bladewind::dropmenu-item>
+                                            <x-bladewind::dropmenu-item onclick="deleteDataLesson({{ $lesson->id }})">Hapus</x-bladewind::dropmenu-item>
                                         </x-bladewind::dropmenu>
                                     </div>
                                 </li>
@@ -151,6 +151,16 @@
                 $('.update-form-lesson').attr('action', `{{ route('lessons.index') }}/${idlesson}`)
 
                 showModal('update-data-lesson')
+            }
+
+            // munculkan hapus data lesson
+            function deleteDataLesson(idlesson) {
+                let searchData = sections.flatMap(item => item.lessons).find(lesson => lesson.id === idlesson);
+                
+                $('.data-delete-section').text(searchData.title)
+                $('.delete-form-section').attr('action', `{{ route('lessons.index') }}/${idlesson}`)
+
+                showModal('delete-data-section')
             }
         </script>
     @endpush

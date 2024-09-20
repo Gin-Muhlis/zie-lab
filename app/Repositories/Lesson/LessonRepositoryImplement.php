@@ -5,7 +5,8 @@ namespace App\Repositories\Lesson;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Lesson;
 
-class LessonRepositoryImplement extends Eloquent implements LessonRepository{
+class LessonRepositoryImplement extends Eloquent implements LessonRepository
+{
 
     protected $model;
 
@@ -30,6 +31,12 @@ class LessonRepositoryImplement extends Eloquent implements LessonRepository{
     public function updateData($data, $id)
     {
         return $this->update($id, $data);
+    }
+
+    // delete data
+    public function deleteData($id)
+    {
+        return $this->delete($id);
     }
 
 }

@@ -9,4 +9,5 @@ interface LessonRepository extends Repository{
     public function getLastOrderLesson($section_id);
     public function createData($data);
     public function updateData($data, $id);
+    public function deleteData($id);
 }

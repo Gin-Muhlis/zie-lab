@@ -58,11 +58,16 @@ class LessonController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // hapus data
     public function destroy(Lesson $lesson)
     {
-        //
+        try {
+            $this->lesson_repository->deleteData($lesson->id);
+
+            return redirect()->back()->with('success', 'Data berhasil dihapus');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
     }
+
 }
