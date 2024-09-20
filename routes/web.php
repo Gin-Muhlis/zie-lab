@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EbookController;
+use App\Http\Controllers\EfileController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -45,6 +46,7 @@ Route::prefix('super-admin')->group(function() {
 
         // produk
         Route::resource('/e-books', EbookController::class);
+        Route::resource('/e-files', EfileController::class);
 
         // export
         Route::prefix('export')->group(function() {
