@@ -5,8 +5,8 @@
 <x-layout :profileCompany="$profile_company">
     <div class="medium-container px-5 md:px-0 py-10 relative">
         <div class="w-full flex flex-col items-center justify-start gap-5">
-            <div class="max-w-500 w-100 h-600 p-5 flex items-end justify-center rounded-md shadow-md bg-cover bg-center"
-                style="background-image: url('{{ asset('/images/dummy/thumbnail-product.jpg') }}');">
+            <div class="w-full max-w-500 h-600 p-5 flex items-end justify-center rounded-md shadow-md bg-cover bg-center"
+                style="background-image: url('{{ $product->thumbnail ? Storage::url($product->thumbnail) : asset('/images/dummy/thumbnail-product.jpg') }}');">
                 <div class="w-full bg-white rounded-sm p-5">
                     <h1 class="text-2xl font-bold mb-3 leading-7">{{ $product->title ?? '' }}</h1>
                     <div class="w-full flex items-center justify-start gap-2 mb-4">
