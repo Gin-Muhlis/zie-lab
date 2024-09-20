@@ -72,7 +72,7 @@ class EfileController extends Controller
                 $cropped_image = str_replace(' ', '+', $cropped_image);
 
                 $image_name = Str::random(40) . '.jpg';
-                $path_thumbnail = 'public/images/products/ebooks/';
+                $path_thumbnail = 'public/images/products/efiles/';
 
                 $data['thumbnail'] = $path_thumbnail . $image_name;
                 $thumbnail_saved = $data['thumbnail'];
@@ -120,10 +120,10 @@ class EfileController extends Controller
     }
 
     // edit data
-    public function edit($e_book)
+    public function edit($e_file)
     {
         try {
-            $data = $this->product_repository->getDetailProduct($e_book);
+            $data = $this->product_repository->getDetailProduct($e_file);
             $categories = $this->category_repository->getData();
 
             return view('admin.products.efiles.edit', compact('data', 'categories'));
@@ -133,13 +133,13 @@ class EfileController extends Controller
     }
 
     // update data
-    public function update(UpdateEfileRequest $request, $e_book)
+    public function update(UpdateEfileRequest $request, $e_file)
     {
 
         $thumbnail_saved = null;
 
         try {
-            $product = $this->product_repository->getDetailProduct($e_book);
+            $product = $this->product_repository->getDetailProduct($e_file);
             
             $validated = $request->validated();
 
@@ -163,7 +163,7 @@ class EfileController extends Controller
                 $cropped_image = str_replace(' ', '+', $cropped_image);
 
                 $image_name = Str::random(40) . '.jpg';
-                $path_thumbnail = 'public/images/products/ebooks/';
+                $path_thumbnail = 'public/images/products/efiles/';
 
                 $data['thumbnail'] = $path_thumbnail . $image_name;
                 $thumbnail_saved = $data['thumbnail'];
