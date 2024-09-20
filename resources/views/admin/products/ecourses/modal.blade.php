@@ -4,3 +4,28 @@
         <img id="image">
     </div>
 </x-bladewind::modal>
+
+{{-- hapus data --}}
+<x-bladewind::modal backdrop_can_close="true" name="delete-data" ok_button_action="saveDeleteData()"
+    ok_button_label="Simpan" cancel_button_label="Batal" ok_button_label="Hapus" size="big" type="warning"
+    title="Hapus Data">
+
+    <form method="post" class="delete-form" enctype="multipart/form-data">
+        @csrf
+        @method('DELETE')
+        <p>Apakah kamu yakin ingin menghapus data <span class="data-delete font-bold"></span>?</p>
+    </form>
+
+    @push('scripts')
+        <script>
+            saveDeleteData = () => {
+                if (validateForm('.delete-form')) {
+                    domEl('.delete-form').submit();
+                } else {
+                    return false;
+                }
+            }
+        </script>
+    @endpush
+
+</x-bladewind::modal>

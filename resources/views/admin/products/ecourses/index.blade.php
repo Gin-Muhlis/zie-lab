@@ -1,6 +1,6 @@
 <x-layout-panel>
     <div class="w-full relative mb-10">
-        @include('admin.products.ebooks.modal')
+        @include('admin.products.ecourses.modal')
         <div
             class="w-full h-32 bg-gradient-to-br from-orange-500 to-yellow-600 rounded-md flex items-center justify-between gap-5 p-10 relative overflow-hidden">
             <x-bladewind::icon name="book-open" class="!h-44 !w-44 text-white opacity-30 absolute -bottom-8 left-0" />
@@ -70,4 +70,19 @@
             </tbody>
         </x-bladewind::table>
     </x-bladewind::card>
+    @push('scripts')
+        <script>
+            let data = @json($data);
+            data = data.data
+            
+            function deleteData(idSearch) {
+                let searchData = data.find(item => item.id == idSearch)
+
+                $('.data-delete').text(searchData.title)
+                $('.delete-form').attr('action', `${window.location.href}/${searchData.id}`)
+
+                showModal('delete-data')
+            }
+        </script>
+    @endpush
 </x-layout-panel>

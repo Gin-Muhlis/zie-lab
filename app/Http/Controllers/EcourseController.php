@@ -207,4 +207,19 @@ class EcourseController extends Controller
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
         }
     }
+
+    // hapus data
+    public function destroy(Product $e_course) {
+        try {
+            if ($e_course->thumbnail) {
+                Storage::delete($e_course->thumbnail);
+            }
+
+            $this->product_repository->deleteData($e_course->id);
+
+            return redirect()->back()->with('success', 'Data berhasil dihapus');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
+    }
 }
