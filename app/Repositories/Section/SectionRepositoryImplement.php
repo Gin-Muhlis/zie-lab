@@ -32,9 +32,17 @@ class SectionRepositoryImplement extends Eloquent implements SectionRepository
     public function getByProductId($product_id, $order)
     {
         if ($order === 'asc') {
-            return $this->model->with('lessons')->where('product_id', $product_id)->orderBy('order')->get();
+            return $this->model->with([
+                'lessons' => function ($query) {
+                    $query->orderBy('order', 'asc');
+                }
+            ])->where('product_id', $product_id)->orderBy('order')->get();
         } else {
-            return $this->model->with('lessons')->where('product_id', $product_id)->orderByDesc('order')->get();
+            return $this->model->with([
+                'lessons' => function ($query) {
+                    $query->orderBy('order', 'asc');
+                }
+            ])->where('product_id', $product_id)->orderByDesc('order')->get();
         }
     }
 

@@ -57,6 +57,8 @@ Route::prefix('super-admin')->group(function() {
         Route::put('/sections/{product}/order', [SectionController::class, 'changeOrder'])->name('sections.order.change');
 
         Route::resource('/lessons', LessonController::class);
+        Route::get('/lessons-order', [LessonController::class, 'changeOrder'])->name('lessons.order.change');
+        Route::put('/lessons-order/{section}', [LessonController::class, 'changeOrder']);
 
         // export
         Route::prefix('export')->group(function() {

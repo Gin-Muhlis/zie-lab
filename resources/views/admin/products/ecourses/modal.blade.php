@@ -205,3 +205,12 @@
     @endpush
 
 </x-bladewind::modal>
+
+{{-- ubah urutan lesson --}}
+<form method="post" class="change-order-form-lesson"
+    enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
+    <input type="hidden" name="old_order" class="old-order-lesson-input">
+    <input type="hidden" name="new_order" class="new-order-lesson-input">
+</form>

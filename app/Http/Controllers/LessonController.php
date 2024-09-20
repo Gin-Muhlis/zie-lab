@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangeOrderSectionRequest;
+use App\Models\Section;
 use Exception;
 use App\Models\Lesson;
 use Illuminate\Support\Str;
@@ -69,5 +71,33 @@ class LessonController extends Controller
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
         }
     }
+
+    // ubah urutan
+    public function changeOrder(ChangeOrderSectionRequest $request, Section $section) {
+            
+        $validated = $request->validated();
+
+        if ($validated['new_order'] === $validated['old_order']) {
+            return redirect()->back()->with('success', 'Urutan berhasil diperbarui');
+        }
+
+        $section_update_first = $this->lesson_repository->getByOrderSectionId($validated['old_order'], $section->id);
+
+        $section_update_second = $this->lesson_repository->getByOrderSectionId($validated['new_order'], $section->id);
+
+        $data_update_first = [
+            'order' => $validated['new_order']
+        ];
+
+        $data_update_second = [
+            'order' => $validated['old_order']
+        ];
+
+        $this->lesson_repository->updateData($data_update_first, $section_update_first->id);
+        $this->lesson_repository->updateData($data_update_second, $section_update_second->id);
+
+        return redirect()->back()->with('success', 'Urutan berhasil diperbarui');
+    
+}
 
 }

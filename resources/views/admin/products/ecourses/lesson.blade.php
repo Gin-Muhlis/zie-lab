@@ -57,16 +57,19 @@
                     <ul>
                         @if ($section->lessons()->exists())
                             @foreach ($section->lessons as $lesson)
-                                <li class="mb-3 p-3 rounded shadow-sm border">
+                                <li class="mb-3 p-3 rounded shadow-sm border" data-id_section="{{ $section->id }}">
 
                                     <div class="w-full flex items-center justify-between gap-2">
                                         <div class="flex-1 flex items-center justify-start gap-2">
-                                            <x-bladewind::icon name="bars-3" class="!h-4 !w-4 cursor-pointer handle-lesson" />
+                                            <x-bladewind::icon name="bars-3"
+                                                class="!h-4 !w-4 cursor-pointer handle-lesson" />
                                             <span>{{ $lesson->title }}</span>
                                         </div>
                                         <x-bladewind::dropmenu>
-                                            <x-bladewind::dropmenu-item onclick="updateDataLesson({{ $lesson->id }})">Edit</x-bladewind::dropmenu-item>
-                                            <x-bladewind::dropmenu-item onclick="deleteDataLesson({{ $lesson->id }})">Hapus</x-bladewind::dropmenu-item>
+                                            <x-bladewind::dropmenu-item
+                                                onclick="updateDataLesson({{ $lesson->id }})">Edit</x-bladewind::dropmenu-item>
+                                            <x-bladewind::dropmenu-item
+                                                onclick="deleteDataLesson({{ $lesson->id }})">Hapus</x-bladewind::dropmenu-item>
                                         </x-bladewind::dropmenu>
                                     </div>
                                 </li>
@@ -101,12 +104,20 @@
                 // Untuk sub-list
                 document.querySelectorAll('#main-list ul').forEach(function(subList) {
                     new Sortable(subList, {
+                        handle: '.handle-lesson',
                         group: 'nested', // Sama grup-nya, biar bisa pindah antar item dan sub-item
                         animation: 150,
                         fallbackOnBody: true,
                         swapThreshold: 0.65,
                         onEnd: function(evt) {
-                            console.log("Sub list changed", evt);
+                            let idSection = evt.item.dataset.id_section
+
+                            $('.old-order-lesson-input').attr('value', parseInt(evt.oldIndex) + 1)
+                            $('.new-order-lesson-input').attr('value', parseInt(evt.newIndex) + 1)
+
+                            $('.change-order-form-lesson').attr('action', `{{ route('lessons.order.change') }}/${idSection}`)
+
+                            $('.change-order-form-lesson').submit()
                         }
                     });
                 });
@@ -142,7 +153,7 @@
             // munculkan edit data lesson
             function updateDataLesson(idlesson) {
                 let searchData = sections.flatMap(item => item.lessons).find(lesson => lesson.id === idlesson);
-                
+
                 $('.update-title-input').attr('value', searchData.title)
                 $('.update-url-input').attr('value', searchData.video_url)
                 $('.update-form-lesson .ql-editor').html(searchData.content)
@@ -156,7 +167,7 @@
             // munculkan hapus data lesson
             function deleteDataLesson(idlesson) {
                 let searchData = sections.flatMap(item => item.lessons).find(lesson => lesson.id === idlesson);
-                
+
                 $('.data-delete-section').text(searchData.title)
                 $('.delete-form-section').attr('action', `{{ route('lessons.index') }}/${idlesson}`)
 
