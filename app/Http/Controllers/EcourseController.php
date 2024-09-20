@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateEcourseRequest;
 use Exception;
 use App\Models\Product;
 use Illuminate\Support\Str;
@@ -114,6 +115,95 @@ class EcourseController extends Controller
 
             return view('admin.products.ecourses.detail', compact('data', 'categories'));
         } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
+    }
+
+    // edit data
+    public function edit($e_course)
+    {
+        try {
+            $data = $this->product_repository->getDetailProduct($e_course);
+            $categories = $this->category_repository->getData();
+
+            return view('admin.products.ecourses.edit', compact('data', 'categories'));
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
+    }
+
+    // update data
+    public function update(UpdateEcourseRequest $request, $e_course)
+    {
+
+        $thumbnail_saved = null;
+
+        try {
+            $product = $this->product_repository->getDetailProduct($e_course);
+            
+            $validated = $request->validated();
+
+            $cropped_image = $validated['thumbnail_product'] ?? null;
+
+            do {
+                $data['code'] = Str::random('10');
+            } while (Product::where('code', $data['code'])->exists());
+
+            $data['title'] = $validated['title'];
+            $data['description'] = $validated['description'];
+            $data['category_id'] = $validated['category_id'];
+            $data['user_id'] = Auth::user()->id;
+            $data['price'] = $validated['price'];
+            $data['type'] = 'E-Course';
+            $data['status'] = $validated['status'];
+
+            if ($cropped_image) {
+                $cropped_image = str_replace('data:image/jpeg;base64,', '', $cropped_image);
+                $cropped_image = str_replace(' ', '+', $cropped_image);
+
+                $image_name = Str::random(40) . '.jpg';
+                $path_thumbnail = 'public/images/products/ecourses/';
+
+                $data['thumbnail'] = $path_thumbnail . $image_name;
+                $thumbnail_saved = $data['thumbnail'];
+                Storage::put($path_thumbnail . $image_name, base64_decode($cropped_image));
+            }
+
+            DB::beginTransaction();
+
+            $this->product_repository->updateData($data, $product->id);
+
+            if (isset($validated['deleted_benefits'])) {
+                foreach ($validated['deleted_benefits'] as $delete_id) {
+                    $this->benefit_repository->deleteData($delete_id);
+                }
+            }
+
+            foreach ($validated['benefits'] as $benefit) {
+                if (!$this->benefit_repository->findBenefitByProductId($benefit, $product->id)) {
+                    $data_benefit['product_id'] = $product->id;
+                    $data_benefit['benefit'] = $benefit;
+
+                    $this->benefit_repository->createData($data_benefit);
+                }
+            }
+
+            DB::commit();
+
+            if ($product->thumbnail && $cropped_image) {
+                Storage::delete($product->thumbnail);
+            }
+
+            return redirect()->route('e-courses.index')->with('success', 'Data berhasil diperbarui');
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            DB::rollBack();
+
+            if ($thumbnail_saved) {
+                Storage::delete($thumbnail_saved);
+            }
+
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
         }
     }
