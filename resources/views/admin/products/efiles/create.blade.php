@@ -54,7 +54,7 @@
                         except="image" required="true"></x-bladewind::textarea>
                 </x-bladewind::card>
 
-                <x-bladewind::card title="Tambahakn link download E-File" class="w-full relative">
+                <x-bladewind::card title="Tambahkan link download E-File" class="w-full relative">
                     <x-bladewind::input name="link_gdrive" label="Link download" selected_value="{{ old('link_gdrive') }}" />
                 </x-bladewind::card>
 
