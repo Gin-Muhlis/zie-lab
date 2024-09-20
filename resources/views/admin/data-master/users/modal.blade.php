@@ -10,7 +10,7 @@
         <x-bladewind::input required="true" name="email" type="email" error_message="Email tidak boleh kosong"
             label="Email" value="{{ old('email') }}" />
 
-        <x-bladewind::input required="true" name="phone" type="tel" error_message="No Telepon tidak boleh kosong"
+        <x-bladewind::input required="true" name="phone" type="tel" numeric="true" error_message="No Telepon tidak boleh kosong"
             class="phone-input-create" label="No Telepon" value="{{ old('phone') }}" />
 
         <x-bladewind::input required="true" name="password" type="password" viewable="true"
@@ -44,13 +44,6 @@
                 }
             })
 
-            $('.phone-input-create').on('input', (e) => {
-                const value = e.target.value
-
-                const replacedValue = value.replace(/[^0-9]/g, '')
-                console.log(replacedValue)
-                e.target.value = replacedValue
-            })
             saveCreateData = () => {
                 if (validateForm('.create-form')) {
                     domEl('.create-form').submit();
@@ -112,7 +105,7 @@
         <x-bladewind::input required="true" name="email_update" type="email" error_message="Email tidak boleh kosong"
             label="Email" class="email-input-update" />
 
-        <x-bladewind::input required="true" name="phone_update" type="tel" error_message="No Telepon tidak boleh kosong"
+        <x-bladewind::input required="true" name="phone_update" type="tel" numeric="true" error_message="No Telepon tidak boleh kosong"
             label="No Telepon" class="phone-input-update" />
 
         <x-bladewind::input name="password_update" type="password" viewable="true" label="Password" />
@@ -143,14 +136,6 @@
                 if (file) {
                     reader.readAsDataURL(file);
                 }
-            })
-
-            $('.phone-input-update').on('input', (e) => {
-                const value = e.target.value
-
-                const replacedValue = value.replace(/[^0-9]/g, '')
-                console.log(replacedValue)
-                e.target.value = replacedValue
             })
 
             cancelUpdateData = () => {
