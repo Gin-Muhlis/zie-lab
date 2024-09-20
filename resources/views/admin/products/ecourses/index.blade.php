@@ -53,6 +53,9 @@
                         <td class="!text-center min-w-28 !align-middle">
                             <x-bladewind::dropmenu>
                                 <x-bladewind::dropmenu-item>
+                                    <a href="{{ route('e-courses.lesson', $item->code) }}">Materi</a>
+                                </x-bladewind::dropmenu-item>
+                                <x-bladewind::dropmenu-item>
                                     <a href="{{ route('products.detail', $item->code) }}" target="_blank">preview</a>
                                 </x-bladewind::dropmenu-item>
                                 <x-bladewind::dropmenu-item>

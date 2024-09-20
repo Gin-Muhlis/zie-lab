@@ -26,6 +26,8 @@
     <link href="{{ asset('cropper') }}/cropper.min.css" rel="stylesheet">
     <script src="{{ asset('cropper') }}/cropper.min.js"></script>
 
+    {{-- sortable js --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
 
     {{-- custom css --}}
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">

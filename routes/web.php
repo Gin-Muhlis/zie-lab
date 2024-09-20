@@ -10,6 +10,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileCompanyController;
+use App\Http\Controllers\SectionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,8 @@ Route::prefix('super-admin')->group(function() {
         Route::resource('/e-books', EbookController::class);
         Route::resource('/e-files', EfileController::class);
         Route::resource('/e-courses', EcourseController::class);
+        Route::get('/e-courses/{e_course}/lesson', [EcourseController::class, 'listLesson'])->name('e-courses.lesson');
+        Route::resource('/sections', SectionController::class);
 
         // export
         Route::prefix('export')->group(function() {

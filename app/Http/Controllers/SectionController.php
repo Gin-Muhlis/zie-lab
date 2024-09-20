@@ -5,55 +5,47 @@ namespace App\Http\Controllers;
 use App\Models\Section;
 use App\Http\Requests\StoreSectionRequest;
 use App\Http\Requests\UpdateSectionRequest;
+use App\Repositories\Section\SectionRepository;
+use Exception;
 
 class SectionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private $section_repository;
+    public function __construct(SectionRepository $sectionRepository)
     {
-        //
+        $this->section_repository = $sectionRepository;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    // tambah data
     public function store(StoreSectionRequest $request)
     {
-        //
+        try {
+            $validated = $request->validated();
+
+            $last_order_section = $this->section_repository->getLastOrderSection($validated['product_id']);
+
+            $validated['order'] = $last_order_section->order + 1;
+
+            $this->section_repository->createData($validated);
+            
+            return redirect()->back()->with('success', 'Data berhasil ditambahkan');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Section $section)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Section $section)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    // edit data
     public function update(UpdateSectionRequest $request, Section $section)
     {
-        //
+        try {
+            $validated = $request->validated();
+
+            $this->section_repository->updateData($validated, $section->id);
+            
+            return redirect()->back()->with('success', 'Data berhasil diperbarui');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
     }
 
     /**

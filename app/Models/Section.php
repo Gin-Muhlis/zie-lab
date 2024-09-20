@@ -10,6 +10,8 @@ class Section extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['name', 'product_id', 'order'];
+
     public function lessons() {
         return $this->hasMany(Lesson::class);
     }

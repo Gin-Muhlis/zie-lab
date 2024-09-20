@@ -11,7 +11,7 @@ class StoreSectionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class StoreSectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'max:255'],
+            'product_id' => ['required', 'exists:products,id']
+        ];
+    }
+
+    public function messages() {
+        return [
+            'name.required' => 'Nama bagian tidak boleh kosong',
+            'name.max' => 'Judul tidak boleh lebih dari 255 karakter.',
+            
+            'product_id.required' => 'Id produk tidak boleh kosong',
+            'product_id.exists' => 'E-Course yang dipilih tidak valid.',
         ];
     }
 }

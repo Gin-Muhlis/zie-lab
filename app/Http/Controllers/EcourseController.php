@@ -20,6 +20,7 @@ class EcourseController extends Controller
     private $product_repository;
     private $category_repository;
     private $benefit_repository;
+
     public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository, BenefitRepository $benefitRepository)
     {
         $this->product_repository = $productRepository;
@@ -197,7 +198,6 @@ class EcourseController extends Controller
             return redirect()->route('e-courses.index')->with('success', 'Data berhasil diperbarui');
 
         } catch (Exception $e) {
-            dd($e->getMessage());
             DB::rollBack();
 
             if ($thumbnail_saved) {
@@ -218,6 +218,19 @@ class EcourseController extends Controller
             $this->product_repository->deleteData($e_course->id);
 
             return redirect()->back()->with('success', 'Data berhasil dihapus');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
+    }
+
+    // list lesson
+    public function listLesson($e_course) {
+        try {
+            $data = $this->product_repository->getDetailProduct($e_course);
+
+            $sections = $data->sections;
+
+            return view('admin.products.ecourses.lesson', compact('data', 'sections'));
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
         }
