@@ -81,3 +81,29 @@
     @endpush
 
 </x-bladewind::modal>
+
+
+{{-- hapus data --}}
+<x-bladewind::modal backdrop_can_close="true" name="delete-data-section" ok_button_action="saveDeleteDataSection()"
+    ok_button_label="Simpan" cancel_button_label="Batal" ok_button_label="Hapus" size="big" type="warning"
+    title="Hapus Data">
+
+    <form method="post" class="delete-form-section" enctype="multipart/form-data">
+        @csrf
+        @method('DELETE')
+        <p>Apakah kamu yakin ingin menghapus data <span class="data-delete-section font-bold"></span>?</p>
+    </form>
+
+    @push('scripts')
+        <script>
+            saveDeleteDataSection = () => {
+                if (validateForm('.delete-form-section')) {
+                    domEl('.delete-form-section').submit();
+                } else {
+                    return false;
+                }
+            }
+        </script>
+    @endpush
+
+</x-bladewind::modal>

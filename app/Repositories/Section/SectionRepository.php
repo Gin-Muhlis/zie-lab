@@ -9,5 +9,6 @@ interface SectionRepository extends Repository{
     public function getLastOrderSection($product_id);
     public function createData($data);
     public function updateData($data, $id);
+    public function deleteData($id);
 
 }

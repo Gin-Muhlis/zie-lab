@@ -48,11 +48,16 @@ class SectionController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // hapus data
     public function destroy(Section $section)
     {
-        //
+        try {
+
+            $this->section_repository->deleteData($section->id);
+
+            return redirect()->back()->with('success', 'Data berhasil dihapus');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
     }
 }

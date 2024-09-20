@@ -32,4 +32,9 @@ class SectionRepositoryImplement extends Eloquent implements SectionRepository{
     {
         return $this->update($id, $data);
     }
+
+      // delete data
+      public function deleteData($id) {
+        return $this->delete($id);
+    }
 }

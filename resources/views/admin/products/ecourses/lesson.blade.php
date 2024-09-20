@@ -36,14 +36,12 @@
                     <div class="w-full flex items-center justify-between-gap-2 mb-4">
                         <span class="inline-block font-bold">{{ $section->name }}</span>
                         <div class="flex-1 flex items-center justify-end gap-2">
-                            {{-- <x-bladewind::icon name="pencil-square" type="outline"
-                                class="h-6 w-6 text-gray-500 cursor-pointer"
-                                onclick="updateData({{ $section->id }})" /> --}}
                             <x-bladewind::button.circle size="tiny" color="secondary" radius="full" icon="pencil"
                                 onclick="updateData({{ $section->id }})">
-
                             </x-bladewind::button.circle>
-                            <x-bladewind::icon name="trash" type="outline" class="h-6 w-6 text-gray-500" />
+                            <x-bladewind::button.circle size="tiny" color="secondary" radius="full" icon="trash"
+                                onclick="deleteData({{ $section->id }})">
+                            </x-bladewind::button.circle>
                             <x-bladewind::button onclick="showModal('create-data-section')" outline="true"
                                 color="yellow" size="tiny">
                                 <div class="w-full flex items-center justify-center gap-1">
@@ -106,6 +104,16 @@
 
                 showModal('update-data-section')
             }
+
+            // munculkan hapus data
+            function deleteData(idSearch) {
+                    let searchData = sections.find(item => item.id == idSearch)
+                
+                    $('.data-delete-section').text(searchData.name)
+                    $('.delete-form-section').attr('action', `{{ route('sections.index') }}/${idSearch}`)
+
+                    showModal('delete-data-section')
+                }
         </script>
     @endpush
 </x-layout-panel>
