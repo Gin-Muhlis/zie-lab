@@ -56,10 +56,10 @@
                                     <a href="{{ route('products.detail', $item->code) }}" target="_blank">preview</a>
                                 </x-bladewind::dropmenu-item>
                                 <x-bladewind::dropmenu-item>
-                                    <a href="{{ route('e-books.show', $item->code) }}">Detail</a>
+                                    <a href="{{ route('e-courses.show', $item->code) }}">Detail</a>
                                 </x-bladewind::dropmenu-item>
                                 <x-bladewind::dropmenu-item>
-                                    <a href="{{ route('e-books.edit', $item->code) }}">Edit</a>
+                                    <a href="{{ route('e-courses.edit', $item->code) }}">Edit</a>
                                 </x-bladewind::dropmenu-item>
                                 <x-bladewind::dropmenu-item
                                     onclick="deleteData({{ $item->id }})">Hapus</x-bladewind::dropmenu-item>

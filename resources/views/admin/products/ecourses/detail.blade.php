@@ -4,17 +4,17 @@
 
 <x-layout-panel>
     <div class="w-full">
-        <h1 class="text-2xl font-bold mb-5">Detail E-File</h1>
+        <h1 class="text-2xl font-bold mb-5">Detail E-Course</h1>
         <div class="w-full flex items-start justify-between gap-5 flex-wrap">
             <div class="w-full flex items-center justify-start=">
-                <a href="{{ route('e-files.index') }}"
+                <a href="{{ route('e-courses.index') }}"
                     class="flex items-center justify-center gap-1 text-sm text-gray-400">
                     <x-bladewind::icon name="arrow-left" class="!h-4 !w-4" />
                     Kembali
                 </a>
             </div>
             <div class="flex flex-col items-start justify-start gap-5 flex-1">
-                <x-bladewind::card title="Informasi mengenai E-File" class="w-full relative">
+                <x-bladewind::card title="Informasi mengenai E-Course" class="w-full relative">
                     <div class="w-full flex items-start justify-start flex-wrap md:flex-nowrap gap-5">
                         <x-bladewind::input name="title" label="Judul" class="w-full product-name-input"
                             selected_value="{{ $data->title }}" readonly />
@@ -32,10 +32,6 @@
 
                 <x-bladewind::card title="Deskripsi" class="w-full relative">
                     {!! $data->description !!}
-                </x-bladewind::card>
-
-                <x-bladewind::card title="Link Download" class="w-full relative">
-                    <x-bladewind::input label="Link download" selected_value="{{ $data->link_gdrive ?? '' }}" readonly />
                 </x-bladewind::card>
 
                 <x-bladewind::card title="Benefit" class="w-full relative">
@@ -66,7 +62,7 @@
                             </h5>
                             <div
                                 class="bg-secondary rounded-md px-2 py-1 text-[8px] text-white text-center absolute left-3 -top-3">
-                                E-File</div>
+                                E-Course</div>
                             <p class="text-xs text-slate-400 mb-2">Oleh {{ $data->author->name }}</p>
                             <p class="text-sm font-bold">Rp. <span
                                     class="product-price-preview">{{ $data->formatPrice($data->price) }}</span></p>

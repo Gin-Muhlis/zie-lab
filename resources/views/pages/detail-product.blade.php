@@ -55,7 +55,7 @@
                 </div>
                 @if ($product->type === 'E-Course')
                     <div class="mb-10">
-                        <h2 class="text-xl text-primary font-bold mb-3">Pelajaran</h2>
+                        <h2 class="text-xl text-primary font-bold mb-3">Materi</h2>
                         <div class="flex flex-col items-start justify-start gap-5">
                             @foreach ($product->sections as $section)
                                 <div class="w-full">
