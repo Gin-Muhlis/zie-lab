@@ -67,7 +67,7 @@
                     class="{{ request()->routeIs('e-books.index') ? $active : $default }}">
                     E-Book
                 </a>
-                <a href="{{ route('dashboard.admin') }}"
+                <a href="{{ route('e-courses.index') }}"
                     class="{{ request()->routeIs('e-courses.index') ? $active : $default }}">
                     E-Course
                 </a>
