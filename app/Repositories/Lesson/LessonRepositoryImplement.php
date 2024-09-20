@@ -25,4 +25,11 @@ class LessonRepositoryImplement extends Eloquent implements LessonRepository{
     {
         return $this->create($data);
     }
+
+    // update data
+    public function updateData($data, $id)
+    {
+        return $this->update($id, $data);
+    }
+
 }

@@ -58,7 +58,17 @@
                         @if ($section->lessons()->exists())
                             @foreach ($section->lessons as $lesson)
                                 <li class="mb-3 p-3 rounded shadow-sm border">
-                                    {{ $lesson->title }}
+
+                                    <div class="w-full flex items-center justify-between gap-2">
+                                        <div class="flex-1 flex items-center justify-start gap-2">
+                                            <x-bladewind::icon name="bars-3" class="!h-4 !w-4 cursor-pointer handle-lesson" />
+                                            <span>{{ $lesson->title }}</span>
+                                        </div>
+                                        <x-bladewind::dropmenu>
+                                            <x-bladewind::dropmenu-item onclick="updateDataLesson({{ $lesson->id }})">Edit</x-bladewind::dropmenu-item>
+                                            <x-bladewind::dropmenu-item>Hapus</x-bladewind::dropmenu-item>
+                                        </x-bladewind::dropmenu>
+                                    </div>
                                 </li>
                             @endforeach
                         @endif
@@ -114,18 +124,33 @@
 
             // munculkan hapus data
             function deleteData(idSearch) {
-                    let searchData = sections.find(item => item.id == idSearch)
-                
-                    $('.data-delete-section').text(searchData.name)
-                    $('.delete-form-section').attr('action', `{{ route('sections.index') }}/${idSearch}`)
+                let searchData = sections.find(item => item.id == idSearch)
 
-                    showModal('delete-data-section')
-                }
+                $('.data-delete-section').text(searchData.name)
+                $('.delete-form-section').attr('action', `{{ route('sections.index') }}/${idSearch}`)
 
+                showModal('delete-data-section')
+            }
+
+            // munculkan tambah data lesson
             function createDataLesson(idSection) {
                 $('.id-section-lesson-input').attr('value', idSection)
 
                 showModal('create-data-lesson')
+            }
+
+            // munculkan edit data lesson
+            function updateDataLesson(idlesson) {
+                let searchData = sections.flatMap(item => item.lessons).find(lesson => lesson.id === idlesson);
+                
+                $('.update-title-input').attr('value', searchData.title)
+                $('.update-url-input').attr('value', searchData.video_url)
+                $('.update-form-lesson .ql-editor').html(searchData.content)
+                $('#content_update').attr('value', searchData.content)
+
+                $('.update-form-lesson').attr('action', `{{ route('lessons.index') }}/${idlesson}`)
+
+                showModal('update-data-lesson')
             }
         </script>
     @endpush

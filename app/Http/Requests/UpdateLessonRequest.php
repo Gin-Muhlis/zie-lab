@@ -11,7 +11,7 @@ class UpdateLessonRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,19 @@ class UpdateLessonRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title_update' => ['required', 'max:255'],
+            'content_update' => ['nullable'],
+            'video_url_update' => ['nullable', 'url:https'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'title_update.required' => 'Judul tidak boleh kosong.',
+            'title_update.max' => 'Judul tidak boleh lebih dari 255 karakter.',
+
+            'video_url_update.url' => 'URL video harus menggunakan protokol HTTPS yang valid.',
         ];
     }
 }

@@ -125,10 +125,10 @@
         @csrf
         <x-bladewind::input required="true" name="title" error_message="Judul tidak boleh kosong" label="Judul"
             selected_value="{{ old('title') }}" />
-        <x-bladewind::textarea placeholder="Konten" name="description_toolbar" toolbar="true" except="image"
+        <x-bladewind::textarea placeholder="Konten" name="content_toolbar" toolbar="true" except="image"
             required="true"></x-bladewind::textarea>
-        <x-bladewind::input required="true" name="video_url" error_message="Url Video tidak boleh kosong" label="URL Video"
-            selected_value="{{ old('video_url') }}" />
+        <x-bladewind::input required="true" name="video_url" error_message="Url Video tidak boleh kosong"
+            label="URL Video" selected_value="{{ old('video_url') }}" />
         <input type="hidden" name="section_id" class="id-section-lesson-input">
         <textarea name="content" id="content" class="hidden"></textarea>
 
@@ -152,9 +152,55 @@
             }
 
             function syncEditorToTextarea() {
-                    const editorContent = document.querySelector('.ql-editor').innerHTML;
-                    document.querySelector('#content').value = editorContent;
+                const editorContent = document.querySelector('.ql-editor').innerHTML;
+                document.querySelector('#content').value = editorContent;
+            }
+        </script>
+    @endpush
+
+</x-bladewind::modal>
+
+{{-- edit lesson --}}
+<x-bladewind::modal backdrop_can_close="true" name="update-data-lesson" ok_button_action="saveUpdateDataLesson()"
+    ok_button_label="Simpan" cancel_button_label="Batal" size="xl" title="Tambah Materi">
+
+    <form method="post" class="update-form-lesson my-5">
+        @csrf
+        @method('PUT')
+        <x-bladewind::input required="true" name="title_update" error_message="Judul tidak boleh kosong"
+            label="Judul" selected_value="{{ old('title_update') }}" class="update-title-input" />
+
+        <x-bladewind::textarea placeholder="Konten" name="content_toolbar_update" toolbar="true" except="image"
+            required="true" class="update-content-input"></x-bladewind::textarea>
+
+        <x-bladewind::input required="true" name="video_url_update" error_message="Url Video tidak boleh kosong"
+            label="URL Video" selected_value="{{ old('video_url_update') }}" class="update-url-input" />
+
+        <textarea name="content_update" id="content_update" class="hidden"></textarea>
+
+    </form>
+
+    @if (old('description'))
+        <script>
+            document.querySelector('.ql-editor').innerHTML = `{!! old('description') !!}`;
+        </script>
+    @endif
+
+    @push('scripts')
+        <script>
+            saveUpdateDataLesson = () => {
+                if (validateForm('.update-form-lesson')) {
+                    syncEditorToTextarea()
+                    domEl('.update-form-lesson').submit();
+                } else {
+                    return false;
                 }
+            }
+
+            function syncEditorToTextarea() {
+                const editorContent = document.querySelector('.update-form-lesson .ql-editor').innerHTML;
+                document.querySelector('#content_update').value = editorContent;
+            }
         </script>
     @endpush
 

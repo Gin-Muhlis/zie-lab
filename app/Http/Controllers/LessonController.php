@@ -35,33 +35,27 @@ class LessonController extends Controller
 
             return redirect()->back()->with('success', 'Data berhasil ditambahkan');
         } catch (Exception $e) {
-            dd($e->getMessage());
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Lesson $lesson)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Lesson $lesson)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+    // edit data
     public function update(UpdateLessonRequest $request, Lesson $lesson)
     {
-        //
+        try {
+            $validated = $request->validated();
+
+            $data['title'] = $validated['title_update'];
+            $data['content'] = $validated['content_update'];
+            $data['video_url'] = $validated['video_url_update'];
+
+            $this->lesson_repository->updateData($data, $lesson->id);
+
+            return redirect()->back()->with('success', 'Data berhasil diperbarui');
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
     }
 
     /**
