@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateEfileRequest;
 use App\Models\Product;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -114,6 +115,95 @@ class EfileController extends Controller
 
             return view('admin.products.efiles.detail', compact('data', 'categories'));
         } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
+    }
+
+    // edit data
+    public function edit($e_book)
+    {
+        try {
+            $data = $this->product_repository->getDetailProduct($e_book);
+            $categories = $this->category_repository->getData();
+
+            return view('admin.products.efiles.edit', compact('data', 'categories'));
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
+    }
+
+    // update data
+    public function update(UpdateEfileRequest $request, $e_book)
+    {
+
+        $thumbnail_saved = null;
+
+        try {
+            $product = $this->product_repository->getDetailProduct($e_book);
+            
+            $validated = $request->validated();
+
+            $cropped_image = $validated['thumbnail_product'] ?? null;
+
+            do {
+                $data['code'] = Str::random('10');
+            } while (Product::where('code', $data['code'])->exists());
+
+            $data['title'] = $validated['title'];
+            $data['description'] = $validated['description'];
+            $data['category_id'] = $validated['category_id'];
+            $data['user_id'] = Auth::user()->id;
+            $data['price'] = $validated['price'];
+            $data['type'] = 'E-File';
+            $data['status'] = $validated['status'];
+            $data['link_gdrive'] = $validated['link_gdrive'];
+
+            if ($cropped_image) {
+                $cropped_image = str_replace('data:image/jpeg;base64,', '', $cropped_image);
+                $cropped_image = str_replace(' ', '+', $cropped_image);
+
+                $image_name = Str::random(40) . '.jpg';
+                $path_thumbnail = 'public/images/products/ebooks/';
+
+                $data['thumbnail'] = $path_thumbnail . $image_name;
+                $thumbnail_saved = $data['thumbnail'];
+                Storage::put($path_thumbnail . $image_name, base64_decode($cropped_image));
+            }
+
+            DB::beginTransaction();
+
+            $this->product_repository->updateData($data, $product->id);
+
+            if (isset($validated['deleted_benefits'])) {
+                foreach ($validated['deleted_benefits'] as $delete_id) {
+                    $this->benefit_repository->deleteData($delete_id);
+                }
+            }
+
+            foreach ($validated['benefits'] as $benefit) {
+                if (!$this->benefit_repository->findBenefitByProductId($benefit, $product->id)) {
+                    $data_benefit['product_id'] = $product->id;
+                    $data_benefit['benefit'] = $benefit;
+
+                    $this->benefit_repository->createData($data_benefit);
+                }
+            }
+
+            DB::commit();
+
+            if ($product->thumbnail && $cropped_image) {
+                Storage::delete($product->thumbnail);
+            }
+
+            return redirect()->route('e-files.index')->with('success', 'Data berhasil diperbarui');
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            DB::rollBack();
+
+            if ($thumbnail_saved) {
+                Storage::delete($thumbnail_saved);
+            }
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
         }
     }

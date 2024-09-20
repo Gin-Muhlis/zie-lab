@@ -59,7 +59,7 @@
                                     <a href="{{ route('e-files.show', $item->code) }}">Detail</a>
                                 </x-bladewind::dropmenu-item>
                                 <x-bladewind::dropmenu-item>
-                                    <a href="{{ route('e-books.edit', $item->code) }}">Edit</a>
+                                    <a href="{{ route('e-files.edit', $item->code) }}">Edit</a>
                                 </x-bladewind::dropmenu-item>
                                 <x-bladewind::dropmenu-item
                                     onclick="deleteData({{ $item->id }})">Hapus</x-bladewind::dropmenu-item>

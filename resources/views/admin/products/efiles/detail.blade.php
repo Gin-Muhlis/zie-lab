@@ -4,11 +4,10 @@
 
 <x-layout-panel>
     <div class="w-full">
-        @include('admin.products.ebooks.modal')
         <h1 class="text-2xl font-bold mb-5">Detail E-File</h1>
         <div class="w-full flex items-start justify-between gap-5 flex-wrap">
             <div class="w-full flex items-center justify-start=">
-                <a href="{{ route('e-books.index') }}"
+                <a href="{{ route('e-files.index') }}"
                     class="flex items-center justify-center gap-1 text-sm text-gray-400">
                     <x-bladewind::icon name="arrow-left" class="!h-4 !w-4" />
                     Kembali

@@ -4,7 +4,6 @@
 
 <x-layout-panel>
     <div class="w-full">
-        @include('admin.products.ebooks.modal')
         <h1 class="text-2xl font-bold mb-5">Detail E-Book</h1>
         <div class="w-full flex items-start justify-between gap-5 flex-wrap">
             <div class="w-full flex items-center justify-start=">
