@@ -11,7 +11,7 @@ class StoreLessonRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,24 @@ class StoreLessonRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'max:255'],
+            'content' => ['nullable'],
+            'video_url' => ['nullable', 'url:https'],
+            'section_id' => ['required', 'exists:sections,id']
         ];
     }
+
+    public function messages(): array
+{
+    return [
+        'title.required' => 'Judul tidak boleh kosong.',
+        'title.max' => 'Judul tidak boleh lebih dari 255 karakter.',
+
+        'video_url.url' => 'URL video harus menggunakan protokol HTTPS yang valid.',
+
+        'section_id.required' => 'Bagian (section) tidak boleh kosong.',
+        'section_id.exists' => 'Bagian (section) yang dipilih tidak valid.',
+    ];
+}
+
 }

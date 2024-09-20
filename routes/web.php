@@ -8,6 +8,7 @@ use App\Http\Controllers\EcourseController;
 use App\Http\Controllers\EfileController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileCompanyController;
 use App\Http\Controllers\SectionController;
@@ -51,8 +52,11 @@ Route::prefix('super-admin')->group(function() {
         Route::resource('/e-files', EfileController::class);
         Route::resource('/e-courses', EcourseController::class);
         Route::get('/e-courses/{e_course}/lesson', [EcourseController::class, 'listLesson'])->name('e-courses.lesson');
+
         Route::resource('/sections', SectionController::class);
         Route::put('/sections/{product}/order', [SectionController::class, 'changeOrder'])->name('sections.order.change');
+
+        Route::resource('/lessons', LessonController::class);
 
         // export
         Route::prefix('export')->group(function() {

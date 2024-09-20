@@ -6,5 +6,6 @@ use LaravelEasyRepository\Repository;
 
 interface LessonRepository extends Repository{
 
-    // Write something awesome :)
+    public function getLastOrderLesson($section_id);
+    public function createData($data);
 }

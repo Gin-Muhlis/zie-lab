@@ -25,7 +25,7 @@ class StoreEfileRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required'],
             'thumbnail' => ['required', 'image', 'mimes:jpeg,jpg,png'],
-            'link_gdrive' => ['required',   ],
+            'link_gdrive' => ['required', 'url:https'],
             'category_id' => ['required', 'exists:categories,id'],
             'price' => ['required', 'numeric'],
             'status' => ['required', 'in:draft,published'],

@@ -108,9 +108,54 @@
 
 </x-bladewind::modal>
 
-<form method="post" action="{{ route('sections.order.change', $data->id) }}" class="change-order-form-section" enctype="multipart/form-data">
+{{-- ubah urutan section --}}
+<form method="post" action="{{ route('sections.order.change', $data->id) }}" class="change-order-form-section"
+    enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <input type="hidden" name="old_order" class="old-order-section-input">
     <input type="hidden" name="new_order" class="new-order-section-input">
 </form>
+
+{{-- tambah lesson --}}
+<x-bladewind::modal backdrop_can_close="true" name="create-data-lesson" ok_button_action="saveCreateDataLesson()"
+    ok_button_label="Simpan" cancel_button_label="Batal" size="xl" title="Tambah Materi">
+
+    <form method="post" action="{{ route('lessons.store') }}" class="create-form-lesson my-5">
+        @csrf
+        <x-bladewind::input required="true" name="title" error_message="Judul tidak boleh kosong" label="Judul"
+            selected_value="{{ old('title') }}" />
+        <x-bladewind::textarea placeholder="Konten" name="description_toolbar" toolbar="true" except="image"
+            required="true"></x-bladewind::textarea>
+        <x-bladewind::input required="true" name="video_url" error_message="Url Video tidak boleh kosong" label="URL Video"
+            selected_value="{{ old('video_url') }}" />
+        <input type="hidden" name="section_id" class="id-section-lesson-input">
+        <textarea name="content" id="content" class="hidden"></textarea>
+
+    </form>
+
+    @if (old('description'))
+        <script>
+            document.querySelector('.ql-editor').innerHTML = `{!! old('description') !!}`;
+        </script>
+    @endif
+
+    @push('scripts')
+        <script>
+            saveCreateDataLesson = () => {
+                if (validateForm('.create-form-lesson')) {
+                    syncEditorToTextarea()
+                    domEl('.create-form-lesson').submit();
+                } else {
+                    return false;
+                }
+            }
+
+            function syncEditorToTextarea() {
+                    const editorContent = document.querySelector('.ql-editor').innerHTML;
+                    document.querySelector('#content').value = editorContent;
+                }
+        </script>
+    @endpush
+
+</x-bladewind::modal>

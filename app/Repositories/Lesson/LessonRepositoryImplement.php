@@ -7,11 +7,6 @@ use App\Models\Lesson;
 
 class LessonRepositoryImplement extends Eloquent implements LessonRepository{
 
-    /**
-    * Model class to be used in this repository for the common methods inside Eloquent
-    * Don't remove or change $this->model variable name
-    * @property Model|mixed $model;
-    */
     protected $model;
 
     public function __construct(Lesson $model)
@@ -19,5 +14,15 @@ class LessonRepositoryImplement extends Eloquent implements LessonRepository{
         $this->model = $model;
     }
 
-    // Write something awesome :)
+    // ambil data section yang ordernya terakhir
+    public function getLastOrderLesson($section_id)
+    {
+        return $this->model->where('section_id', $section_id)->orderByDesc('order')->first();
+    }
+
+    // tambah data
+    public function createData($data)
+    {
+        return $this->create($data);
+    }
 }

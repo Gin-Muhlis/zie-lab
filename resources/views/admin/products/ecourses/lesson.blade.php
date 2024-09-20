@@ -45,7 +45,7 @@
                             <x-bladewind::button.circle size="tiny" color="secondary" radius="full" icon="trash"
                                 onclick="deleteData({{ $section->id }})">
                             </x-bladewind::button.circle>
-                            <x-bladewind::button onclick="showModal('create-data-section')" outline="true"
+                            <x-bladewind::button onclick="createDataLesson({{ $section->id }})" outline="true"
                                 color="yellow" size="tiny">
                                 <div class="w-full flex items-center justify-center gap-1">
                                     <x-bladewind::icon name="plus" class="!h-4 !w-4 text-primary" />
@@ -121,6 +121,12 @@
 
                     showModal('delete-data-section')
                 }
+
+            function createDataLesson(idSection) {
+                $('.id-section-lesson-input').attr('value', idSection)
+
+                showModal('create-data-lesson')
+            }
         </script>
     @endpush
 </x-layout-panel>

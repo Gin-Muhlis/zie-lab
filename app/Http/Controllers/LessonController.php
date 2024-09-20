@@ -2,34 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Lesson;
+use Illuminate\Support\Str;
 use App\Http\Requests\StoreLessonRequest;
 use App\Http\Requests\UpdateLessonRequest;
+use App\Repositories\Lesson\LessonRepository;
 
 class LessonController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private $lesson_repository;
+    public function __construct(LessonRepository $lessonRepository)
     {
-        //
+        $this->lesson_repository = $lessonRepository;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    // tambah data
     public function store(StoreLessonRequest $request)
     {
-        //
+        try {
+            $validated = $request->validated();
+
+            do {
+                $validated['code'] = Str::random('10');
+            } while (Lesson::where('code', $validated['code'])->exists());
+
+            $last_order_lesson = $this->lesson_repository->getLastOrderLesson($validated['section_id']);
+            $validated['order'] = $last_order_lesson->order + 1;
+            $validated['is_preview'] = 0;
+
+            $this->lesson_repository->createData($validated);
+
+            return redirect()->back()->with('success', 'Data berhasil ditambahkan');
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
+        }
     }
 
     /**
