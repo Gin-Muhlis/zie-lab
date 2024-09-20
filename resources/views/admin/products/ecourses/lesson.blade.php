@@ -34,7 +34,10 @@
                     class="bg-white dark:bg-dark-800/30 rounded-lg border border-slate-200 dark:border-dark-600/60 focus:outline-none shadow-sm shadow-slate-200/50 dark:shadow-dark-800/70 mb-5 p-4">
 
                     <div class="w-full flex items-center justify-between-gap-2 mb-4">
-                        <span class="inline-block font-bold">{{ $section->name }}</span>
+                        <div class="flex-1 flex items-center justify-start gap-2">
+                            <x-bladewind::icon name="bars-3" class="!h-6 !w-6 cursor-pointer handle-section" />
+                            <span class="inline-block font-bold">{{ $section->name }}</span>
+                        </div>
                         <div class="flex-1 flex items-center justify-end gap-2">
                             <x-bladewind::button.circle size="tiny" color="secondary" radius="full" icon="pencil"
                                 onclick="updateData({{ $section->id }})">
@@ -72,12 +75,16 @@
                 // drag and drop
                 let mainList = document.getElementById('main-list');
                 let sortable = new Sortable(mainList, {
+                    handle: '.handle-section',
                     group: 'nested',
                     animation: 150,
                     fallbackOnBody: true,
                     swapThreshold: 0.65,
                     onEnd: function(evt) {
-                        console.log("Main list changed", evt);
+                        $('.old-order-section-input').attr('value', parseInt(evt.oldIndex) + 1)
+                        $('.new-order-section-input').attr('value', parseInt(evt.newIndex) + 1)
+
+                        $('.change-order-form-section').submit()
                     }
                 });
 

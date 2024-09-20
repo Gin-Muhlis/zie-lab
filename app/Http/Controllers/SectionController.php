@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangeOrderSectionRequest;
+use App\Models\Product;
 use App\Models\Section;
 use App\Http\Requests\StoreSectionRequest;
 use App\Http\Requests\UpdateSectionRequest;
@@ -52,12 +54,39 @@ class SectionController extends Controller
     public function destroy(Section $section)
     {
         try {
-
             $this->section_repository->deleteData($section->id);
 
             return redirect()->back()->with('success', 'Data berhasil dihapus');
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan dengan sistem']);
         }
+    }
+
+    // ubah urutan
+    public function changeOrder(ChangeOrderSectionRequest $request, Product $product) {
+            
+            $validated = $request->validated();
+
+            if ($validated['new_order'] === $validated['old_order']) {
+                return redirect()->back()->with('success', 'Urutan berhasil diperbarui');
+            }
+
+            $section_update_first = $this->section_repository->getByOrderProductId($validated['old_order'], $product->id);
+
+            $section_update_second = $this->section_repository->getByOrderProductId($validated['new_order'], $product->id);
+
+            $data_update_first = [
+                'order' => $validated['new_order']
+            ];
+
+            $data_update_second = [
+                'order' => $validated['old_order']
+            ];
+
+            $this->section_repository->updateData($data_update_first, $section_update_first->id);
+            $this->section_repository->updateData($data_update_second, $section_update_second->id);
+
+            return redirect()->back()->with('success', 'Urutan berhasil diperbarui');
+        
     }
 }

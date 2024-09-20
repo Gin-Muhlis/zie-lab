@@ -52,6 +52,7 @@ Route::prefix('super-admin')->group(function() {
         Route::resource('/e-courses', EcourseController::class);
         Route::get('/e-courses/{e_course}/lesson', [EcourseController::class, 'listLesson'])->name('e-courses.lesson');
         Route::resource('/sections', SectionController::class);
+        Route::put('/sections/{product}/order', [SectionController::class, 'changeOrder'])->name('sections.order.change');
 
         // export
         Route::prefix('export')->group(function() {

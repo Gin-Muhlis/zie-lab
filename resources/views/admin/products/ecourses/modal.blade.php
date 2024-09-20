@@ -107,3 +107,10 @@
     @endpush
 
 </x-bladewind::modal>
+
+<form method="post" action="{{ route('sections.order.change', $data->id) }}" class="change-order-form-section" enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
+    <input type="hidden" name="old_order" class="old-order-section-input">
+    <input type="hidden" name="new_order" class="new-order-section-input">
+</form>

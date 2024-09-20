@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateEcourseRequest;
+use App\Repositories\Section\SectionRepository;
 use Exception;
 use App\Models\Product;
 use Illuminate\Support\Str;
@@ -20,12 +21,14 @@ class EcourseController extends Controller
     private $product_repository;
     private $category_repository;
     private $benefit_repository;
+    private $section_repository;
 
-    public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository, BenefitRepository $benefitRepository)
+    public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository, BenefitRepository $benefitRepository, SectionRepository $sectionRepository)
     {
         $this->product_repository = $productRepository;
         $this->category_repository = $categoryRepository;
         $this->benefit_repository = $benefitRepository;
+        $this->section_repository = $sectionRepository;
     }
 
     // tampil data
@@ -228,7 +231,7 @@ class EcourseController extends Controller
         try {
             $data = $this->product_repository->getDetailProduct($e_course);
 
-            $sections = $data->sections;
+            $sections = $this->section_repository->getByProductId($data->id, 'asc');
 
             return view('admin.products.ecourses.lesson', compact('data', 'sections'));
         } catch (Exception $e) {
