@@ -1,12 +1,12 @@
 <x-layout-panel>
     <div class="w-full relative mb-10">
-        {{-- @include('admin.products.ebooks.modal') --}}
+        @include('admin.products.efiles.modal')
         <div
             class="w-full h-32 bg-gradient-to-br from-orange-500 to-yellow-600 rounded-md flex items-center justify-between gap-5 p-10 relative overflow-hidden">
             <x-bladewind::icon name="book-open" class="!h-44 !w-44 text-white opacity-30 absolute -bottom-8 left-0" />
             <h1 class="text-white text-xl md:text-3xl bold">E-File</h1>
             <x-bladewind::button outline="true" color="white" class="!text-white" size="regular" tag="a"
-                href="{{ route('e-books.create') }}">
+                href="{{ route('e-files.create') }}">
                 <div class="w-full flex items-center justify-center gap-1">
                     <x-bladewind::icon name="plus" class="!h-4 !w-4 text-white" />
                     <span>Tambah E-File</span>
