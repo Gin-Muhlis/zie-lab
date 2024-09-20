@@ -74,7 +74,6 @@
         <script>
             let data = @json($data);
             data = data.data
-            console.log(data)
 
             function deleteData(idSearch) {
                 let searchData = data.find(item => item.id == idSearch)
