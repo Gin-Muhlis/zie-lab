@@ -15,12 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('code', 10);
             $table->string('title');
-            $table->text('description')->nullable();
+            $table->text('description')->nullable(); 
             $table->string('thumbnail')->nullable();
-            $table->string('link_gdrive')->nullable();
-            $table->string('file_book')->nullable();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('discount_id')->nullable();
             $table->double('price');
             $table->enum('type', ['E-Book', 'E-Course', 'E-File']);
             $table->enum('status', ['draft', 'published']);

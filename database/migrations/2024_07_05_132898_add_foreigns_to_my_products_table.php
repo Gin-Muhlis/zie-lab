@@ -10,16 +10,16 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('page_product', function (Blueprint $table) {
-            $table->foreign('product_id')
+        Schema::table('my_products', function (Blueprint $table) {
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('products')
+                ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->foreign('page_id')
+            $table->foreign('product_id')
                 ->references('id')
-                ->on('pages')
+                ->on('products')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -30,7 +30,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('page_product', function (Blueprint $table) {
+        Schema::table('my_products', function (Blueprint $table) {
             //
         });
     }

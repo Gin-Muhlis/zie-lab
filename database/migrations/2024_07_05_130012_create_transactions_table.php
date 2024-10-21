@@ -16,6 +16,8 @@ return new class extends Migration
             $table->uuid('code');
             $table->date('date');
             $table->double('total');
+            $table->double('discount');
+            $table->double('final_total');
             $table->string('snap_token')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->enum('status', ['berhasil', 'menunggu pembayaran', 'gagal', 'dibatalkan']);

@@ -4,7 +4,11 @@
 
 <x-layout-panel>
     <div class="w-full relative mb-10">
-        @include('admin.products.ecourses.modal')
+        @include('admin.products.ecourses.modal_lesson')
+        <a href="{{ route('e-courses.index') }}" class="flex items-center justify-start gap-1 text-sm text-gray-400 mb-5">
+            <x-bladewind::icon name="arrow-left" class="!h-4 !w-4" />
+            Kembali
+        </a>
         <div
             class="w-full bg-gradient-to-br from-orange-500 to-yellow-600 rounded-md px-10 pt-10 pb-8 relative overflow-hidden mb-10">
             <x-bladewind::icon name="book-open" class="!h-64 !w-64 text-white opacity-30 absolute -bottom-8 left-0" />
@@ -54,7 +58,7 @@
                             </x-bladewind::button>
                         </div>
                     </div>
-                    <ul>
+                    <ul data-id_section="{{ $section->id }}">
                         @if ($section->lessons()->exists())
                             @foreach ($section->lessons as $lesson)
                                 <li class="mb-3 p-3 rounded shadow-sm border" data-id_section="{{ $section->id }}">
@@ -89,7 +93,11 @@
                 let mainList = document.getElementById('main-list');
                 let sortable = new Sortable(mainList, {
                     handle: '.handle-section',
-                    group: 'nested',
+                    group: {
+                        name: 'main',
+                        put: ['main'],
+                        pull: 'clone'
+                    },
                     animation: 150,
                     fallbackOnBody: true,
                     swapThreshold: 0.65,
@@ -97,7 +105,7 @@
                         $('.old-order-section-input').attr('value', parseInt(evt.oldIndex) + 1)
                         $('.new-order-section-input').attr('value', parseInt(evt.newIndex) + 1)
 
-                        $('.change-order-form-section').submit()
+                        // $('.change-order-form-section').submit()
                     }
                 });
 
@@ -105,19 +113,29 @@
                 document.querySelectorAll('#main-list ul').forEach(function(subList) {
                     new Sortable(subList, {
                         handle: '.handle-lesson',
-                        group: 'nested', // Sama grup-nya, biar bisa pindah antar item dan sub-item
+                        group: {
+                            name: 'nested',
+                            put: ['nested'],
+                            pull: true
+                        },
                         animation: 150,
                         fallbackOnBody: true,
                         swapThreshold: 0.65,
                         onEnd: function(evt) {
                             let idSection = evt.item.dataset.id_section
+                            let idNewSection = evt.to.dataset.id_section
+                            console.log(evt.to)
+                            console.log(evt.item)
+                            console.log(idNewSection)
+                            console.log(idSection)
 
                             $('.old-order-lesson-input').attr('value', parseInt(evt.oldIndex) + 1)
                             $('.new-order-lesson-input').attr('value', parseInt(evt.newIndex) + 1)
 
-                            $('.change-order-form-lesson').attr('action', `{{ route('lessons.order.change') }}/${idSection}`)
+                            $('.change-order-form-lesson').attr('action',
+                                `{{ route('lessons.order.change') }}/${idSection}`)
 
-                            $('.change-order-form-lesson').submit()
+                            // $('.change-order-form-lesson').submit()
                         }
                     });
                 });
